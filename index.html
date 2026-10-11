@@ -1,0 +1,2543 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tim Josh</title>
+<meta name="description" content="Portfolio of a UI/UX Designer, Web Developer and IT Support Specialist." />
+
+<!-- Favicon / browser tab icon -->
+<link rel="icon" href="https://i.postimg.cc/d0jyqzdg/dev-removebg-preview.png" type="image/jpeg" />
+<link rel="apple-touch-icon" href="https://i.postimg.cc/d0jyqzdg/dev-removebg-preview.png" />
+
+<script type="module" src="https://unpkg.com/peekpal"></script>
+
+<!-- Security hardening (UPDATED to allow unpkg.com for the mascot script) -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; media-src 'self' https: blob:; connect-src 'self' https: https://unpkg.com; base-uri 'self'; form-action 'self';">
+
+<script>
+  (function() {
+    try {
+      const t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    } catch (e) {}
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: { sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+        colors: {
+          canvas: 'rgb(var(--canvas) / <alpha-value>)',
+          ink:    'rgb(var(--ink) / <alpha-value>)',
+          muted:  'rgb(var(--muted) / <alpha-value>)',
+          card:   'rgb(var(--card) / <alpha-value>)',
+          line:   'rgb(var(--line) / <alpha-value>)',
+          brand: {
+            50: '#FFF4EE', 100: '#FFE6D8', 200: '#FFCBA9',
+            300: '#FFAC78', 400: '#FF8C4B', 500: '#FF6B2C',
+            600: '#F04E0A', 700: '#C43D06'
+          }
+        },
+        boxShadow: {
+          soft: '0 1px 2px rgba(11,18,32,.04), 0 10px 30px -14px rgba(11,18,32,.18)',
+          lift: '0 2px 6px rgba(11,18,32,.05), 0 28px 50px -22px rgba(11,18,32,.32)'
+        },
+        borderRadius: { '4xl': '2rem' }
+      }
+    }
+  }
+</script>
+
+<style>
+  :root {
+    --canvas: 234 238 249;
+    --ink: 11 18 32;
+    --muted: 107 117 144;
+    --card: 255 255 255;
+    --line: 11 18 32;
+    --ease: cubic-bezier(.22,1,.36,1);
+    --cursor-color: #F04E0A;
+  }
+  html.dark {
+    --canvas: 7 10 18;
+    --ink: 241 245 249;
+    --muted: 165 180 200;
+    --card: 20 25 40;
+    --line: 255 255 255;
+  }
+
+  html, body { -webkit-font-smoothing: antialiased; }
+  body {
+    background: rgb(var(--canvas));
+    color: rgb(var(--ink));
+    transition: background-color .5s var(--ease), color .3s var(--ease);
+    overflow-x: hidden;
+  }
+  html.theme-anim, html.theme-anim * {
+    transition: background-color .45s var(--ease), color .3s var(--ease),
+                border-color .45s var(--ease), box-shadow .45s var(--ease) !important;
+  }
+
+  /* CUSTOM CURSOR */
+  @media (pointer: fine) {
+    body.custom-cursor { cursor: none; }
+    body.custom-cursor input,
+    body.custom-cursor textarea,
+    body.custom-cursor select { cursor: auto; }
+    body.custom-cursor a,
+    body.custom-cursor button,
+    body.custom-cursor [role="button"],
+    body.custom-cursor .project-card,
+    body.custom-cursor .credential-btn { cursor: none; }
+  }
+
+  .cursor-el {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 99999;
+    pointer-events: none;
+    transform: translate3d(-200px, -200px, 0);
+    transition: transform .06s linear;
+    will-change: transform;
+    display: flex;
+    align-items: flex-start;
+  }
+  @media (pointer: coarse) { .cursor-el { display: none !important; } }
+
+  .cursor-arrow {
+    width: 20px; height: 22px;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,.35));
+    transition: transform .25s var(--ease);
+    transform-origin: top left;
+  }
+  .cursor-el.is-hover .cursor-arrow { transform: scale(1.25); }
+
+  .cursor-pill {
+    margin-left: -2px;
+    margin-top: 12px;
+    padding: 5px 14px;
+    border-radius: 999px;
+    background: var(--cursor-color);
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: .01em;
+    white-space: nowrap;
+    box-shadow: 0 6px 16px -4px rgb(0 0 0 / .35), 0 0 0 1px rgb(255 255 255 / .12) inset;
+    transition: transform .25s var(--ease), padding .25s var(--ease);
+    transform-origin: left center;
+  }
+  .cursor-el.is-hover .cursor-pill { transform: scale(1.08); padding: 5px 16px; }
+  .cursor-el.is-down .cursor-arrow { transform: scale(.85); }
+
+  /* KEYFRAMES */
+  @keyframes riseIn {
+    0%   { opacity: 0; transform: translateY(24px) scale(.985); filter: blur(7px); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  }
+  @keyframes slideInLeft {
+    0%   { opacity: 0; transform: translateX(-26px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeUp {
+    0%   { opacity: 0; transform: translateY(14px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes blobFloat {
+    0%, 100% { transform: translate3d(0,0,0) scale(1); }
+    33%      { transform: translate3d(80px,-60px,0) scale(1.18); }
+    66%      { transform: translate3d(-60px,45px,0) scale(.88); }
+  }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes pulseSoft { 0%,100% { opacity:.55; transform: scale(1);} 50% { opacity:1; transform: scale(1.4);} }
+  @keyframes vScrollUp { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+  @keyframes pulseRing {
+    0%   { box-shadow: 0 0 0 0 var(--pulse-color, rgb(255 107 44 / .5)); }
+    70%  { box-shadow: 0 0 0 14px rgb(255 107 44 / 0); }
+    100% { box-shadow: 0 0 0 0 rgb(255 107 44 / 0); }
+  }
+
+  .marquee { animation: marquee 42s linear infinite; }
+  .blob  { animation: blobFloat 26s ease-in-out infinite; }
+  .blob2 { animation: blobFloat 32s ease-in-out infinite reverse; }
+  .blob3 { animation: blobFloat 28s ease-in-out infinite; animation-delay: -8s; }
+  .blob4 { animation: blobFloat 36s ease-in-out infinite reverse; animation-delay: -14s; }
+
+  .bg-scene { position: fixed; inset: 0; z-index: -10; overflow: hidden; pointer-events: none; }
+  .aurora { position: absolute; border-radius: 50%; filter: blur(130px); will-change: transform; }
+  .aurora-1 { width: 640px; height: 640px; top: -240px; left: -200px; background: rgb(255 172 120 / .55); }
+  .aurora-2 { width: 560px; height: 560px; top: 12%;  right: -220px; background: rgb(165 180 252 / .55); }
+  .aurora-3 { width: 580px; height: 580px; bottom: -240px; left: 22%; background: rgb(125 211 252 / .5); }
+  .aurora-4 { width: 460px; height: 460px; top: 52%; left: 4%;  background: rgb(251 207 232 / .42); }
+  html.dark .aurora-1 { background: rgb(255 107 44 / .28); }
+  html.dark .aurora-2 { background: rgb(99 102 241 / .26); }
+  html.dark .aurora-3 { background: rgb(56 189 248 / .22); }
+  html.dark .aurora-4 { background: rgb(217 70 239 / .18); }
+  html.dark .aurora    { filter: blur(140px); }
+
+  .grain {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: .05; mix-blend-mode: overlay;
+  }
+  html.dark .grain { opacity: .09; }
+
+  .view { will-change: opacity, transform; }
+
+  /* NAV */
+  .nav-item {
+    position: relative;
+    display: flex; align-items: center; gap: .7rem;
+    width: 100%; padding: .6rem .75rem;
+    border-radius: .85rem;
+    font-size: .875rem; font-weight: 600;
+    color: rgb(var(--muted));
+    transition: color .28s var(--ease), background-color .28s var(--ease), transform .28s var(--ease);
+  }
+  .nav-item:hover { color: rgb(var(--ink)); background: rgb(var(--line) / .06); transform: translateX(2px); }
+  .nav-item .nav-ico {
+    display: grid; place-items: center;
+    width: 30px; height: 30px; border-radius: .6rem;
+    background: rgb(var(--card));
+    box-shadow: 0 1px 2px rgb(var(--line) / .07);
+    color: rgb(var(--muted));
+    transition: all .3s var(--ease);
+  }
+  .nav-item:hover .nav-ico { color: rgb(var(--ink)); transform: scale(1.06); }
+  .nav-item.is-active {
+    color: rgb(var(--ink));
+    background: rgb(var(--line) / .07);
+    box-shadow: inset 0 0 0 1px rgb(var(--line) / .06);
+  }
+  .nav-item.is-active .nav-ico {
+    background: rgb(var(--ink)); color: rgb(var(--canvas));
+    box-shadow: 0 6px 14px -6px rgb(var(--line) / .5);
+  }
+  .nav-item.is-active::before {
+    content: ''; position: absolute; left: -.45rem; top: 50%; translate: 0 -50%;
+    width: 3px; height: 18px; border-radius: 99px; background: #FF6B2C;
+  }
+
+  /* CARDS */
+  .bento {
+    position: relative;
+    border-radius: 1.6rem;
+    background: rgb(var(--card) / .85);
+    border: 1px solid rgb(var(--line) / .08);
+    box-shadow: 0 1px 2px rgb(var(--line) / .04), 0 10px 30px -14px rgb(var(--line) / .16);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    overflow: hidden;
+    transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s var(--ease);
+  }
+  .bento::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit;
+    background: radial-gradient(420px circle at var(--mx,50%) var(--my,0%), rgb(255 107 44 / .1), transparent 62%);
+    opacity: 0; transition: opacity .4s var(--ease); pointer-events: none;
+  }
+  .bento:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 2px 6px rgb(var(--line) / .05), 0 28px 50px -22px rgb(var(--line) / .3);
+    border-color: rgb(var(--line) / .14);
+  }
+  .bento:hover::after { opacity: 1; }
+
+  .card-ico {
+    display: grid; place-items: center;
+    width: 38px; height: 38px; border-radius: .8rem;
+    background: #FFF4EE; color: #FF6B2C;
+    transition: transform .4s var(--ease);
+  }
+  html.dark .card-ico { background: rgb(255 107 44 / .16); }
+  .bento:hover .card-ico { transform: scale(1.08) rotate(-4deg); }
+
+  /* PROJECT CARDS */
+  .project-card {
+    position: relative;
+    border-radius: 1.5rem;
+    background: rgb(var(--card) / .9);
+    border: 1px solid rgb(var(--line) / .08);
+    box-shadow: 0 1px 2px rgb(var(--line) / .04), 0 10px 30px -16px rgb(var(--line) / .16);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s var(--ease);
+  }
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 2px 6px rgb(var(--line) / .05), 0 30px 54px -24px rgb(var(--line) / .32);
+    border-color: rgb(var(--line) / .14);
+  }
+  .project-card:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgb(255 107 44 / .35), 0 30px 54px -24px rgb(var(--line) / .32);
+  }
+  @media (hover: none) {
+    .project-card:hover { transform: none; }
+  }
+
+  /* ── UI/UX CASE-STUDY CARD ─────────────────────────────────── */
+  .uiux-cover {
+    position: relative;
+    flex-shrink: 0;
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+    background: rgb(var(--line) / .06);
+  }
+  .uiux-cover img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .9s var(--ease);
+    will-change: transform;
+  }
+  .project-card:hover .uiux-cover img { transform: scale(1.05); }
+
+  .uiux-body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 1.25rem;
+  }
+
+  /* VERTICAL CAROUSEL */
+  .v-carousel {
+    position: relative;
+    overflow: hidden;
+    mask-image: linear-gradient(180deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  }
+  .v-track {
+    display: flex;
+    flex-direction: column;
+    animation: vScrollUp 26s linear infinite;
+    will-change: transform;
+  }
+
+  /* FAQ */
+  .faq-panel { height: 0; overflow: hidden; transition: height .42s var(--ease); }
+  .faq-item.open .faq-chev { transform: rotate(180deg); }
+  .faq-item.open .faq-q { color: #FF6B2C; }
+
+  /* FORM */
+  .field {
+    width: 100%; border-radius: .9rem;
+    border: 1px solid rgb(var(--line) / .12);
+    background: rgb(var(--card) / .85);
+    padding: .8rem 1rem; font-size: .875rem;
+    color: rgb(var(--ink));
+    transition: border-color .3s var(--ease), box-shadow .3s var(--ease), background-color .3s var(--ease);
+    outline: none;
+  }
+  .field::placeholder { color: rgb(var(--muted) / .85); }
+  .field:focus { border-color: #FF6B2C; box-shadow: 0 0 0 4px rgb(255 107 44 / .16); }
+
+  /* THEME SWITCH */
+  .theme-switch {
+    display: flex; align-items: center; gap: 2px;
+    padding: 3px; border-radius: 999px;
+    background: rgb(var(--line) / .06);
+    border: 1px solid rgb(var(--line) / .08);
+  }
+  .theme-btn {
+    flex: 1;
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 6px 12px; border-radius: 999px;
+    font-size: 11px; font-weight: 800; letter-spacing: .02em;
+    color: rgb(var(--muted));
+    transition: all .35s var(--ease);
+  }
+  .theme-btn:hover { color: rgb(var(--ink)); }
+  .theme-btn.is-active {
+    background: rgb(var(--card));
+    color: rgb(var(--ink));
+    box-shadow: 0 2px 6px rgb(var(--line) / .14), 0 0 0 1px rgb(var(--line) / .05);
+  }
+
+  .live-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #10B981;
+    animation: pulseSoft 2s ease-in-out infinite;
+  }
+
+  /* WORK EXPERIENCE */
+  .work-ticket {
+    position: relative;
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+    padding: 14px;
+    border-radius: 1rem;
+    background: rgb(var(--line) / .035);
+    transition: transform .4s var(--ease), background-color .4s var(--ease);
+    border: 0;
+  }
+  html.dark .work-ticket { background: rgb(var(--line) / .05); }
+  .work-ticket:hover {
+    transform: translateX(3px);
+    background: rgb(var(--line) / .06);
+  }
+  html.dark .work-ticket:hover { background: rgb(var(--line) / .08); }
+  .work-ticket[data-active="true"] {
+    background: linear-gradient(120deg, rgb(255 107 44 / .1), rgb(var(--line) / .03) 60%);
+  }
+  html.dark .work-ticket[data-active="true"] {
+    background: linear-gradient(120deg, rgb(255 107 44 / .14), rgb(var(--line) / .05) 60%);
+  }
+
+  .wt-icon {
+    display: grid;
+    place-items: center;
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    color: #fff;
+    box-shadow: 0 4px 10px -4px rgb(0 0 0 / .3);
+    flex-shrink: 0;
+  }
+
+  .wt-body { min-width: 0; }
+
+  .wt-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .wt-titles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 8px;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .wt-role {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: rgb(var(--ink));
+    line-height: 1.25;
+  }
+  .wt-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 99px;
+    background: rgb(16 185 129 / .14); color: #059669; white-space: nowrap;
+  }
+  html.dark .wt-badge { color: #34d399; background: rgb(16 185 129 / .18); }
+
+  .wt-period {
+    flex: 0 0 auto;
+    margin-left: auto;
+    padding: 3px 9px;
+    border-radius: 99px;
+    background: rgb(var(--card) / .85);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    color: rgb(var(--muted));
+    white-space: nowrap;
+    align-self: flex-start;
+  }
+
+  .wt-meta {
+    margin-top: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgb(var(--muted));
+    line-height: 1.45;
+  }
+  .wt-meta .wt-type { color: rgb(var(--ink) / .78); }
+
+  /* TESTIMONIAL CARD */
+  .testi-card {
+    position: relative;
+    display: flex; flex-direction: column;
+    border-radius: 1.5rem;
+    background: rgb(var(--card) / .85);
+    border: 1px solid rgb(var(--line) / .1);
+    padding: 1.35rem 1.35rem 1.25rem;
+    overflow: hidden;
+    transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+  }
+  .testi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 2px 6px rgb(var(--line) / .05), 0 24px 44px -22px rgb(var(--line) / .3);
+    border-color: rgb(var(--line) / .18);
+  }
+  .testi-quote {
+    color: var(--t-accent, #FF6B2C);
+    opacity: .35;
+    transition: opacity .4s var(--ease), transform .4s var(--ease);
+  }
+  .testi-card:hover .testi-quote { opacity: .7; transform: rotate(-8deg) scale(1.08); }
+
+  /* TESTIMONIAL HOVER OVERLAY — blur + 2 icon-only buttons */
+  .testi-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+    border-radius: inherit;
+    background: rgb(var(--card) / .35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .38s var(--ease);
+  }
+  .testi-card:hover .testi-overlay,
+  .testi-card:focus-within .testi-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  html.dark .testi-overlay { background: rgb(0 0 0 / .35); }
+
+  .testi-action {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgb(var(--card) / .96);
+    color: rgb(var(--ink));
+    box-shadow: 0 8px 22px -8px rgb(0 0 0 / .45), 0 0 0 1px rgb(var(--line) / .06);
+    transform: translateY(6px) scale(.94);
+    opacity: 0;
+    transition: transform .4s var(--ease), opacity .35s var(--ease), background-color .3s var(--ease), color .3s var(--ease);
+  }
+  .testi-card:hover .testi-action,
+  .testi-card:focus-within .testi-action {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  .testi-card:hover .testi-action:nth-child(2) { transition-delay: .06s; }
+  .testi-action:hover {
+    background: #FF6B2C;
+    color: #fff;
+    transform: translateY(-3px) scale(1.05);
+  }
+
+  /* LIGHTBOX */
+  .lightbox { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; }
+  .lightbox-backdrop {
+    position: absolute; inset: 0;
+    background: rgb(0 0 0 / .7);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    animation: fadeUp .3s var(--ease) both;
+  }
+  .lightbox-card {
+    position: relative;
+    width: min(920px, 100%);
+    max-height: calc(100vh - 32px);
+    border-radius: 1.75rem;
+    background: rgb(var(--card));
+    border: 1px solid rgb(var(--line) / .12);
+    box-shadow: 0 40px 80px -30px rgb(0 0 0 / .6);
+    overflow: hidden auto;
+    animation: riseIn .5s var(--ease) both;
+  }
+  .lightbox-close {
+    position: absolute; top: 14px; right: 14px; z-index: 5;
+    display: grid; place-items: center;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgb(var(--card) / .95);
+    color: rgb(var(--ink));
+    box-shadow: 0 4px 12px rgb(0 0 0 / .2);
+    transition: transform .3s var(--ease), background-color .3s var(--ease);
+  }
+  .lightbox-close:hover { transform: rotate(90deg) scale(1.08); background: #FF6B2C; color: #fff; }
+
+  .scroll-slim::-webkit-scrollbar { width: 6px; height: 6px; }
+  .scroll-slim::-webkit-scrollbar-thumb { background: rgb(var(--line) / .16); border-radius: 99px; }
+  .scroll-slim::-webkit-scrollbar-track { background: transparent; }
+
+  html.dark .mock-grad { filter: brightness(.75) saturate(.85); }
+
+  /* TOOL ICON CHIP */
+  .tool-icon-wrap {
+    display: grid; place-items: center;
+    width: 22px; height: 22px;
+    border-radius: 7px;
+    background: #ffffff;
+    padding: 3px;
+    overflow: hidden;
+    box-shadow:
+      inset 0 0 0 1px rgb(0 0 0 / .06),
+      0 1px 2px rgb(0 0 0 / .08);
+    flex-shrink: 0;
+  }
+  html.dark .tool-icon-wrap {
+    background: #ffffff;
+    box-shadow:
+      inset 0 0 0 1px rgb(0 0 0 / .12),
+      0 2px 6px rgb(0 0 0 / .35);
+  }
+  .tool-icon-wrap img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .tool-icon-wrap svg { display: block; width: 100%; height: 100%; }
+
+  /* MOBILE STICKY TOP BAR */
+  #mobileTopBar {
+    position: sticky;
+    top: 12px;
+    z-index: 30;
+    background: rgb(var(--card) / .92);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+  @media (min-width: 1024px) {
+    #mobileTopBar { position: static; }
+  }
+
+  @media (max-width: 1023px) {
+    .filter-btn { min-height: 40px; padding-top: .55rem; padding-bottom: .55rem; }
+    button, .project-card, .credential-btn, [data-goto], .filter-btn, .nav-item {
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
+  @media (min-width: 640px) and (max-width: 1279px) {
+    .bento { border-radius: 1.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+
+<body class="min-h-screen font-sans text-ink">
+
+<!-- CUSTOM CURSOR -->
+<div id="cursorEl" class="cursor-el" aria-hidden="true">
+  <svg class="cursor-arrow" viewBox="0 0 20 22" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 2 L2 18 L6.5 13.5 L10 20 L12.5 19 L9 12.5 L15.5 12.5 Z"
+          fill="#0B1220" stroke="#ffffff" stroke-width="1.2" stroke-linejoin="round"/>
+  </svg>
+  <span class="cursor-pill" id="cursorLabel">Guest</span>
+</div>
+
+<!-- BACKGROUND -->
+<div class="bg-scene" aria-hidden="true">
+  <div class="aurora aurora-1 blob"></div>
+  <div class="aurora aurora-2 blob2"></div>
+  <div class="aurora aurora-3 blob3"></div>
+  <div class="aurora aurora-4 blob4"></div>
+  <div class="grain"></div>
+</div>
+
+<div id="overlay" class="fixed inset-0 z-40 hidden bg-black/40 backdrop-blur-sm lg:hidden"></div>
+
+<div class="mx-auto flex w-full max-w-[1580px] gap-5 px-3 py-3 sm:gap-6 sm:px-4 sm:py-4 lg:px-6 lg:py-6">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar"
+    class="scroll-slim fixed inset-y-0 left-0 z-50 w-[288px] -translate-x-full overflow-y-auto p-4 transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)]
+           lg:sticky lg:top-6 lg:bottom-auto lg:left-auto lg:z-10 lg:h-[calc(100vh-3rem)] lg:w-[288px] lg:translate-x-0 lg:overflow-y-auto lg:overflow-x-hidden lg:p-0">
+
+    <div class="flex min-h-full flex-col rounded-4xl border border-line/10 bg-card/85 p-5 shadow-soft backdrop-blur-xl"
+         style="animation: slideInLeft .8s var(--ease) both;">
+
+      <div class="text-center">
+        <!-- AVATAR -->
+        <div id="avatarContainer" class="relative mx-auto h-20 w-20 overflow-hidden rounded-full ring-4 ring-card shadow-soft bg-gradient-to-br from-[#DCE3F2] to-[#C3CDE4]"></div>
+
+        <h2 class="mt-3 flex items-center justify-center gap-1.5 text-[17px] font-extrabold tracking-tight">
+          Tim Josh Cuasay
+          <svg class="h-4 w-4 text-sky-500" viewBox="0 0 24 24" fill="currentColor" aria-label="Verified">
+            <path d="M12 2 14.4 4.4l3.3-.4.6 3.3L21 9.5 19.4 12.5 21 15.5l-2.7 2.2-.6 3.3-3.3-.4L12 23l-2.4-2.4-3.3.4-.6-3.3L3 15.5 4.6 12.5 3 9.5l2.7-2.2.6-3.3 3.3.4L12 2Zm-1.2 13.6 5.3-5.3-1.4-1.4-3.9 3.9-1.9-1.9-1.4 1.4 3.3 3.3Z"/>
+          </svg>
+        </h2>
+        <p class="text-xs font-medium text-muted">timothycuasay143@gmail.com</p>
+      </div>
+
+      <div class="mt-4 flex items-center justify-center gap-2">
+        <a href="https://www.facebook.com/timjosh.cuasay" aria-label="Facebook" class="grid h-9 w-9 place-items-center rounded-xl bg-card text-muted shadow-sm ring-1 ring-line/10 transition-all duration-300 hover:-translate-y-1 hover:bg-ink hover:text-canvas">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.25-1.5 1.55-1.5H16.6V4.4c-.28-.04-1.24-.12-2.36-.12-2.33 0-3.94 1.42-3.94 4.04v2.18H7.7v3h2.6V21h3.2Z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/tim-josh-cuasay-788b8b35b/" aria-label="LinkedIn" class="grid h-9 w-9 place-items-center rounded-xl bg-card text-muted shadow-sm ring-1 ring-line/10 transition-all duration-300 hover:-translate-y-1 hover:bg-ink hover:text-canvas">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5.5a1.94 1.94 0 1 1-3.88 0 1.94 1.94 0 0 1 3.88 0ZM3.3 8.9h3.4V21H3.3V8.9Zm5.6 0h3.26v1.65h.05c.45-.86 1.56-1.77 3.2-1.77 3.43 0 4.06 2.26 4.06 5.2V21h-3.4v-5.35c0-1.28-.02-2.92-1.78-2.92-1.78 0-2.05 1.39-2.05 2.83V21H8.9V8.9Z"/></svg>
+        </a>
+        <a href="mailto:timothycuasay143@gmail.com" aria-label="Gmail"
+   class="grid h-9 w-9 place-items-center rounded-xl bg-card text-muted shadow-sm ring-1 ring-line/10 transition-all duration-300 hover:-translate-y-1 hover:bg-ink hover:text-canvas">
+  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 11.5 2.4 4.9A2 2 0 0 1 4 4h16a2 2 0 0 1 1.6.9L12 11.5Z"/>
+    <path d="M12 13.7 22 7.1V18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7.1l10 6.6Z"/>
+  </svg>
+</a>
+        <a href="resume.pdf" download="Tim-Josh-Cuasay-Resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Download Resume"
+   class="grid h-9 w-9 place-items-center rounded-xl bg-card text-muted shadow-sm ring-1 ring-line/10 transition-all duration-300 hover:-translate-y-1 hover:bg-ink hover:text-canvas">
+  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/>
+    <path d="M14 3v5h5"/>
+    <path d="M9 13h6M9 17h4"/>
+  </svg>
+</a>
+      </div>
+
+      <div class="mt-4">
+        <div class="theme-switch" role="group" aria-label="Color theme">
+          <button type="button" data-theme-btn="light" class="theme-btn" aria-label="Light mode">
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            Light
+          </button>
+          <button type="button" data-theme-btn="dark" class="theme-btn" aria-label="Dark mode">
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"/></svg>
+            Dark
+          </button>
+        </div>
+      </div>
+
+      <nav class="mt-5 flex-1 space-y-1" aria-label="Main navigation">
+        <a href="#home" data-nav="home" class="nav-item">
+          <span class="nav-ico"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10.5 9-7.5 9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z"/></svg></span>
+          Home
+        </a>
+        <a href="#projects" data-nav="projects" class="nav-item">
+          <span class="nav-ico"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg></span>
+          Projects
+        </a>
+        <a href="#services" data-nav="services" class="nav-item">
+          <span class="nav-ico"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8.5 7V5.5A2.5 2.5 0 0 1 11 3h2a2.5 2.5 0 0 1 2.5 2.5V7"/></svg></span>
+          Services
+        </a>
+        <a href="#showcase" data-nav="showcase" class="nav-item">
+          <span class="nav-ico"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></svg></span>
+          Showcase
+        </a>
+        <a href="#itsupport" data-nav="itsupport" class="nav-item">
+          <span class="nav-ico">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M5.64 18.36l2.12-2.12M16.24 7.76l2.12-2.12"/>
+            </svg>
+          </span>
+          IT Support
+        </a>
+        <a href="#testimonials" data-nav="testimonials" class="nav-item">
+          <span class="nav-ico">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>
+              <path d="M8 9h8M8 13h5"/>
+            </svg>
+          </span>
+          Testimonials
+        </a>
+        <a href="#about" data-nav="about" class="nav-item">
+          <span class="nav-ico"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
+          About
+        </a>
+        <a href="#contact" data-nav="contact" class="nav-item">
+          <span class="nav-ico"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.2a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .8-1 1.5v.3"/><circle cx="12" cy="16.8" r=".9" fill="currentColor" stroke="none"/></svg></span>
+          FAQs / Contact
+        </a>
+      </nav>
+
+      <div class="mt-5 space-y-3 border-t border-line/10 pt-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="live-dot"></span>
+            <span class="text-[10px] font-extrabold uppercase tracking-wider text-muted">Online</span>
+          </div>
+          <span class="text-[10px] font-bold text-muted tabular-nums" id="liveClock">--:--:--</span>
+        </div>
+        <p class="text-[11px] font-medium leading-snug text-muted whitespace-nowrap">
+          © 2026 Portfolio. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="min-w-0 flex-1">
+
+    <!-- Mobile top bar -->
+    <div id="mobileTopBar" class="mb-4 flex items-center justify-between rounded-3xl border border-line/10 px-4 py-3 shadow-soft lg:hidden">
+      <div class="flex items-center gap-3">
+        <button id="menuBtn" aria-label="Open menu"
+          class="grid h-10 w-10 place-items-center rounded-xl bg-ink text-canvas transition active:scale-95">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <span class="text-sm font-extrabold tracking-tight">Tim Josh</span>
+      </div>
+      <button data-goto="contact" class="rounded-full bg-brand-500 px-4 py-2 text-xs font-bold text-white shadow-sm transition active:scale-95">
+        Hire me
+      </button>
+    </div>
+
+    <div id="viewRoot">
+
+      <!-- HOME -->
+      <section class="view" data-view="home">
+        <div class="mb-5 flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+          <div class="max-w-3xl min-w-0">
+            <div data-anim class="mb-4 inline-flex items-center gap-2 rounded-full border border-line/10 bg-card/70 px-3 py-1.5 text-[11px] font-bold text-muted shadow-sm backdrop-blur">
+              <span class="relative flex h-2 w-2">
+                <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400" style="animation: pulseSoft 2s ease-in-out infinite"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+              </span>
+              Available for freelance &amp; full-time roles
+            </div>
+
+            <h1 data-anim class="text-[32px] font-extrabold leading-[1.05] tracking-tight sm:text-5xl xl:text-[58px]">
+              Design. Develop.<br class="hidden sm:block" />
+              <span class="relative inline-block">
+                <span class="text-brand-500">Support.</span>
+                <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none" aria-hidden="true">
+                  <path d="M2 5.5C50 1 150 1 198 5.5" stroke="#FF6B2C" stroke-width="2.5" stroke-linecap="round" opacity=".35"/>
+                </svg>
+              </span>
+            </h1>
+
+            <p data-anim class="mt-5 max-w-2xl text-[15px] leading-relaxed text-muted">
+              I'm a UI/UX Designer and Web Developer with hands-on IT Support experience.
+              I turn ideas into interfaces, interfaces into working products, and keep the
+              systems people rely on running smoothly — all in one place.
+            </p>
+
+            <div data-anim class="mt-5 flex flex-wrap items-center gap-2 text-[11px] font-bold text-muted">
+              <span class="rounded-full border border-line/10 bg-card/60 px-3 py-1.5">Based in the Philippines</span>
+              <span class="rounded-full border border-line/10 bg-card/60 px-3 py-1.5">13+ design projects</span>
+              <span class="rounded-full border border-line/10 bg-card/60 px-3 py-1.5">3 live systems</span>
+            </div>
+          </div>
+
+          <!-- Right side column: Get in touch button + Mascot -->
+          <div class="flex flex-col items-end gap-6 shrink-0">
+            <div data-anim class="lg:pt-1">
+              <button data-goto="contact"
+                class="group inline-flex items-center gap-3 rounded-full bg-ink py-2 pl-6 pr-2 text-sm font-bold text-canvas shadow-lift transition-all duration-300 hover:-translate-y-1 hover:shadow-xl active:translate-y-0">
+                Get in touch
+                <span class="grid h-9 w-9 place-items-center rounded-full bg-brand-500 text-white transition-transform duration-500 group-hover:rotate-45">
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                </span>
+              </button>
+            </div>
+            
+            <!-- Interactive Mascot (Hidden on mobile, sits below the button on desktop) -->
+            <!-- Updated to point to your local .webp files -->
+            <div class="hidden lg:block mr-2 mt-4">
+              <peek-pal 
+                poses="poses.webp" 
+                moods="moods.webp" 
+                label="Tim Josh Mascot"
+                size="150">
+              </peek-pal>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tools bar -->
+        <div data-anim class="mb-5 flex items-center gap-3 rounded-3xl border border-line/10 bg-card/75 p-2.5 shadow-soft backdrop-blur-xl">
+          <span class="hidden shrink-0 border-r border-line/10 pr-3 text-xs font-bold text-muted sm:block">Tools I work with</span>
+          <div class="relative flex-1 overflow-hidden" style="-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)">
+            <div class="marquee flex w-max items-center gap-2.5" id="toolTrack"></div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+
+          <article data-anim class="bento group p-5 sm:col-span-2 xl:col-span-2">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="card-ico">
+                  <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h3l2 2.5h8A2.5 2.5 0 0 1 21 10v7a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17V7.5Z"/></svg>
+                </span>
+                <h3 class="text-base font-extrabold tracking-tight">Projects</h3>
+              </div>
+              <button data-goto="projects" class="shrink-0 rounded-full border border-line/12 bg-canvas px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-[.12em] text-muted transition-colors hover:border-brand-300 hover:text-brand-600">
+                Tap to view
+              </button>
+            </div>
+
+            <p class="mt-3 text-[13px] leading-relaxed text-muted">
+              A live stream of design &amp; development work — 13 UI/UX cases and 3 shipped web systems.
+            </p>
+
+            <div class="v-carousel mt-4 h-[230px] rounded-2xl">
+              <div class="v-track" id="projectCarousel"></div>
+            </div>
+          </article>
+
+          <article data-anim class="bento p-5 flex flex-col">
+            <div class="flex items-center gap-3">
+              <span class="card-ico">
+                <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
+              </span>
+              <h3 class="text-base font-extrabold tracking-tight">About</h3>
+            </div>
+            <p class="mt-3 text-[13px] leading-relaxed text-muted">
+              A versatile designer-developer who also speaks "IT support". I care about clarity,
+              accessibility and solutions that actually get used.
+            </p>
+            <div class="flex-1" aria-hidden="true"></div>
+            <button data-goto="about" class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-ink transition-colors hover:text-brand-500 self-start">
+              More about me
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </button>
+          </article>
+
+          <article data-anim class="bento p-5 flex flex-col">
+            <div class="flex items-center gap-3">
+              <span class="card-ico">
+                <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9"/>
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M5.64 18.36l2.12-2.12M16.24 7.76l2.12-2.12"/>
+                </svg>
+              </span>
+              <h3 class="text-base font-extrabold tracking-tight">IT Support</h3>
+            </div>
+            <ul class="mt-3 space-y-2 text-[13px] font-semibold text-ink/85">
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>Application support</li>
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>Laptop &amp; device fixes</li>
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>Network troubleshooting</li>
+            </ul>
+            <div class="flex-1" aria-hidden="true"></div>
+            <button data-goto="itsupport" class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-ink transition-colors hover:text-brand-500 self-start">
+              See what I handle
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </button>
+          </article>
+
+          <article data-anim class="bento p-5 sm:col-span-2 xl:col-span-2">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="card-ico">
+                  <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="m8.5 14-1.5 7 5-2.6 5 2.6-1.5-7"/></svg>
+                </span>
+                <h3 class="text-base font-extrabold tracking-tight">Credentials &amp; Training</h3>
+              </div>
+              <button id="credentialsTapBtn" type="button"
+                class="shrink-0 rounded-full border border-line/12 bg-canvas px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-[.12em] text-muted transition-colors hover:border-brand-300 hover:text-brand-600">
+                Tap to view
+              </button>
+            </div>
+            <p class="mt-3 text-[13px] leading-relaxed text-muted">
+              Certifications and training programs that back my design, development and IT work.
+            </p>
+            <ul class="mt-4 space-y-3" id="credentialsList"></ul>
+          </article>
+
+          <article data-anim class="bento p-5 sm:col-span-2 xl:col-span-2">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="card-ico">
+                  <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="3"/><path d="M9 7V5.5A2.5 2.5 0 0 1 11.5 3h1A2.5 2.5 0 0 1 15 5.5V7"/><path d="M3 12h18"/></svg>
+                </span>
+                <h3 class="text-base font-extrabold tracking-tight">Where I've worked</h3>
+              </div>
+              <span class="shrink-0 text-[10px] font-extrabold uppercase tracking-wider text-muted/70">2022 — Present</span>
+            </div>
+            <p class="mt-3 text-[13px] leading-relaxed text-muted">
+              My professional journey across design, development and IT support.
+            </p>
+            <ol class="mt-5 space-y-3" id="workList"></ol>
+          </article>
+
+          <article data-anim class="bento p-5 sm:col-span-2 xl:col-span-1">
+            <div class="flex items-center gap-3">
+              <span class="card-ico">
+                <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8.5 7V5.5A2.5 2.5 0 0 1 11 3h2a2.5 2.5 0 0 1 2.5 2.5V7"/></svg>
+              </span>
+              <h3 class="text-base font-extrabold tracking-tight">Services</h3>
+            </div>
+            <p class="mt-3 text-[13px] leading-relaxed text-muted">What I offer and who I offer it to.</p>
+            <ul class="mt-4 divide-y divide-line/10" id="miniServices"></ul>
+          </article>
+
+          <article data-anim class="bento p-5 sm:col-span-2 xl:col-span-3">
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="card-ico">
+                  <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>
+                    <path d="M8 9h8M8 13h5"/>
+                  </svg>
+                </span>
+                <h3 class="text-base font-extrabold tracking-tight">Testimonials</h3>
+              </div>
+              <button data-goto="testimonials" class="shrink-0 rounded-full border border-line/12 bg-canvas px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-[.12em] text-muted transition-colors hover:border-brand-300 hover:text-brand-600">
+                Tap to view
+              </button>
+            </div>
+
+            <div class="v-carousel mt-4 h-[240px] rounded-2xl">
+              <div class="v-track" id="testiCarousel"></div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section class="view hidden" data-view="projects">
+        <header class="mb-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div class="min-w-0">
+            <p data-anim class="text-[11px] font-extrabold uppercase tracking-[.18em] text-brand-500">
+              <span class="text-ink/30">01 /</span> Portfolio
+            </p>
+            <h1 data-anim class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Projects &amp; case studies</h1>
+            <p data-anim class="mt-2 max-w-2xl text-[15px] leading-relaxed text-muted">
+              A gallery of <strong class="text-ink">13 UI/UX design projects</strong> and
+              <strong class="text-ink">3 developed web systems</strong>. Click any card to open
+              the full preview or live site.
+            </p>
+          </div>
+        </header>
+
+        <div data-anim class="mb-5 flex flex-wrap items-center gap-2">
+          <button data-filter="all" class="filter-btn rounded-full bg-ink px-4 py-2 text-xs font-bold text-canvas shadow-sm transition-all duration-300">All work <span class="opacity-60">(16)</span></button>
+          <button data-filter="uiux" class="filter-btn rounded-full bg-card/85 px-4 py-2 text-xs font-bold text-muted shadow-sm ring-1 ring-line/10 backdrop-blur transition-all duration-300 hover:text-ink">UI/UX Design <span class="opacity-60">(13)</span></button>
+          <button data-filter="web" class="filter-btn rounded-full bg-card/85 px-4 py-2 text-xs font-bold text-muted shadow-sm ring-1 ring-line/10 backdrop-blur transition-all duration-300 hover:text-ink">Web Development <span class="opacity-60">(3)</span></button>
+        </div>
+
+        <div id="projectGrid" class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3"></div>
+      </section>
+
+      <!-- SERVICES -->
+      <section class="view hidden" data-view="services">
+        <header class="mb-6">
+          <p data-anim class="text-[11px] font-extrabold uppercase tracking-[.18em] text-brand-500">
+            <span class="text-ink/30">02 /</span> Services
+          </p>
+          <h1 data-anim class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Five ways I can help</h1>
+          <p data-anim class="mt-2 max-w-2xl text-[15px] leading-relaxed text-muted">
+            Whether you need a design, a working product, or someone to keep the technology
+            running — here's where I plug in.
+          </p>
+        </header>
+
+        <div class="grid gap-4 lg:grid-cols-3">
+          <div class="space-y-3 lg:col-span-2" id="serviceList"></div>
+
+          <aside data-anim class="bento h-fit p-6 lg:sticky lg:top-6">
+            <h3 class="text-base font-extrabold tracking-tight">How I work</h3>
+            <ol class="mt-5 space-y-5" id="processList"></ol>
+            <div class="mt-6 rounded-2xl bg-canvas p-4">
+              <p class="text-[13px] font-semibold leading-relaxed text-ink/85">
+                Every engagement starts with a short discovery call — no cost, no obligation.
+              </p>
+              <button data-goto="contact" class="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-brand-600 transition-colors hover:text-brand-700">
+                Book a discovery call
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+              </button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- SHOWCASE -->
+      <section class="view hidden" data-view="showcase">
+        <header class="mb-6">
+          <p data-anim class="text-[11px] font-extrabold uppercase tracking-[.18em] text-brand-500">
+            <span class="text-ink/30">03 /</span> Showcase
+          </p>
+          <h1 data-anim class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Developed web projects</h1>
+          <p data-anim class="mt-2 max-w-2xl text-[15px] leading-relaxed text-muted">
+            Three systems built from concept to deployment — covering frontend, backend,
+            database integration and modern web tooling.
+          </p>
+        </header>
+
+        <div class="space-y-5" id="showcaseList"></div>
+
+        <div data-anim class="mt-6 grid grid-cols-2 gap-4 rounded-3xl border border-line/10 bg-card/85 p-6 shadow-soft backdrop-blur-xl sm:grid-cols-4">
+          <div class="text-center">
+            <p class="text-3xl font-extrabold tracking-tight text-ink"><span data-count="16">0</span></p>
+            <p class="mt-1 text-xs font-bold text-muted">Total projects</p>
+          </div>
+          <div class="text-center">
+            <p class="text-3xl font-extrabold tracking-tight text-ink"><span data-count="3">0</span></p>
+            <p class="mt-1 text-xs font-bold text-muted">Live web systems</p>
+          </div>
+          <div class="text-center">
+            <p class="text-3xl font-extrabold tracking-tight text-ink"><span data-count="12">0</span></p>
+            <p class="mt-1 text-xs font-bold text-muted">Tools mastered</p>
+          </div>
+          <div class="text-center">
+            <p class="text-3xl font-extrabold tracking-tight text-ink"><span data-count="100">0</span>%</p>
+            <p class="mt-1 text-xs font-bold text-muted">Responsive builds</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- IT SUPPORT -->
+      <section class="view hidden" data-view="itsupport">
+        <header class="mb-6">
+          <p data-anim class="text-[11px] font-extrabold uppercase tracking-[.18em] text-brand-500">
+            <span class="text-ink/30">04 /</span> IT Support
+          </p>
+          <h1 data-anim class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Keeping people and systems running</h1>
+          <p data-anim class="mt-2 max-w-3xl text-[15px] leading-relaxed text-muted">
+            Hands-on support experience in a fast-paced call center environment, where reliable
+            access to business applications is critical.
+          </p>
+        </header>
+
+        <div class="grid gap-4 xl:grid-cols-3" id="itSupportList"></div>
+
+        <div data-anim class="mt-5 rounded-3xl border border-line/10 bg-card/85 p-6 shadow-soft backdrop-blur-xl">
+          <h3 class="text-base font-extrabold tracking-tight">Applications &amp; tools I support</h3>
+          <div class="mt-4 flex flex-wrap gap-2" id="appChips"></div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section class="view hidden" data-view="testimonials">
+        <header class="mb-6">
+          <p data-anim class="text-[11px] font-extrabold uppercase tracking-[.18em] text-brand-500">
+            <span class="text-ink/30">05 /</span> Testimonials
+          </p>
+          <h1 data-anim class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">What people say</h1>
+          <p data-anim class="mt-2 max-w-2xl text-[15px] leading-relaxed text-muted">
+            Feedback from clients, teammates and end users I've supported. Hover any card to visit the live system or view the full design.
+          </p>
+        </header>
+
+        <div class="grid gap-4 lg:grid-cols-3" id="testimonialList"></div>
+
+        <div data-anim class="mt-5 flex flex-col items-center justify-between gap-5 rounded-3xl bg-ink p-7 text-canvas sm:flex-row">
+  <div class="flex items-center gap-5">
+    <div class="flex -space-x-3" id="testimonialBandAvatars"></div>
+    <div>
+      <div class="flex gap-0.5 text-brand-400">
+        <div class="flex gap-0.5 text-brand-400">
+  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.2 6.6.9-4.8 4.7 1.2 6.7L12 17.4 6.1 20.5l1.2-6.7L2.5 9.1l6.6-.9L12 2Z"/></svg>
+  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.2 6.6.9-4.8 4.7 1.2 6.7L12 17.4 6.1 20.5l1.2-6.7L2.5 9.1l6.6-.9L12 2Z"/></svg>
+  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.2 6.6.9-4.8 4.7 1.2 6.7L12 17.4 6.1 20.5l1.2-6.7L2.5 9.1l6.6-.9L12 2Z"/></svg>
+  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.2 6.6.9-4.8 4.7 1.2 6.7L12 17.4 6.1 20.5l1.2-6.7L2.5 9.1l6.6-.9L12 2Z"/></svg>
+  <svg class="h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
+    <defs>
+      <linearGradient id="star-half" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="50%" stop-color="currentColor"/>
+        <stop offset="50%" stop-color="currentColor" stop-opacity="0.3"/>
+      </linearGradient>
+    </defs>
+    <path fill="url(#star-half)" d="m12 2 2.9 6.2 6.6.9-4.8 4.7 1.2 6.7L12 17.4 6.1 20.5l1.2-6.7L2.5 9.1l6.6-.9L12 2Z"/>
+  </svg>
+</div>
+      </div>
+      <p class="mt-1.5 text-sm font-bold">4.9 average from clients</p>
+    </div>
+  </div>
+  <button data-goto="contact" class="w-full rounded-full bg-brand-500 px-6 py-3 text-sm font-bold text-white transition-transform duration-300 hover:-translate-y-0.5 sm:w-auto">
+    Work with me
+  </button>
+</div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="view hidden" data-view="about">
+        <header class="mb-6">
+          <p data-anim class="text-[11px] font-extrabold uppercase tracking-[.18em] text-brand-500">
+            <span class="text-ink/30">06 /</span> About
+          </p>
+          <h1 data-anim class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">One identity, three strengths</h1>
+        </header>
+
+        <div class="grid gap-4 lg:grid-cols-3">
+          <div data-anim class="bento p-6 lg:col-span-2">
+            <h2 class="text-lg font-extrabold tracking-tight">The short version</h2>
+            <div class="mt-4 space-y-4 text-[14px] leading-relaxed text-muted">
+              <p>
+                I work at the intersection of <strong class="text-ink">creativity, development and technical problem-solving</strong>.
+                UI/UX design lets me focus on what people actually need. Web development lets me turn
+                those concepts into functional products. IT support keeps me grounded in the reality of
+                how technology behaves once real users get their hands on it.
+              </p>
+              <p>
+                Rather than presenting these as separate identities, I've built one portfolio that
+                shows how they reinforce each other — from designing the experience, to building the
+                solution, to supporting the systems people rely on every day.
+              </p>
+            </div>
+
+            <div class="mt-6 grid gap-3 sm:grid-cols-3">
+              <div class="rounded-2xl bg-canvas p-4">
+                <p class="text-xs font-extrabold uppercase tracking-wider text-brand-600">Design</p>
+                <p class="mt-1.5 text-[13px] leading-relaxed text-muted">Interfaces, flows, design systems and accessible visual communication.</p>
+              </div>
+              <div class="rounded-2xl bg-canvas p-4">
+                <p class="text-xs font-extrabold uppercase tracking-wider text-brand-600">Develop</p>
+                <p class="mt-1.5 text-[13px] leading-relaxed text-muted">Responsive frontends, backend logic and database integration.</p>
+              </div>
+              <div class="rounded-2xl bg-canvas p-4">
+                <p class="text-xs font-extrabold uppercase tracking-wider text-brand-600">Support</p>
+                <p class="mt-1.5 text-[13px] leading-relaxed text-muted">Application, device and network troubleshooting for end users.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div data-anim class="bento p-6">
+              <h3 class="text-base font-extrabold tracking-tight">Design principles</h3>
+              <ul class="mt-4 space-y-3 text-[13px] font-semibold text-ink/85" id="principlesList"></ul>
+            </div>
+
+            <div data-anim class="bento p-6">
+              <h3 class="text-base font-extrabold tracking-tight">Core stack</h3>
+              <div class="mt-4 flex flex-wrap gap-2" id="stackChips"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQS / CONTACT -->
+      <section class="view hidden" data-view="contact">
+        <header class="mb-6">
+          <p data-anim class="text-[11px] font-extrabold uppercase tracking-[.18em] text-brand-500">
+            <span class="text-ink/30">07 /</span> FAQs / Contact
+          </p>
+          <h1 data-anim class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Let's talk about your project</h1>
+          <p data-anim class="mt-2 max-w-2xl text-[15px] leading-relaxed text-muted">
+            Have a question or an opportunity? Send a message and I'll get back to you within 24 hours.
+          </p>
+        </header>
+
+        <div class="grid gap-4 lg:grid-cols-5">
+          <div class="lg:col-span-3">
+            <div data-anim class="bento p-6">
+              <h2 class="text-base font-extrabold tracking-tight">Frequently asked questions</h2>
+              <div class="mt-4 divide-y divide-line/10" id="faqList"></div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-2">
+            <div data-anim class="bento overflow-hidden">
+              <div class="border-b border-line/10 px-6 py-5">
+                <div class="flex items-center gap-2.5">
+                  <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-500 text-white shadow-sm">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <h2 class="text-[15px] font-extrabold tracking-tight">Send a message</h2>
+                    <p class="text-[11px] font-semibold text-muted">Usually replies within 24 hours</p>
+                  </div>
+                </div>
+              </div>
+
+              <form id="contactForm" class="space-y-6 px-6 py-5" novalidate>
+                <fieldset>
+                  <legend class="mb-3 flex items-center gap-2">
+                    <span class="grid h-5 w-5 place-items-center rounded-full bg-brand-500/15 text-[10px] font-extrabold text-brand-600">1</span>
+                    <span class="text-[10px] font-extrabold uppercase tracking-[.14em] text-muted">About you</span>
+                  </legend>
+                  <div class="grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <label for="name" class="mb-1.5 block text-[11px] font-bold text-ink/80">Your name <span class="text-brand-500">*</span></label>
+                      <input id="name" name="name" type="text" required placeholder="Juan Dela Cruz" class="field" autocomplete="name" />
+                    </div>
+                    <div>
+                      <label for="email" class="mb-1.5 block text-[11px] font-bold text-ink/80">Email address <span class="text-brand-500">*</span></label>
+                      <input id="email" name="email" type="email" required placeholder="you@company.com" class="field" autocomplete="email" />
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <legend class="mb-3 flex items-center gap-2">
+                    <span class="grid h-5 w-5 place-items-center rounded-full bg-brand-500/15 text-[10px] font-extrabold text-brand-600">2</span>
+                    <span class="text-[10px] font-extrabold uppercase tracking-[.14em] text-muted">Your project</span>
+                  </legend>
+                  <div class="space-y-3">
+                    <div>
+                      <label for="subject" class="mb-1.5 block text-[11px] font-bold text-ink/80">What can I help with?</label>
+                      <select id="subject" name="subject" class="field">
+                        <option>UI/UX Design project</option>
+                        <option>Web Development project</option>
+                        <option>IT Support role</option>
+                        <option>Full-time opportunity</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label for="message" class="mb-1.5 block text-[11px] font-bold text-ink/80">Tell me more <span class="text-brand-500">*</span></label>
+                      <textarea id="message" name="message" rows="4" required placeholder="Share a few details about your project, timeline, and goals…" class="field resize-none"></textarea>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <div class="space-y-3 pt-1">
+                  <button type="submit"
+                    class="group flex w-full items-center justify-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-bold text-canvas shadow-lift transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-500 hover:text-white active:translate-y-0">
+                    Send message
+                    <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+                  </button>
+                  <p class="text-center text-[10.5px] font-medium text-muted">
+                    Your information stays private. No spam, ever.
+                  </p>
+                  <p id="formMsg" class="hidden rounded-xl bg-emerald-50 px-4 py-3 text-xs font-bold text-emerald-700"></p>
+                </div>
+              </form>
+
+              <div class="border-t border-line/10 px-6 py-5">
+                <p class="mb-3 text-[10px] font-extrabold uppercase tracking-[.14em] text-muted">Or reach me directly</p>
+                <div class="space-y-2 text-[12.5px]">
+                  <div class="flex items-center gap-3">
+                    <span class="grid h-8 w-8 place-items-center rounded-lg bg-canvas text-muted">
+                      <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+                    </span>
+                    <a href="mailto:timothycuasay143@gmail.com"
+                       class="font-semibold text-ink/85 underline-offset-4 transition-colors duration-300 hover:text-brand-500 hover:underline">
+                      timothycuasay143@gmail.com
+                    </a>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="grid h-8 w-8 place-items-center rounded-lg bg-canvas text-muted">
+                      <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                    </span>
+                    <span class="font-semibold text-ink/85">Philippines · Remote-friendly</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- FLOATING STICKY CONTACT -->
+<button id="floatingContact" data-goto="contact"
+  class="hidden lg:inline-flex fixed bottom-6 right-6 z-40 items-center gap-3 rounded-full bg-ink py-2 pl-6 pr-2 text-sm font-bold text-canvas shadow-lift opacity-0 pointer-events-none translate-y-4 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
+  Get in touch
+  <span class="grid h-9 w-9 place-items-center rounded-full bg-brand-500 text-white">
+    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+  </span>
+</button>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox hidden" role="dialog" aria-modal="true" aria-label="Preview">
+  <div class="lightbox-backdrop" data-lightbox-close></div>
+  <div class="lightbox-card scroll-slim">
+    <button class="lightbox-close" aria-label="Close preview" data-lightbox-close>
+      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div id="lightboxBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   0. PROFILE AVATAR
+   ============================================================ */
+(function renderAvatar() {
+  const AVATAR_SRC = "https://i.postimg.cc/1t49jGjy/Tim-Image6.jpg";
+  const INITIALS = "TJ";
+  const container = document.getElementById('avatarContainer');
+  if (!container) return;
+
+  const isVideo = /\.(mp4|webm|ogg|mov|avi|mkv|m4v)(\?.*)?$/i.test(AVATAR_SRC);
+
+  if (isVideo) {
+    container.innerHTML = `
+      <video src="${AVATAR_SRC}" class="h-full w-full object-cover" autoplay muted loop playsinline preload="metadata"></video>
+      <span class="absolute inset-0 hidden place-items-center text-2xl font-extrabold text-white/90 bg-gradient-to-br from-brand-400 to-brand-600">${INITIALS}</span>
+    `;
+    const v = container.querySelector('video');
+    v.addEventListener('error', () => {
+      v.style.display = 'none';
+      const s = container.querySelector('span');
+      s.classList.remove('hidden');
+      s.style.display = 'grid';
+    });
+  } else {
+    container.innerHTML = `
+      <img src="${AVATAR_SRC}" alt="Profile" class="h-full w-full object-cover" loading="lazy"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
+      <span class="absolute inset-0 hidden place-items-center text-2xl font-extrabold text-white/90 bg-gradient-to-br from-brand-400 to-brand-600">${INITIALS}</span>
+    `;
+  }
+})();
+
+/* ============================================================
+   1. CUSTOM CURSOR
+   ============================================================ */
+(function customCursor() {
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const PALETTE = ['#F04E0A','#2563EB','#059669','#7C3AED','#DB2777','#0891B2','#D97706'];
+  let color = sessionStorage.getItem('cursor-color');
+  if (!color) {
+    color = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+    sessionStorage.setItem('cursor-color', color);
+  }
+  document.documentElement.style.setProperty('--cursor-color', color);
+
+  const el = document.getElementById('cursorEl');
+  const label = document.getElementById('cursorLabel');
+  const name = sessionStorage.getItem('cursor-label') || 'Guest';
+  label.textContent = name;
+
+  document.body.classList.add('custom-cursor');
+
+  let mx = -200, my = -200, cx = -200, cy = -200, raf = null;
+  function loop() {
+    cx += (mx - cx) * 0.35;
+    cy += (my - cy) * 0.35;
+    el.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
+    raf = requestAnimationFrame(loop);
+  }
+  window.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    if (!raf) loop();
+  }, { passive: true });
+
+  document.addEventListener('mouseover', e => {
+    const t = e.target.closest('a, button, [role="button"], .project-card, .credential-btn, input, textarea, select');
+    el.classList.toggle('is-hover', !!t);
+    const formField = e.target.closest('input, textarea, select');
+    el.style.opacity = formField ? '0' : '1';
+  });
+  document.addEventListener('mousedown', () => el.classList.add('is-down'));
+  document.addEventListener('mouseup', () => el.classList.remove('is-down'));
+  document.addEventListener('mouseleave', () => { el.style.opacity = '0'; });
+  document.addEventListener('mouseenter', () => { el.style.opacity = '1'; });
+})();
+
+/* ============================================================
+   2. DATA — TOOL ICONS
+   ============================================================ */
+const LARAGON_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <defs>
+      <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#4EA5E0"/>
+        <stop offset="100%" stop-color="#1871B8"/>
+      </linearGradient>
+    </defs>
+    <rect width="24" height="24" rx="6" fill="url(#lg)"/>
+    <path d="M7.5 5v9.5h9v-2.5h-6.3V5H7.5z" fill="#ffffff"/>
+    <circle cx="17.5" cy="17.5" r="2.2" fill="#7ED957"/>
+  </svg>`
+);
+
+const VSCODE_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path fill="#007ACC" d="M23.15 2.587 18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/>
+  </svg>`
+);
+
+const TEAMS_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <rect width="24" height="24" rx="5" fill="#4B53BC"/>
+    <circle cx="19.5" cy="5.5" r="1.6" fill="#7B83EB"/>
+    <rect x="13" y="3.5" width="6.5" height="6.5" rx="1.6" fill="#7B83EB"/>
+    <path fill="#ffffff" d="M4 8.5h10.5v2.7h-3.6v6.3H8.2v-6.3H4V8.5Z"/>
+  </svg>`
+);
+
+const EXCEL_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <rect width="24" height="24" rx="4" fill="#217346"/>
+    <path stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" fill="none" d="M7.5 7.5 16.5 16.5M16.5 7.5 7.5 16.5"/>
+  </svg>`
+);
+
+const TOOLS = [
+  { n: 'Figma',      slug: 'figma',            color: 'F24E1E' },
+  { n: 'FigJam',     slug: 'figma',            color: 'A259FF' },
+  { n: 'Tailwind CSS',   slug: 'tailwindcss',      color: '38BDF8' },
+  { n: 'Laravel',    slug: 'laravel',          color: 'FF2D20' },
+  { n: 'Next.js',    slug: 'nextdotjs',        color: '0B1220' },
+  { n: 'Supabase',   slug: 'supabase',         color: '3ECF8E' },
+  { n: 'Laragon',    svgData: LARAGON_SVG,     color: '2C90E0' },
+  { n: 'MySQL',      slug: 'mysql',            color: '4479A1' },
+  { n: 'Visual Studio Code', svgData: VSCODE_SVG, color: '007ACC' },
+  { n: 'GitHub',     slug: 'github',           color: '181717' },
+  { n: 'AnyDesk',    slug: 'anydesk',          color: 'EF3E36' },
+  { n: 'Notion',     slug: 'notion',           color: '000000' },
+  { n: 'Jira',       slug: 'jira',             color: '0052CC' },
+  { n: 'Trello',     slug: 'trello',           color: '0052CC' },
+  { n: 'ClickUp',    slug: 'clickup',          color: '7B68EE' },
+  { n: 'Discord',    slug: 'discord',          color: '5865F2' }
+];
+
+const STACK_EXTRAS = [
+  { n: 'HTML',           slug: 'html5',      color: 'E34F26' },
+  { n: 'CSS',            slug: 'css3',       color: '1572B6' },
+  { n: 'JavaScript',     slug: 'javascript', color: 'F7DF1E' },
+  { n: 'PHP',            slug: 'php',        color: '777BB4' },
+  { n: 'Java',           slug: 'openjdk',    color: '437291' },
+  { n: 'Visual Studio',  slug: null,         color: '5C2D91', letter: 'VS' }
+];
+
+function findTool(name) {
+  return TOOLS.find(t => t.n === name) || STACK_EXTRAS.find(t => t.n === name);
+}
+
+/* ============================================================
+   PROJECTS
+   ------------------------------------------------------------
+   UI/UX entries accept an optional `cover` — the image shown on
+   the card. If `cover` is empty it falls back to `image`.
+   Paste your cover URL like:  cover: 'https://i.postimg.cc/....png'
+   ============================================================ */
+const PROJECTS = [
+  { t:'Manhattan Home Design - New Version', c:'uiux', y:'2025', d:'A UI/UX design concept for Manhattan Home Design, focused on creating an elegant, modern, and user-friendly landing page that showcases interior design services, highlights visual aesthetics, and provides a seamless browsing experience.', tags:['Auto Layout','Design System','Landing Page'], tool:'Figma & Figjam', image:'https://i.postimg.cc/Qxq56M3r/MHD-Home-Landing-Page.png', cover:'https://i.postimg.cc/0jq7bM7L/Cover1.png' },
+  { t:'Prime Lending Solutions',      c:'uiux', y:'2025', d:'A UI/UX design concept for Prime Lending Solution, focused on creating a professional, trustworthy, and user-friendly landing page that presents lending services clearly and helps users easily explore loan options and submit inquiries.', tags:['UX Research','Auto Layout','Landing Page'], tool:'Figma', image:'https://i.postimg.cc/442Rp6Y1/Frame-2087329329.png', cover:'https://i.postimg.cc/BQzQpWV3/Cover2-0.png' },
+  { t:'Wesco Skate Community',        c:'uiux', y:'2025', d:'Wescko Skate Community is designed to bring skaters together through a bold, street-inspired website that highlights skate culture, community events, and the passion for skateboarding, while giving visitors a feel for the local skate scene.', tags:['Research','Design Syste Page','Wireframing'], tool:'Figma', image:'https://i.postimg.cc/R0wnHCGw/Wesco-Skateboard.png', cover:'https://i.postimg.cc/dVdv9hdP/Cover1.png' },
+  { t:'Solea luxury Jewelry',         c:'uiux', y:'2025', d:'Solea Luxury Jewelry showcases elegant jewelry pieces through a clean and luxurious design, highlighting each collection’s beauty and craftsmanship while giving customers a refined and seamless browsing experience.', tags:['Mobile','Desktop','Conversion','UX Research'], tool:'Figma', image:'https://i.postimg.cc/fLj2BNW5/Solea.png', cover:'https://i.postimg.cc/Kzc2FQHN/Cover2.png' },
+  { t:'Manhattan Home Design',        c:'uiux', y:'2025', d:'Manhattan Home Design presents a modern approach to interior design, featuring stylish living spaces, carefully selected furniture, and inspiring home concepts that help clients envision their dream interiors.', tags:['Auto Layout','Design System','Landing Page'], tool:'Figma & FigJam', image:'https://i.postimg.cc/CM2DX2ZD/Frame-2087329103.png', cover:'https://i.postimg.cc/gjnbLjdg/Cover.png' },
+  { t:'FitLife Gym Fitness - Version 2', c:'uiux', y:'2024', d:'FitLife Gym brings fitness to life with a bold, energetic design that highlights workout programs, gym facilities, and membership options, making it easier for people to find their motivation and start their fitness journey.', tags:['UX Research','Wireframing','Landing Page','Auto Layout'], tool:'Figma', image:'https://i.postimg.cc/CLmxqpwn/Fit-Life-Gym-Landing-Page.png', cover:'https://i.postimg.cc/N0gVrFkG/Screenshot-2026-10-11-182314.png' },
+  { t:'Quishas Kitchenette Restaurant', c:'uiux', y:'2024', d:'Quishas Kitchenette showcases delicious meals and a welcoming dining experience through a warm, inviting design that highlights the menu, food selections, and restaurant details, making it easy for customers to discover what’s on the table.', tags:['Mobile','Desktop','Auto Layout','Usability Testing'], tool:'Figma', image:'https://i.postimg.cc/Kj4Z2QH6/Qui.png', cover:'https://i.postimg.cc/fymnfFtx/Cover3.png' },
+  { t:'Trident Vintage Wear',         c:'uiux', y:'2023', d:'Trident Vintage Wear brings timeless streetwear and retro fashion together, showcasing vintage-inspired clothing with a bold style that appeals to those who want to express their personality through unique and classic outfits.', tags:['Branding','Landing Page'], tool:'Figma', image:'https://i.postimg.cc/fysr7bxY/sasasa.png', cover:'https://i.postimg.cc/mD10TqSJ/Cover4.png' },
+  { t:'FitLife Gym Fitness - Version 1', c:'uiux', y:'2024', d:'FitLife Gym features a clean and motivating landing page that introduces the gym, showcases its workout facilities and fitness programs, and encourages people to take the first step toward a healthier lifestyle.', tags:['Auto Layout','Branding'], tool:'Figma', image:'https://i.postimg.cc/R0wnHCGw/Wesco-Skateboard.png', cover:'https://i.postimg.cc/dVdv9hdP/Cover1.png' },
+  { t:'Block Chain',                  c:'uiux', y:'2023', d:'The Blockchain project focuses on using decentralized technology to provide secure, transparent, and reliable digital transactions, with an emphasis on data integrity and trust between users.', tags:['Futuristic','Landing Page','Branding'], tool:'Figma', image:'https://i.postimg.cc/8cnLpKPd/BLOCKCHAIN-LANDING-PAGE-VERSION-2.png', cover:'https://i.postimg.cc/fyTmc4g1/Screenshot-2026-10-11-183355.png' },
+  { t:'Jumping Tickets',              c:'uiux', y:'2022', d:'Jumping Tickets is a gaming-focused landing page that showcases innovative gaming devices, introduces the team behind the brand, and lets visitors explore products designed to make gaming more immersive and enjoyable.', tags:['Game','Entertainment','Branding'], tool:'Figma', image:'https://i.postimg.cc/k59Rm3Fb/tab.png', cover:'https://i.postimg.cc/rFRzvFWs/Screenshot-2026-10-11-183851.png' },
+  { t:'Chain Glass Aluminum',         c:'uiux', y:'2022', d:'Chain Glass is a corporate website designed to showcase glass and aluminum products, highlight completed projects, and connect with contractors, distributors, and clients looking for reliable glass and aluminum solutions.', tags:['UI/UX Design','Glass & Aluminum','Web Design','B2B Business','Industrial Branding'], tool:'Figma', image:'https://i.postimg.cc/MGdHJcG6/c.png', cover:'https://i.postimg.cc/cLM1SKJ3/c-OVER6.png' },
+
+  /* ── WEB DEVELOPMENT (unchanged) ─────────────────────────── */
+  { t:'NFC Cards Web System', c:'web', y:'2025', d:'The NFC Card Web System allows users to order NFC cards and manage or customize their digital business cards independently, without needing admin permission. It offers a convenient, flexible, and paperless way to share contact details and social media links with just one tap.', tags:['Tailwind CSS','Laravel','Supabase','Laragon - MySQL','Github','Hostinger'], tool:'Visual Studio Code', url:'https://justatap.online/' },
+  { t:'Apexed Automation System', c:'web', y:'2025', d:'Apexed Automation System is designed to streamline business operations by automating repetitive tasks, improving workflow efficiency, and simplifying daily processes.', tags:['Next.js','Laravel','Supabase','Tailwind CSS','Laragon - MySQL','Github','DeepSeek','CloudFlare'], tool:'Visual Studio Code', url:'https://apexed.online/' },
+  { t:'Parang Beach Resort Website', c:'web', y:'2024', d:'Parang Beach Resort Website is designed to showcase the resort’s amenities, accommodations, and services, allowing visitors to explore the destination, discover available facilities, and easily inquire about bookings for a relaxing getaway.', tags:['WordPress','Custom Code','Bluehost'], tool:'Visual Studio Code', url:'https://parangbeachresort.com/' }
+];
+
+const GRADS = [
+  'linear-gradient(135deg,#FFE7D6,#FFCFA9)',
+  'linear-gradient(135deg,#DCE7FF,#C1D3FF)',
+  'linear-gradient(135deg,#D9F5E6,#BCEAD1)',
+  'linear-gradient(135deg,#EDE0FF,#DAC4FF)',
+  'linear-gradient(135deg,#FFE0EC,#FFC4DA)',
+  'linear-gradient(135deg,#DDF3FB,#BCE6F5)'
+];
+
+const SERVICES = [
+  { n:'01', t:'UI/UX Design', ico:'pen', d:'Interface design, user flows and design systems that make complex products feel simple.', chips:['Wireframing','Prototyping','Design Systems','Usability'] },
+  { n:'02', t:'Web Development', ico:'code', d:'Turning designs and requirements into responsive, functional websites and web systems.', chips:['Next.js','Laravel','Tailwind CSS','Supabase'] },
+  { n:'03', t:'Application & Software Support', ico:'app', d:'First-line technical assistance for business-critical applications used every day.', chips:['Duck Creek','Genesys','Claim Center','MS Teams'] },
+  { n:'04', t:'Laptop & Device Troubleshooting', ico:'laptop', d:'Diagnosing hardware and operating system issues that stop employees from working.', chips:['Boot issues','OS errors','Updates','Diagnostics'] },
+  { n:'05', t:'Network Troubleshooting', ico:'wifi', d:'Investigating connectivity problems that block access to applications and internal resources.', chips:['LAN','Wi-Fi','Stability','Diagnostics'] }
+];
+
+const PROCESS = [
+  { t:'Discover', d:'Understand the goal, the users and the constraints before anything is designed.' },
+  { t:'Design',   d:'Wireframes, flows and high-fidelity UI — validated early, not after build.' },
+  { t:'Develop',  d:'Clean, responsive implementation with accessible, maintainable code.' },
+  { t:'Support',  d:'Launch, monitor, troubleshoot and iterate based on real usage.' }
+];
+
+const SHOWCASE = [
+  { t:'NFC Cards Web System', y:'2025', d:'The NFC Card Web System allows users to order NFC cards and manage or customize their digital business cards independently, without needing admin permission. It offers a convenient, flexible, and paperless way to share contact details and social media links with just one tap.', stack:['Tailwind CSS','Laravel','Supabase','Laragon - MySQL','Github','Hostinger'], features:['User Ordering System','Profile Builder','Admin Dashboard','Super Admin Management','Corporate Management'] },
+  { t:'Apexed Automation System', y:'2025', d:'Apexed Automation System is designed to streamline business operations by automating repetitive tasks, improving workflow efficiency, and simplifying daily processes.', stack:['Next.js','Laravel','Supabase','Tailwind CSS','Laragon - MySQL','Github','DeepSeek','CloudFlare'], features:['Automated Social Media Posting','Business-Specific AI Training','Smart Calendar Automation','AI-Powered POS Management','Social Media Trend Monitoring','Integrated IFIX AI Assistant'] },
+  { t:'Parang Beach Resort Website', y:'2025', d:'Parang Beach Resort Website is designed to showcase the resort’s amenities, accommodations, and services, allowing visitors to explore the destination, discover available facilities, and easily inquire about bookings for a relaxing getaway.', stack:['WordPress','Custom Code','Bluehost'], features:['Resort Gallery','Accommodation Details','Booking Inquiries','Amenities and Services','Contact Information','Responsive Design'] }
+];
+
+const IT_SUPPORT = [
+  { n:'01', t:'Application & Software Support', ico:'app', d:'First-line technical assistance for business-critical applications, helping users resolve software issues and maintain smooth day-to-day operations.', items:['Password resets & access issues','Application errors & crashes','Installation & configuration','User guidance & escalation'] },
+  { n:'02', t:'Laptop & Device Troubleshooting', ico:'laptop', d:'Diagnosing and resolving hardware and operating system issues affecting employee laptops and devices.', items:['Power & startup problems','Restart and boot-related issues','Software update failures','OS and system-level errors','General device diagnostics'] },
+  { n:'03', t:'Network Troubleshooting', ico:'wifi', d:'Investigating network and connectivity problems that prevent access to applications, internal resources and essential business systems.', items:['Local Area Network (LAN) problems','Wi-Fi connectivity issues','Network access failures','Connection stability checks','Basic connectivity diagnostics'] }
+];
+
+const APPS = ['Claim Center','Duck Creek','Genesys','WPC App','Microsoft Excel','Microsoft Teams','AnyDesk'];
+
+/* ============================================================
+   TESTIMONIALS — supports both `avatar` (photo URL) and initials fallback.
+   Set avatar:'' to show initials, or paste an image URL to show the client's photo.
+   ============================================================ */
+const TESTIMONIALS = [
+  {
+    q:'Tim did an excellent job creating my FitLife Gym landing page. The design is modern, professional, and perfectly captures the energy of my fitness brand. I am very satisfied with the results and appreciate his dedication to bringing my vision to life!',
+    n:'Georges Ranou', r:'CEO of PROGISUD',
+    tags:['Wireframing','UI/UX Design'],
+    i:'GR', accent:'#6366F1',
+    avatar:'https://i.postimg.cc/RZphj58F/Georges.jpg',
+    url:'https://i.postimg.cc/CLmxqpwn/Fit-Life-Gym-Landing-Page.png',
+    image:'https://i.postimg.cc/CLmxqpwn/Fit-Life-Gym-Landing-Page.png'
+  },
+  {
+    q:'Working with Tim Josh on the Just A Tap NFC Card Web System was a great experience. They helped bring our idea to life by developing a digital solution that makes sharing business contact information more convenient, modern, and accessible. The project reflects the value of combining technology with practical business needs. I appreciate the effort and dedication put into making Just A Tap a reality, and I look forward to seeing it grow.',
+    n:'JP Patricio', r:'Founder & CEO',
+    tags:['UI/UX Design','Web Development','System Maintenance'],
+    i:'JP', accent:'#FF6B2C',
+    avatar:'https://i.postimg.cc/xCv0jWsT/JP.png',
+    url:'https://justatap.online/',
+    image:'https://justatap.online/'
+  },
+  {
+    q:'Tim Josh did a great job developing the Just A Tap web system. The result is a modern and convenient platform that makes sharing business information easier. Thank you for bringing our idea to life!',
+    n:'JA Patricio', r:'Project Manager',
+    tags:['UI/UX Design','Web Development','System Maintenance'],
+    i:'JA', accent:'#6366F1',
+    avatar:'https://i.postimg.cc/CM4F3pBQ/JA.jpg',
+    url:'https://justatap.online/',
+    image:'https://justatap.online/'
+  },
+  {
+    q:'Thanks Tim, thanks for sharing your talent and creativity ang ganda ng website.',
+    n:'Francis Cacha', r:'CEO of Tamaraw Technohub Inc.',
+    tags:['UI/UX Design','Website Development','Wireframing'],
+    i:'FC', accent:'#10B981',
+    avatar:'https://i.postimg.cc/tCS9gdzJ/Franccis-Cacha.jpg',
+    url:'https://parangbeachresort.com/',
+    image:'https://parangbeachresort.com/'
+  }
+];
+
+const CREDENTIALS = [
+  { issuer:'Ollopa Corporation', year:'2024', title:'Certificate of Completion', desc:'Completed corporate training program issued by Ollopa Corporation.', accent:'#FF6B2C', badge:'Training', image:'https://i.postimg.cc/zGg41Ttc/6273696040104347164.jpg' },
+  { issuer:'Elephant in the Boardroom', year:'2025', title:'Web Design & Development Internship Certificate', desc:'Internship certificate for web design and development, issued by Elephant in the Boardroom.', accent:'#6366F1', badge:'Internship', image:'https://i.postimg.cc/5NjZnhw9/6273696040104347162.jpg' },
+  { issuer:'BCRV TECHVOC INC & TESDA', year:'2024', title:'Certificate of Training — Java NCIII', desc:'Completed Java NCIII training program as a Top 2 Performer and Skilled Programmer.', accent:'#10B981', badge:'Top 2 Performer', highlight:true, image:'https://i.postimg.cc/mkg0xqK4/JAVA-PROGRAMMING.jpg' }
+];
+
+const WORK = [
+  { role:'Web Developer', type:'Client-based', mode:'Remote / Part-time', period:'Sept 2026 — Present', now:true, accent:'#FF6B2C', ico:'<path d="m8 8-4 4 4 4m8-8 4 4-4 4M14 5l-4 14"/>' },
+  { role:'Back Office', type:'EXL', mode:'Onsite / Full-time', period:'Feb 2026 — Present', now:true, accent:'#6366F1', ico:'<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 1.8"/>' },
+  { role:'UI/UX Designer', type:'CODR', mode:'Remote / Full-time', period:'Aug 2025 — Jan 2026', accent:'#0EA5E9', ico:'<path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5Z"/>' },
+  { role:'Freelance UI/UX Designer', type:'Freelance', mode:'Onsite & Remote', period:'2022 — 2024', accent:'#10B981', ico:'<rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8.5 7V5.5A2.5 2.5 0 0 1 11 3h2a2.5 2.5 0 0 1 2.5 2.5V7"/>' }
+];
+
+const PRINCIPLES = [
+  'Clarity — concise descriptions and descriptive headings',
+  'Consistency — one visual system across all specialties',
+  'Accessibility — readable type, strong contrast, clear controls',
+  'Responsiveness — optimised for desktop, tablet and mobile',
+  'Visual hierarchy — the right emphasis on the right things',
+  'Progressive disclosure — key info first, depth on demand'
+];
+
+const STACK = ['Figma','FigJam','HTML','Tailwind CSS','JavaScript','PHP','Java','Next.js','Laravel','MySQL','Supabase','Laragon','GitHub','Visual Studio Code','Visual Studio','Trello','Jira','Notion','ClickUp','Discord'];
+
+const FAQS = [
+  { q:'What services do you offer?', a:'Three complementary areas: UI/UX design (interfaces, flows, design systems), web development (responsive websites and web systems), and IT support (application, device and network troubleshooting).' },
+  { q:'How long does a typical project take?', a:'A focused UI/UX design engagement usually takes 1–3 weeks. A small web system typically runs 4–8 weeks depending on scope, integrations and feedback cycles.' },
+  { q:'Do you work with non-technical clients?', a:'Absolutely. Most of my work is with people who know their business deeply but not the technology. I keep the process transparent and explain decisions in plain language.' },
+  { q:'What tools do you design in?', a:'Figma and FigJam are my primary tools, with Estitch.ai used for rapid exploration and AI-assisted concept generation.' },
+  { q:'Can you both design and build the project?', a:'Yes — that\'s the advantage of working with me. The design you approve is the design that gets built, with no translation loss between teams.' },
+  { q:'Do you offer ongoing support after launch?', a:'Yes. I offer post-launch support for bug fixes, small enhancements and user assistance, either on retainer or per request.' },
+  { q:'Are you available for full-time roles?', a:'I\'m open to both freelance projects and full-time positions, including hybrid or remote arrangements.' },
+  { q:'How do we get started?', a:'Send a message through the contact form with a short description of your project. I\'ll reply within 24 hours to schedule a free discovery call.' }
+];
+
+/* ============================================================
+   3. ICONS + UTILS
+   ============================================================ */
+const ICONS = {
+  pen:    '<path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5Z"/>',
+  code:   '<path d="m8 8-4 4 4 4m8-8 4 4-4 4M14 5l-4 14"/>',
+  app:    '<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M7 13h5"/>',
+  laptop: '<rect x="4" y="5" width="16" height="11" rx="2"/><path d="M2 19h20"/>',
+  wifi:   '<path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1.2" fill="currentColor" stroke="none"/>'
+};
+function svg(name, cls = 'h-[18px] w-[18px]') {
+  return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${ICONS[name] || ''}</svg>`;
+}
+
+function toolIcon(t) {
+  if (t.svgData) {
+    return `<span class="tool-icon-wrap"><img src="${t.svgData}" alt="${t.n}" loading="lazy" /></span>`;
+  }
+  if (t.slug) {
+    return `<span class="tool-icon-wrap"><img src="https://cdn.simpleicons.org/${t.slug}/${t.color}" alt="${t.n}" loading="lazy" /></span>`;
+  }
+  const letter = t.letter || t.n.slice(0, 1);
+  const size = letter.length > 1 ? '7.5px' : '10px';
+  return `<span class="tool-icon-wrap"><span style="color:#${t.color}; font-size:${size}; font-weight:900; line-height:1; letter-spacing:-.02em;">${letter}</span></span>`;
+}
+
+/* Testimonial avatar renderer — image if `avatar` is set, otherwise initials */
+function testiAvatar(t, size = 'h-11 w-11', textSize = 'text-[12px]', radius = 'rounded-2xl') {
+  if (t.avatar && t.avatar.trim()) {
+    return `<span class="relative shrink-0 overflow-hidden ${radius} shadow-sm ${size}" style="background:${t.accent}">
+      <img src="${t.avatar}" alt="${t.n}" class="h-full w-full object-cover" loading="lazy"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
+      <span class="absolute inset-0 hidden place-items-center font-extrabold text-white ${textSize}" style="background:${t.accent}">${t.i}</span>
+    </span>`;
+  }
+  return `<span class="grid shrink-0 place-items-center ${radius} font-extrabold text-white shadow-sm ${size} ${textSize}" style="background:${t.accent}">${t.i}</span>`;
+}
+
+/* ============================================================
+   4. TOOLS MARQUEE
+   ============================================================ */
+(function renderTools() {
+  const track = document.getElementById('toolTrack');
+  const pill = t => `
+    <span class="flex shrink-0 items-center gap-2 rounded-full border border-line/10 bg-card px-3 py-1.5 text-[11px] font-bold text-ink/85 shadow-sm">
+      ${toolIcon(t)} ${t.n}
+    </span>`;
+  track.innerHTML = TOOLS.map(pill).join('') + TOOLS.map(pill).join('');
+})();
+
+/* ============================================================
+   5. VERTICAL CAROUSELS
+   ============================================================ */
+function renderProjectCarousel() {
+  const track = document.getElementById('projectCarousel');
+  const picks = PROJECTS.slice(0, 8);
+  const slide = (p, i) => `
+    <div class="shrink-0 px-1 pb-2">
+      <div class="flex items-center gap-3 rounded-2xl border border-line/10 bg-card/70 p-2.5 shadow-sm">
+        <div class="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl mock-grad" style="background:${GRADS[i % GRADS.length]}">
+          ${p.image
+            ? `<img src="${p.image}" alt="${p.t}" class="h-full w-full object-cover" loading="lazy"/>`
+            : `<div class="absolute inset-2 rounded-lg bg-white/85 shadow-inner">
+                 <div class="mx-1.5 mt-1 h-1 w-2/3 rounded-full bg-ink/15"></div>
+                 <div class="mx-1.5 mt-1 h-1 w-1/2 rounded-full bg-ink/10"></div>
+                 <div class="mx-1.5 mt-1 h-3 rounded-sm bg-brand-100"></div>
+               </div>`}
+        </div>
+        <div class="min-w-0 flex-1">
+          <p class="truncate text-[12px] font-extrabold text-ink">${p.t}</p>
+          <p class="mt-0.5 text-[10px] font-bold uppercase tracking-wider text-muted">${p.c === 'uiux' ? 'UI/UX' : 'Web'} · ${p.y}</p>
+        </div>
+        <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-canvas text-muted">
+          <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </span>
+      </div>
+    </div>`;
+  const html = picks.map((p, i) => slide(p, i)).join('');
+  track.innerHTML = html + html;
+}
+
+function renderTestiCarousel() {
+  const track = document.getElementById('testiCarousel');
+  const slide = t => `
+    <div class="shrink-0 px-1 pb-2">
+      <div class="rounded-2xl border border-line/10 bg-card/70 p-3.5 shadow-sm">
+        <div class="flex items-center gap-2.5">
+          ${testiAvatar(t, 'h-8 w-8', 'text-[10px]', 'rounded-xl')}
+          <div class="min-w-0 flex-1">
+            <p class="truncate text-[11.5px] font-extrabold text-ink">${t.n}</p>
+            <p class="truncate text-[10px] font-semibold text-muted">${t.r}</p>
+          </div>
+          <span class="testi-quote shrink-0" style="--t-accent:${t.accent}">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+          </span>
+        </div>
+        <p class="mt-2.5 line-clamp-3 text-[11.5px] leading-relaxed text-ink/85">${t.q}</p>
+        <div class="mt-2 flex flex-wrap gap-1">
+          ${t.tags.slice(0,2).map(tag => `<span class="rounded-md bg-canvas px-1.5 py-0.5 text-[9px] font-bold text-muted">${tag}</span>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  const html = TESTIMONIALS.map(slide).join('');
+  track.innerHTML = html + html;
+}
+
+/* ============================================================
+   6. WORK + CREDENTIALS + MINI SERVICES
+   ============================================================ */
+(function renderMini() {
+  document.getElementById('miniServices').innerHTML = SERVICES.map(s => `
+    <li class="flex items-center justify-between gap-3 py-2.5">
+      <span class="flex items-center gap-2.5 text-[13px] font-bold text-ink/85">
+        <span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>${s.t}
+      </span>
+      <span class="text-[11px] font-extrabold text-ink/30">${s.n}</span>
+    </li>`).join('');
+
+  document.getElementById('workList').innerHTML = WORK.map(w => `
+    <li>
+      <div class="work-ticket" data-active="${w.now ? 'true' : 'false'}">
+        <span class="wt-icon" style="background:${w.accent}">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${w.ico}</svg>
+        </span>
+        <div class="wt-body">
+          <div class="wt-head">
+            <div class="wt-titles">
+              <span class="wt-role">${w.role}</span>
+              ${w.now ? `<span class="wt-badge"><span class="h-1 w-1 rounded-full bg-emerald-500"></span>Active</span>` : ''}
+            </div>
+            <span class="wt-period">${w.period}</span>
+          </div>
+          <p class="wt-meta"><span class="wt-type">${w.type}</span> · ${w.mode}</p>
+        </div>
+      </div>
+    </li>`).join('');
+
+  document.getElementById('credentialsList').innerHTML = CREDENTIALS.map((c, i) => `
+    <li>
+      <button type="button"
+        class="credential-btn group/c flex w-full items-start gap-3 rounded-2xl border border-line/10 bg-canvas/70 p-3.5 text-left transition-all duration-400 hover:-translate-y-0.5"
+        data-credential="${i}"
+        aria-label="View certificate: ${c.title}">
+        <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl text-white shadow-sm transition-transform duration-400 group-hover/c:scale-105"
+              style="background:${c.accent}">
+          ${c.highlight
+            ? '<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2l.9-5.5-4-3.9L9.5 8 12 3Z"/></svg>'
+            : '<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="m8.5 14-1.5 7 5-2.6 5 2.6-1.5-7"/></svg>'}
+        </span>
+        <span class="min-w-0 flex-1">
+          <span class="flex items-start justify-between gap-2">
+            <span class="text-[12.5px] font-extrabold leading-snug text-ink">${c.title}</span>
+            <span class="shrink-0 text-[10px] font-extrabold text-muted">${c.year}</span>
+          </span>
+          <span class="mt-0.5 block text-[11px] font-bold" style="color:${c.accent}">${c.issuer}</span>
+          <span class="mt-1 block text-[11.5px] leading-relaxed text-muted">${c.desc}</span>
+          <span class="mt-2 inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-brand-600 opacity-0 transition-opacity duration-300 group-hover/c:opacity-100">
+            Tap to view certificate
+            <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </span>
+        </span>
+      </button>
+    </li>`).join('');
+})();
+
+/* ============================================================
+   7. PROJECT CARDS
+   ============================================================ */
+function projectCard(p, i) {
+  return p.c === 'web' ? webProjectCard(p, i) : uiuxProjectCard(p, i);
+}
+
+/* ── UI/UX CASE-STUDY CARD ─────────────────────────────────── */
+function uiuxProjectCard(p, i) {
+  const coverSrc = (p.cover && p.cover.trim()) || p.image || '';
+
+  const cover = coverSrc
+    ? `<img src="${coverSrc}" alt="${p.t} — cover" loading="lazy"
+            onerror="this.style.opacity='0';" />`
+    : `<div class="absolute inset-0 grid place-items-center text-muted">
+         <svg class="h-7 w-7 opacity-40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+           <rect x="3" y="4" width="18" height="16" rx="2.5"/>
+           <circle cx="8.5" cy="9.5" r="1.8"/>
+           <path d="m21 16-5-5-9 9"/>
+         </svg>
+       </div>`;
+
+  const fullDesign = p.image
+    ? `<a href="${p.image}" target="_blank" rel="noopener noreferrer" data-view-full
+          class="group/link inline-flex shrink-0 items-center gap-1 text-[11px] font-extrabold text-ink/70 transition-colors duration-300 hover:text-brand-600">
+         View full design
+         <svg class="h-3 w-3 transition-transform duration-300 group-hover/link:translate-x-0.5"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+              stroke-linecap="round" stroke-linejoin="round">
+           <path d="M5 12h14m-6-6 6 6-6 6"/>
+         </svg>
+       </a>`
+    : '';
+
+  return `
+  <article class="project-card group flex flex-col" data-project="${p.t}" tabindex="0"
+           role="button" aria-label="${p.t} — open case study preview">
+
+    <!-- COVER IMAGE -->
+    <div class="uiux-cover">
+      ${cover}
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/0 to-black/30"></div>
+      <div class="absolute inset-x-4 top-4 flex items-center justify-between text-[10px] font-extrabold uppercase tracking-[0.15em] text-white">
+        <span>UI/UX Design</span>
+        <span class="text-white/80">${p.y}</span>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="uiux-body">
+      <h3 class="text-[16px] font-extrabold leading-snug tracking-tight transition-colors duration-300 group-hover:text-brand-600">
+        ${p.t}
+      </h3>
+      <p class="mt-2 line-clamp-2 text-[12.5px] leading-relaxed text-muted">${p.d}</p>
+
+      <div class="mt-3.5 flex flex-wrap gap-1.5">
+        ${p.tags.slice(0, 3).map(t => `<span class="rounded-md bg-canvas px-2 py-1 text-[10px] font-bold text-muted">${t}</span>`).join('')}
+      </div>
+
+      <div class="mt-auto pt-4">
+        <div class="flex items-center justify-between gap-3 border-t border-line/10 pt-3.5">
+          <span class="truncate text-[11px] font-semibold text-muted">${p.tool}</span>
+          ${fullDesign}
+        </div>
+      </div>
+    </div>
+  </article>`;
+}
+
+/* ── WEB DEVELOPMENT CARD (original design, untouched) ─────── */
+function webProjectCard(p, i) {
+  const cover = p.image
+    ? `<img src="${p.image}" alt="${p.t}" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy"/>`
+    : `<div class="absolute inset-x-5 bottom-0 top-7 rounded-t-2xl bg-white/95 p-3.5 shadow-xl transition-transform duration-500 group-hover:-translate-y-1.5">
+         <div class="flex items-center gap-1.5">
+           <span class="h-1.5 w-1.5 rounded-full bg-ink/15"></span>
+           <span class="h-1.5 w-1.5 rounded-full bg-ink/15"></span>
+           <span class="h-1.5 w-1.5 rounded-full bg-ink/15"></span>
+         </div>
+         <div class="mt-3 space-y-1.5">
+           <div class="h-1.5 w-2/3 rounded-full bg-ink/12"></div>
+           <div class="h-1.5 w-1/2 rounded-full bg-ink/8"></div>
+         </div>
+         <div class="mt-3 grid grid-cols-3 gap-1.5">
+           <div class="h-9 rounded-lg bg-brand-100"></div>
+           <div class="h-9 rounded-lg bg-ink/5"></div>
+           <div class="h-9 rounded-lg bg-ink/5"></div>
+         </div>
+       </div>`;
+
+  return `
+  <article class="project-card group" data-project="${p.t}" tabindex="0" role="button"
+           aria-label="${p.t} — open live site">
+    <div class="relative aspect-[4/3] overflow-hidden mock-grad" style="background:${GRADS[i % GRADS.length]}">
+      ${cover}
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-400 group-hover:opacity-100"></div>
+      <span class="absolute right-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-extrabold text-white backdrop-blur">
+        Web Dev
+      </span>
+      <span class="pointer-events-none absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 text-ink opacity-0 shadow-lg transition-all duration-400 group-hover:opacity-100 group-hover:scale-100 scale-75">
+        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4 9 15M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>
+      </span>
+    </div>
+
+    <div class="p-4">
+      <div class="flex items-start justify-between gap-3">
+        <h3 class="text-[15px] font-extrabold leading-snug tracking-tight transition-colors duration-300 group-hover:text-brand-600">${p.t}</h3>
+        <span class="shrink-0 text-[11px] font-bold text-muted">${p.y}</span>
+      </div>
+      <p class="mt-1.5 text-[12.5px] leading-relaxed text-muted">${p.d}</p>
+      <div class="mt-3 flex flex-wrap gap-1.5">
+        ${p.tags.map(t => `<span class="rounded-md bg-canvas px-2 py-1 text-[10px] font-bold text-muted">${t}</span>`).join('')}
+      </div>
+      <div class="mt-3 flex items-center justify-between border-t border-line/10 pt-3">
+        <span class="text-[11px] font-bold text-muted">Built with ${p.tool}</span>
+        <span class="grid h-7 w-7 place-items-center rounded-full bg-canvas text-muted transition-all duration-300 group-hover:bg-brand-500 group-hover:text-white">
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </span>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderProjects(filter = 'all') {
+  const grid = document.getElementById('projectGrid');
+  const list = filter === 'all' ? PROJECTS : PROJECTS.filter(p => p.c === filter);
+  grid.innerHTML = list.map((p, i) => projectCard(p, i)).join('');
+  [...grid.children].forEach((el, i) => {
+    el.style.animation = `riseIn .7s cubic-bezier(.22,1,.36,1) ${Math.min(i * 45, 620)}ms both`;
+  });
+}
+
+/* ============================================================
+   8. STATIC RENDERS
+   ============================================================ */
+(function renderStatic() {
+  document.getElementById('serviceList').innerHTML = SERVICES.map(s => `
+    <div data-anim class="group flex items-start gap-4 rounded-3xl border border-line/10 bg-card/85 p-5 shadow-soft backdrop-blur-xl transition-all duration-400 hover:-translate-y-1 hover:shadow-lift">
+      <span class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-brand-50 text-brand-500 transition-transform duration-400 group-hover:scale-105 group-hover:-rotate-3">
+        ${svg(s.ico, 'h-5 w-5')}
+      </span>
+      <div class="min-w-0 flex-1">
+        <div class="flex items-center justify-between gap-4">
+          <h3 class="text-[17px] font-extrabold tracking-tight">${s.t}</h3>
+          <span class="text-sm font-extrabold text-ink/20">${s.n}</span>
+        </div>
+        <p class="mt-1.5 text-[13px] leading-relaxed text-muted">${s.d}</p>
+        <div class="mt-3 flex flex-wrap gap-1.5">
+          ${s.chips.map(c => `<span class="rounded-full bg-canvas px-2.5 py-1 text-[10px] font-bold text-muted">${c}</span>`).join('')}
+        </div>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('processList').innerHTML = PROCESS.map((p, i) => `
+    <li class="relative flex gap-4 ${i < PROCESS.length - 1 ? 'pb-5' : ''}">
+      ${i < PROCESS.length - 1 ? '<span class="absolute left-[13px] top-7 h-full w-px bg-line/20"></span>' : ''}
+      <span class="relative z-10 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-ink text-[10px] font-extrabold text-canvas">${i + 1}</span>
+      <div>
+        <p class="text-[13px] font-extrabold text-ink">${p.t}</p>
+        <p class="mt-0.5 text-[12px] leading-relaxed text-muted">${p.d}</p>
+      </div>
+    </li>`).join('');
+
+  document.getElementById('showcaseList').innerHTML = SHOWCASE.map((s, i) => `
+    <article data-anim class="grid overflow-hidden rounded-3xl border border-line/10 bg-card/85 shadow-soft backdrop-blur-xl transition-shadow duration-400 hover:shadow-lift lg:grid-cols-2">
+      <div class="relative min-h-[240px] overflow-hidden p-6 mock-grad" style="background:${GRADS[i % GRADS.length]}">
+        <div class="absolute inset-0" style="background-image:radial-gradient(circle at 30% 20%,rgba(255,255,255,.75),transparent 50%)"></div>
+        <div class="relative h-full rounded-2xl bg-white/95 p-4 shadow-xl">
+          <div class="flex items-center gap-1.5">
+            <span class="h-1.5 w-1.5 rounded-full bg-ink/15"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-ink/15"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-ink/15"></span>
+            <span class="ml-2 h-3 flex-1 rounded-full bg-ink/5"></span>
+          </div>
+          <div class="mt-4 grid grid-cols-4 gap-3">
+            <div class="col-span-1 space-y-2">
+              <div class="h-6 rounded-lg bg-ink/8"></div>
+              <div class="h-6 rounded-lg bg-ink/5"></div>
+              <div class="h-6 rounded-lg bg-ink/5"></div>
+              <div class="h-6 rounded-lg bg-brand-100"></div>
+            </div>
+            <div class="col-span-3 space-y-2">
+              <div class="h-6 rounded-lg bg-ink/5"></div>
+              <div class="h-20 rounded-lg bg-ink/5"></div>
+              <div class="grid grid-cols-3 gap-2">
+                <div class="h-10 rounded-lg bg-brand-100"></div>
+                <div class="h-10 rounded-lg bg-ink/5"></div>
+                <div class="h-10 rounded-lg bg-ink/5"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-6">
+        <div class="flex items-center gap-2">
+          <span class="rounded-full bg-ink px-2.5 py-1 text-[10px] font-extrabold text-canvas">Web Development</span>
+          <span class="text-[11px] font-bold text-muted">${s.y}</span>
+        </div>
+        <h3 class="mt-3 text-xl font-extrabold tracking-tight">${s.t}</h3>
+        <p class="mt-2 text-[13px] leading-relaxed text-muted">${s.d}</p>
+
+        <p class="mt-5 text-[10px] font-extrabold uppercase tracking-wider text-muted">Key features</p>
+        <ul class="mt-2 grid gap-1.5 sm:grid-cols-2">
+          ${s.features.map(f => `
+            <li class="flex items-center gap-2 text-[12px] font-semibold text-ink/85">
+              <svg class="h-3.5 w-3.5 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+              ${f}
+            </li>`).join('')}
+        </ul>
+
+        <p class="mt-5 text-[10px] font-extrabold uppercase tracking-wider text-muted">Tech stack</p>
+        <div class="mt-2 flex flex-wrap gap-1.5">
+          ${s.stack.map(t => `<span class="rounded-full bg-canvas px-3 py-1 text-[10px] font-bold text-muted">${t}</span>`).join('')}
+        </div>
+      </div>
+    </article>`).join('');
+
+  document.getElementById('itSupportList').innerHTML = IT_SUPPORT.map(g => `
+    <div data-anim class="group rounded-3xl border border-line/10 bg-card/85 p-6 shadow-soft backdrop-blur-xl transition-all duration-400 hover:-translate-y-1 hover:shadow-lift">
+      <div class="flex items-center justify-between">
+        <span class="grid h-12 w-12 place-items-center rounded-2xl bg-brand-50 text-brand-500 transition-transform duration-400 group-hover:scale-105 group-hover:-rotate-3">
+          ${svg(g.ico, 'h-5 w-5')}
+        </span>
+        <span class="text-sm font-extrabold text-ink/20">${g.n}</span>
+      </div>
+      <h3 class="mt-4 text-[17px] font-extrabold tracking-tight">${g.t}</h3>
+      <p class="mt-2 text-[13px] leading-relaxed text-muted">${g.d}</p>
+      <ul class="mt-4 space-y-2 border-t border-line/10 pt-4">
+        ${g.items.map(it => `
+          <li class="flex items-start gap-2 text-[12.5px] font-semibold text-ink/85">
+            <span class="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500"></span>${it}
+          </li>`).join('')}
+      </ul>
+    </div>`).join('');
+
+  document.getElementById('appChips').innerHTML = APPS.map(a => `
+    <span class="rounded-full border border-line/10 bg-canvas px-3.5 py-2 text-[11px] font-bold text-ink/85 transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink hover:text-canvas">${a}</span>`).join('');
+
+  /* ============================================================
+     TESTIMONIAL LIST — client avatar (photo or initials) + hover overlay
+     ============================================================ */
+  document.getElementById('testimonialList').innerHTML = TESTIMONIALS.map(t => `
+    <figure data-anim class="testi-card" style="--t-accent:${t.accent}">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          ${testiAvatar(t, 'h-11 w-11', 'text-[12px]', 'rounded-2xl')}
+          <div class="min-w-0">
+            <p class="flex items-center gap-1.5 text-[13px] font-extrabold text-ink">
+              <span class="truncate">${t.n}</span>
+              <svg class="h-3.5 w-3.5 shrink-0" style="color:${t.accent}" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 14.4 4.4l3.3-.4.6 3.3L21 9.5 19.4 12.5 21 15.5l-2.7 2.2-.6 3.3-3.3-.4L12 23l-2.4-2.4-3.3.4-.6-3.3L3 15.5 4.6 12.5 3 9.5l2.7-2.2.6-3.3 3.3.4L12 2Zm-1.2 13.6 5.3-5.3-1.4-1.4-3.9 3.9-1.9-1.9-1.4 1.4 3.3 3.3Z"/></svg>
+            </p>
+            <p class="text-[11px] font-semibold text-muted truncate">${t.r}</p>
+          </div>
+        </div>
+        <span class="testi-quote shrink-0" aria-hidden="true">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+          </svg>
+        </span>
+      </div>
+      <blockquote class="mt-4 flex-1 text-[13.5px] leading-relaxed text-ink/85">${t.q}</blockquote>
+      <div class="mt-4 flex flex-wrap gap-1.5 border-t border-line/10 pt-4">
+        ${t.tags.map(tag => `<span class="rounded-md bg-canvas px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-muted">${tag}</span>`).join('')}
+      </div>
+
+      <!-- Hover overlay: blurred modal with 2 icon-only buttons -->
+      <div class="testi-overlay" aria-hidden="true">
+        <a href="${t.url}" target="_blank" rel="noopener noreferrer"
+           class="testi-action" aria-label="Visit live system" title="Visit live system">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 4h6v6"/>
+            <path d="M20 4 9 15"/>
+            <path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/>
+          </svg>
+        </a>
+        <a href="${t.image}" target="_blank" rel="noopener noreferrer"
+           class="testi-action" aria-label="View full design" title="View full design">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2.5"/>
+            <circle cx="9" cy="9" r="1.8"/>
+            <path d="m21 15-4.5-4.5L7 20"/>
+          </svg>
+        </a>
+      </div>
+    </figure>`).join('');
+
+    /* Testimonial band avatars — uses the same avatar system as the cards.
+   Shows photo if `avatar` is set, otherwise falls back to initials. */
+document.getElementById('testimonialBandAvatars').innerHTML = TESTIMONIALS.slice(0, 3).map(t => {
+  if (t.avatar && t.avatar.trim()) {
+    return `<span class="relative grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-full font-extrabold text-sm text-white ring-4 ring-ink" style="background:${t.accent}">
+      <img src="${t.avatar}" alt="${t.n}" class="h-full w-full object-cover" loading="lazy"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
+      <span class="absolute inset-0 hidden place-items-center text-sm font-extrabold text-white" style="background:${t.accent}">${t.i}</span>
+    </span>`;
+  }
+  return `<span class="grid h-11 w-11 shrink-0 place-items-center rounded-full font-extrabold text-sm text-white ring-4 ring-ink" style="background:${t.accent}">${t.i}</span>`;
+}).join('');
+
+  document.getElementById('principlesList').innerHTML = PRINCIPLES.map(p => `
+    <li class="flex items-start gap-2.5">
+      <svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+      <span>${p}</span>
+    </li>`).join('');
+
+  document.getElementById('stackChips').innerHTML = STACK.map(name => {
+    const t = findTool(name);
+    return `<span class="inline-flex items-center gap-2 rounded-full bg-canvas px-2.5 py-1.5 text-[11px] font-bold text-ink/80 transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink hover:text-canvas">
+      ${t ? toolIcon(t) : ''}<span>${name}</span>
+    </span>`;
+  }).join('');
+
+  document.getElementById('faqList').innerHTML = FAQS.map((f, i) => `
+    <div class="faq-item py-4" data-faq>
+      <button class="flex w-full items-center justify-between gap-4 text-left" aria-expanded="false" aria-controls="faq-panel-${i}">
+        <span class="faq-q text-[13.5px] font-extrabold text-ink transition-colors duration-300">${f.q}</span>
+        <span class="faq-chev grid h-7 w-7 shrink-0 place-items-center rounded-full bg-canvas text-muted transition-transform duration-400">
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </span>
+      </button>
+      <div class="faq-panel" id="faq-panel-${i}">
+        <p class="pt-3 pr-10 text-[12.5px] leading-relaxed text-muted">${f.a}</p>
+      </div>
+    </div>`).join('');
+})();
+
+/* ============================================================
+   9. THEME TOGGLE
+   ============================================================ */
+const themeBtns = document.querySelectorAll('[data-theme-btn]');
+function applyTheme(theme, animate = true) {
+  const html = document.documentElement;
+  if (animate) {
+    html.classList.add('theme-anim');
+    setTimeout(() => html.classList.remove('theme-anim'), 600);
+  }
+  if (theme === 'dark') {
+    html.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    html.classList.remove('dark');
+    localStorage.setItem('theme', 'light');
+  }
+  themeBtns.forEach(b => b.classList.toggle('is-active', b.dataset.themeBtn === theme));
+}
+themeBtns.forEach(btn => btn.addEventListener('click', () => applyTheme(btn.dataset.themeBtn)));
+applyTheme(document.documentElement.classList.contains('dark') ? 'dark' : 'light', false);
+
+/* ============================================================
+   10. LIVE CLOCK
+   ============================================================ */
+(function liveClock() {
+  const el = document.getElementById('liveClock');
+  function tick() {
+    const d = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    el.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* ============================================================
+   11. NAVIGATION
+   ============================================================ */
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+let isAnimating = false;
+
+function setActiveNav(id) {
+  document.querySelectorAll('[data-nav]').forEach(a => {
+    a.classList.toggle('is-active', a.dataset.nav === id);
+  });
+}
+function animateChildren(root) {
+  root.querySelectorAll('[data-anim]').forEach((el, i) => {
+    el.style.animation = 'none';
+    void el.offsetWidth;
+    const delay = Math.min(i * 60, 620);
+    el.style.animation = `riseIn .78s cubic-bezier(.22,1,.36,1) ${delay}ms both`;
+  });
+  runCounters(root);
+}
+function runCounters(root) {
+  root.querySelectorAll('[data-count]').forEach(el => {
+    const target = Number(el.dataset.count);
+    const dur = 1400;
+    const start = performance.now();
+    function step(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+/* ── URL SYNC ────────────────────────────────────────────── */
+function syncUrl(id) {
+  try {
+    const isHttp = location.protocol === 'http:' || location.protocol === 'https:';
+    const hash = id ? '#' + id : '';
+    if (!isHttp) {                     // file:// — hash only
+      history.replaceState(null, '', hash || location.pathname + location.search);
+      return;
+    }
+    let path = location.pathname;
+    if (/\/index\.html?$/i.test(path)) path = path.replace(/index\.html?$/i, '');
+    history.replaceState(null, '', path + location.search + hash);
+  } catch (e) { /* keep current URL if the browser refuses */ }
+}
+
+/* keep the view in sync if the user edits the hash manually / uses history */
+window.addEventListener('hashchange', () => {
+  const id = (location.hash || '').replace(/^#/, '');
+  if (id && document.querySelector(`.view[data-view="${id}"]`)) goTo(id);
+});
+
+function goTo(id) {
+  const next = document.querySelector(`.view[data-view="${id}"]`);
+  if (!next) return;
+  syncUrl(id);                 // ← keeps the address bar in sync
+  if (isAnimating) return;
+  const current = document.querySelector('.view.is-active');
+  if (current === next) { closeSidebar(); return; }
+  isAnimating = true;
+  setActiveNav(id);
+  if (current) {
+    current.style.transition = 'opacity .2s ease, transform .2s ease';
+    current.style.opacity = '0';
+    current.style.transform = 'translateY(-8px)';
+  }
+  setTimeout(() => {
+    document.querySelectorAll('.view').forEach(v => {
+      v.classList.add('hidden');
+      v.classList.remove('is-active');
+      v.style.opacity = '';
+      v.style.transform = '';
+      v.style.transition = '';
+    });
+    next.classList.remove('hidden');
+    next.classList.add('is-active');
+    next.style.opacity = '0';
+    next.style.transform = 'translateY(12px)';
+    next.style.transition = 'opacity .34s ease, transform .34s ease';
+    void next.offsetWidth;
+    next.style.opacity = '1';
+    next.style.transform = 'none';
+    animateChildren(next);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      next.style.transition = '';
+      next.style.opacity = '';
+      next.style.transform = '';
+      isAnimating = false;
+    }, 360);
+  }, current ? 200 : 0);
+  closeSidebar();
+}
+document.querySelectorAll('[data-nav]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    goTo(a.dataset.nav);   // goTo() now updates the URL itself
+  });
+});
+document.addEventListener('click', e => {
+  const btn = e.target.closest('[data-goto]');
+  if (btn) goTo(btn.dataset.goto);
+});
+
+/* ============================================================
+   12. MOBILE SIDEBAR
+   ============================================================ */
+function openSidebar() {
+  sidebar.classList.remove('-translate-x-full');
+  overlay.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+function closeSidebar() {
+  if (window.innerWidth >= 1024) return;
+  sidebar.classList.add('-translate-x-full');
+  overlay.classList.add('hidden');
+  document.body.style.overflow = '';
+}
+document.getElementById('menuBtn').addEventListener('click', openSidebar);
+overlay.addEventListener('click', closeSidebar);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+
+/* ============================================================
+   13. FLOATING STICKY CONTACT
+   ============================================================ */
+const floatingContact = document.getElementById('floatingContact');
+function updateFloating() {
+  if (window.innerWidth < 1024) {
+    floatingContact.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+    return;
+  }
+  if (window.scrollY > 400) {
+    floatingContact.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+  } else {
+    floatingContact.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+  }
+}
+window.addEventListener('scroll', updateFloating, { passive: true });
+window.addEventListener('resize', updateFloating);
+updateFloating();
+
+/* ============================================================
+   14. PROJECT FILTERS
+   ============================================================ */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.remove('bg-ink', 'text-canvas');
+      b.classList.add('bg-card/85', 'text-muted', 'ring-1', 'ring-line/10');
+    });
+    btn.classList.add('bg-ink', 'text-canvas');
+    btn.classList.remove('bg-card/85', 'text-muted', 'ring-1', 'ring-line/10');
+    renderProjects(btn.dataset.filter);
+  });
+});
+
+/* ============================================================
+   15. LIGHTBOX
+   ============================================================ */
+const lightbox = document.getElementById('lightbox');
+const lightboxBody = document.getElementById('lightboxBody');
+
+function openLightbox(html) {
+  lightboxBody.innerHTML = html;
+  lightbox.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.add('hidden');
+  lightboxBody.innerHTML = '';
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('[data-lightbox-close]').forEach(el => {
+  el.addEventListener('click', closeLightbox);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) closeLightbox();
+});
+
+/* ============================================================
+   16. PROJECT PREVIEW
+   ============================================================ */
+function makePreview(p) {
+  const img = p.image
+    ? `<img src="${p.image}" alt="${p.t}" class="w-full aspect-[4/3] object-cover" loading="lazy"/>`
+    : `<div class="w-full aspect-[4/3] bg-canvas flex items-center justify-center text-muted text-sm font-semibold">Case study image</div>`;
+  return `
+    <div class="relative">${img}</div>
+    <div class="p-6 sm:p-7">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="rounded-full bg-brand-500 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white">UI/UX Design</span>
+        <span class="text-[11px] font-bold text-muted">${p.y}</span>
+      </div>
+      <h2 class="mt-3 text-2xl font-extrabold tracking-tight sm:text-3xl">${p.t}</h2>
+      <p class="mt-3 max-w-2xl text-[14px] leading-relaxed text-muted">${p.d}</p>
+      <div class="mt-5 flex flex-wrap items-center gap-1.5">
+        ${p.tags.map(t => `<span class="rounded-full bg-canvas px-3 py-1.5 text-[10px] font-bold text-muted">${t}</span>`).join('')}
+      </div>
+      <div class="mt-6 grid gap-4 border-t border-line/10 pt-6 sm:grid-cols-2">
+        <div>
+          <p class="text-[10px] font-extrabold uppercase tracking-wider text-muted">Design objective</p>
+          <p class="mt-2 text-[13px] leading-relaxed text-muted">${p.d}</p>
+        </div>
+        <div>
+          <p class="text-[10px] font-extrabold uppercase tracking-wider text-muted">Tools used</p>
+          <p class="mt-2 text-[13px] font-semibold text-ink/85">${p.tool}</p>
+        </div>
+      </div>
+    </div>`;
+}
+
+document.getElementById('projectGrid').addEventListener('click', e => {
+  if (e.target.closest('[data-view-full]')) return;
+
+  const card = e.target.closest('[data-project]');
+  if (!card) return;
+  const project = PROJECTS.find(p => p.t === card.dataset.project);
+  if (!project) return;
+  if (project.c === 'web') {
+    window.open(project.url || '#', '_blank', 'noopener,noreferrer');
+  } else {
+    openLightbox(makePreview(project));
+  }
+});
+document.getElementById('projectGrid').addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  if (e.target.closest('[data-view-full]')) return;
+  const card = e.target.closest('[data-project]');
+  if (!card) return;
+  e.preventDefault();
+  card.click();
+});
+
+/* ============================================================
+   17. CERTIFICATE MODAL
+   ============================================================ */
+function openCertModal(i) {
+  const c = CREDENTIALS[i];
+  openLightbox(`
+    <div class="p-4 sm:p-6 bg-canvas/60">
+      <img src="${c.image}" alt="${c.title}"
+           class="w-full rounded-xl shadow-xl object-cover aspect-[9/6]"
+           loading="lazy" />
+    </div>
+    <div class="p-6 sm:p-7">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white" style="background:${c.accent}">${c.badge || 'Certificate'}</span>
+        <span class="text-[11px] font-bold text-muted">${c.year}</span>
+      </div>
+      <h3 class="mt-3 text-xl font-extrabold tracking-tight">${c.title}</h3>
+      <p class="mt-1.5 text-[13px] font-bold" style="color:${c.accent}">${c.issuer}</p>
+      <p class="mt-3 text-[13px] leading-relaxed text-muted">${c.desc}</p>
+    </div>`);
+}
+
+document.querySelectorAll('[data-credential]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    openCertModal(Number(btn.dataset.credential));
+  });
+});
+
+/* ============================================================
+   18. TAP TO VIEW — Credentials
+   ============================================================ */
+document.getElementById('credentialsTapBtn').addEventListener('click', () => {
+  const items = document.querySelectorAll('.credential-btn');
+  items.forEach(el => {
+    el.classList.remove('pulse');
+    void el.offsetWidth;
+    el.classList.add('pulse');
+  });
+  setTimeout(() => { openCertModal(0); }, 380);
+});
+
+/* ============================================================
+   19. FAQ
+   ============================================================ */
+document.querySelectorAll('[data-faq]').forEach(item => {
+  const btn = item.querySelector('button');
+  const panel = item.querySelector('.faq-panel');
+  btn.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('[data-faq].open').forEach(o => {
+      o.classList.remove('open');
+      o.querySelector('.faq-panel').style.height = '0px';
+      o.querySelector('button').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      panel.style.height = panel.scrollHeight + 'px';
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
+/* ============================================================
+   20. CONTACT FORM
+   ============================================================ */
+const form = document.getElementById('contactForm');
+const formMsg = document.getElementById('formMsg');
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const name = form.name.value.trim();
+  const email = form.email.value.trim();
+  const message = form.message.value.trim();
+  if (!name || !email || !message) {
+    formMsg.className = 'rounded-xl bg-rose-50 px-4 py-3 text-xs font-bold text-rose-600';
+    formMsg.textContent = 'Please fill in your name, email and message.';
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    formMsg.className = 'rounded-xl bg-rose-50 px-4 py-3 text-xs font-bold text-rose-600';
+    formMsg.textContent = 'Please enter a valid email address.';
+    return;
+  }
+  const btn = form.querySelector('button[type="submit"]');
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = 'Sending…';
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.innerHTML = original;
+    form.reset();
+    formMsg.className = 'rounded-xl bg-emerald-50 px-4 py-3 text-xs font-bold text-emerald-700';
+    formMsg.textContent = `Thanks, ${name}! Your message has been sent. I'll reply within 24 hours.`;
+  }, 900);
+});
+
+/* ============================================================
+   21. SPOTLIGHT
+   ============================================================ */
+document.addEventListener('mousemove', e => {
+  const card = e.target.closest('.bento');
+  if (!card) return;
+  const r = card.getBoundingClientRect();
+  card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+  card.style.setProperty('--my', `${e.clientY - r.top}px`);
+}, { passive: true });
+
+/* ============================================================
+   22. INIT
+   ============================================================ */
+(function init() {
+  renderProjects('all');
+  renderProjectCarousel();
+  renderTestiCarousel();
+
+  const hash = (location.hash || '#home').replace('#', '');
+  const valid = document.querySelector(`.view[data-view="${hash}"]`);
+  const target = valid ? hash : 'home';
+
+  document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+  const view = document.querySelector(`.view[data-view="${target}"]`);
+  view.classList.remove('hidden');
+  view.classList.add('is-active');
+  setActiveNav(target);
+  syncUrl(target);
+
+  requestAnimationFrame(() => {
+    setTimeout(() => animateChildren(view), 120);
+  });
+})();
+</script>
+</body>
+</html>
