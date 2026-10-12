@@ -621,6 +621,75 @@
     .bento { border-radius: 1.5rem; }
   }
 
+  /* ── CASE STUDY PANEL (new) ───────────────────────────────── */
+  .cs-panel {
+    height: 0;
+    overflow: hidden;
+    transition: height .52s cubic-bezier(.22,1,.36,1);
+  }
+  .cs-prose p + p { margin-top: .85rem; }
+  .cs-prose strong { color: rgb(var(--ink)); font-weight: 700; }
+  .cs-prose em { font-style: italic; color: rgb(var(--ink) / .85); }
+  .cs-prose ul { margin-top: .35rem; display: flex; flex-direction: column; gap: .6rem; }
+  .cs-prose ul > li {
+    display: flex; align-items: flex-start; gap: .65rem;
+  }
+  .cs-prose ul > li::before {
+    content: ''; flex: 0 0 auto;
+    width: 6px; height: 6px; margin-top: 8px;
+    border-radius: 50%; background: #FF6B2C;
+  }
+  .cs-prose ol { margin-top: .35rem; display: flex; flex-direction: column; gap: .6rem; counter-reset: cs; }
+  .cs-prose ol > li { display: flex; align-items: flex-start; gap: .65rem; }
+  .cs-prose ol > li::before {
+    counter-increment: cs; content: counter(cs);
+    flex: 0 0 auto;
+    display: grid; place-items: center;
+    width: 18px; height: 18px; margin-top: 2px;
+    border-radius: 6px;
+    background: rgb(255 107 44 / .14);
+    color: #F04E0A;
+    font-size: 10px; font-weight: 800;
+  }
+  .cs-prose blockquote {
+    border-left: 2px solid #FF6B2C;
+    background: rgb(var(--line) / .04);
+    border-radius: 0 1rem 1rem 0;
+    padding: .85rem 1.1rem;
+    font-style: italic;
+    color: rgb(var(--ink) / .82);
+  }
+  .cs-prose blockquote footer {
+    margin-top: .5rem;
+    font-style: normal;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    color: rgb(var(--muted));
+  }
+  .cs-prose .cs-note {
+    border-radius: 1rem;
+    border: 1px solid rgb(var(--line) / .1);
+    background: rgb(var(--line) / .035);
+    padding: .9rem 1.05rem;
+  }
+  .cs-prose .cs-note-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #F04E0A;
+  }
+  .cs-prose .cs-note p { margin-top: .35rem; font-size: 12.5px; color: rgb(var(--ink) / .8); }
+  .cs-prose figure { margin-top: .5rem; }
+  .cs-prose figure img { width: 100%; border-radius: 1rem; display: block; }
+  .cs-prose figure figcaption {
+    margin-top: .55rem; font-size: 11.5px; font-weight: 600; color: rgb(var(--muted));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cs-panel { transition: none !important; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: .001ms !important;
@@ -1507,24 +1576,360 @@ function findTool(name) {
    Paste your cover URL like:  cover: 'https://i.postimg.cc/....png'
    ============================================================ */
 const PROJECTS = [
+  { t:'Manhattan Home Design',        c:'uiux', y:'2025', d:'Manhattan Home Design presents a modern approach to interior design, featuring stylish living spaces, carefully selected furniture, and inspiring home concepts that help clients envision their dream interiors.', tags:['Auto Layout','Design System','Landing Page'], tool:'Figma & FigJam', image:'https://i.postimg.cc/CM2DX2ZD/Frame-2087329103.png', cover:'https://i.postimg.cc/gjnbLjdg/Cover.png' },
   { t:'Manhattan Home Design - New Version', c:'uiux', y:'2025', d:'A UI/UX design concept for Manhattan Home Design, focused on creating an elegant, modern, and user-friendly landing page that showcases interior design services, highlights visual aesthetics, and provides a seamless browsing experience.', tags:['Auto Layout','Design System','Landing Page'], tool:'Figma & Figjam', image:'https://i.postimg.cc/Qxq56M3r/MHD-Home-Landing-Page.png', cover:'https://i.postimg.cc/0jq7bM7L/Cover1.png' },
+  { t:'Quishas Kitchenette Restaurant', c:'uiux', y:'2024', d:'Quishas Kitchenette showcases delicious meals and a welcoming dining experience through a warm, inviting design that highlights the menu, food selections, and restaurant details, making it easy for customers to discover what’s on the table.', tags:['Mobile','Desktop','Auto Layout','Usability Testing'], tool:'Figma', image:'https://i.postimg.cc/Kj4Z2QH6/Qui.png', cover:'https://i.postimg.cc/fymnfFtx/Cover3.png' },
   { t:'Prime Lending Solutions',      c:'uiux', y:'2025', d:'A UI/UX design concept for Prime Lending Solution, focused on creating a professional, trustworthy, and user-friendly landing page that presents lending services clearly and helps users easily explore loan options and submit inquiries.', tags:['UX Research','Auto Layout','Landing Page'], tool:'Figma', image:'https://i.postimg.cc/442Rp6Y1/Frame-2087329329.png', cover:'https://i.postimg.cc/BQzQpWV3/Cover2-0.png' },
   { t:'Wesco Skate Community',        c:'uiux', y:'2025', d:'Wescko Skate Community is designed to bring skaters together through a bold, street-inspired website that highlights skate culture, community events, and the passion for skateboarding, while giving visitors a feel for the local skate scene.', tags:['Research','Design Syste Page','Wireframing'], tool:'Figma', image:'https://i.postimg.cc/R0wnHCGw/Wesco-Skateboard.png', cover:'https://i.postimg.cc/dVdv9hdP/Cover1.png' },
   { t:'Solea luxury Jewelry',         c:'uiux', y:'2025', d:'Solea Luxury Jewelry showcases elegant jewelry pieces through a clean and luxurious design, highlighting each collection’s beauty and craftsmanship while giving customers a refined and seamless browsing experience.', tags:['Mobile','Desktop','Conversion','UX Research'], tool:'Figma', image:'https://i.postimg.cc/fLj2BNW5/Solea.png', cover:'https://i.postimg.cc/Kzc2FQHN/Cover2.png' },
-  { t:'Manhattan Home Design',        c:'uiux', y:'2025', d:'Manhattan Home Design presents a modern approach to interior design, featuring stylish living spaces, carefully selected furniture, and inspiring home concepts that help clients envision their dream interiors.', tags:['Auto Layout','Design System','Landing Page'], tool:'Figma & FigJam', image:'https://i.postimg.cc/CM2DX2ZD/Frame-2087329103.png', cover:'https://i.postimg.cc/gjnbLjdg/Cover.png' },
-  { t:'FitLife Gym Fitness - Version 2', c:'uiux', y:'2024', d:'FitLife Gym brings fitness to life with a bold, energetic design that highlights workout programs, gym facilities, and membership options, making it easier for people to find their motivation and start their fitness journey.', tags:['UX Research','Wireframing','Landing Page','Auto Layout'], tool:'Figma', image:'https://i.postimg.cc/CLmxqpwn/Fit-Life-Gym-Landing-Page.png', cover:'https://i.postimg.cc/N0gVrFkG/Screenshot-2026-10-11-182314.png' },
-  { t:'Quishas Kitchenette Restaurant', c:'uiux', y:'2024', d:'Quishas Kitchenette showcases delicious meals and a welcoming dining experience through a warm, inviting design that highlights the menu, food selections, and restaurant details, making it easy for customers to discover what’s on the table.', tags:['Mobile','Desktop','Auto Layout','Usability Testing'], tool:'Figma', image:'https://i.postimg.cc/Kj4Z2QH6/Qui.png', cover:'https://i.postimg.cc/fymnfFtx/Cover3.png' },
-  { t:'Trident Vintage Wear',         c:'uiux', y:'2023', d:'Trident Vintage Wear brings timeless streetwear and retro fashion together, showcasing vintage-inspired clothing with a bold style that appeals to those who want to express their personality through unique and classic outfits.', tags:['Branding','Landing Page'], tool:'Figma', image:'https://i.postimg.cc/fysr7bxY/sasasa.png', cover:'https://i.postimg.cc/mD10TqSJ/Cover4.png' },
   { t:'FitLife Gym Fitness - Version 1', c:'uiux', y:'2024', d:'FitLife Gym features a clean and motivating landing page that introduces the gym, showcases its workout facilities and fitness programs, and encourages people to take the first step toward a healthier lifestyle.', tags:['Auto Layout','Branding'], tool:'Figma', image:'https://i.postimg.cc/R0wnHCGw/Wesco-Skateboard.png', cover:'https://i.postimg.cc/dVdv9hdP/Cover1.png' },
-  { t:'Block Chain',                  c:'uiux', y:'2023', d:'The Blockchain project focuses on using decentralized technology to provide secure, transparent, and reliable digital transactions, with an emphasis on data integrity and trust between users.', tags:['Futuristic','Landing Page','Branding'], tool:'Figma', image:'https://i.postimg.cc/8cnLpKPd/BLOCKCHAIN-LANDING-PAGE-VERSION-2.png', cover:'https://i.postimg.cc/fyTmc4g1/Screenshot-2026-10-11-183355.png' },
+  { t:'FitLife Gym Fitness - Version 2', c:'uiux', y:'2024', d:'FitLife Gym brings fitness to life with a bold, energetic design that highlights workout programs, gym facilities, and membership options, making it easier for people to find their motivation and start their fitness journey.', tags:['UX Research','Wireframing','Landing Page','Auto Layout'], tool:'Figma', image:'https://i.postimg.cc/CLmxqpwn/Fit-Life-Gym-Landing-Page.png', cover:'https://i.postimg.cc/N0gVrFkG/Screenshot-2026-10-11-182314.png' },
   { t:'Jumping Tickets',              c:'uiux', y:'2022', d:'Jumping Tickets is a gaming-focused landing page that showcases innovative gaming devices, introduces the team behind the brand, and lets visitors explore products designed to make gaming more immersive and enjoyable.', tags:['Game','Entertainment','Branding'], tool:'Figma', image:'https://i.postimg.cc/k59Rm3Fb/tab.png', cover:'https://i.postimg.cc/rFRzvFWs/Screenshot-2026-10-11-183851.png' },
   { t:'Chain Glass Aluminum',         c:'uiux', y:'2022', d:'Chain Glass is a corporate website designed to showcase glass and aluminum products, highlight completed projects, and connect with contractors, distributors, and clients looking for reliable glass and aluminum solutions.', tags:['UI/UX Design','Glass & Aluminum','Web Design','B2B Business','Industrial Branding'], tool:'Figma', image:'https://i.postimg.cc/MGdHJcG6/c.png', cover:'https://i.postimg.cc/cLM1SKJ3/c-OVER6.png' },
+  { t:'Block Chain',                  c:'uiux', y:'2023', d:'The Blockchain project focuses on using decentralized technology to provide secure, transparent, and reliable digital transactions, with an emphasis on data integrity and trust between users.', tags:['Futuristic','Landing Page','Branding'], tool:'Figma', image:'https://i.postimg.cc/8cnLpKPd/BLOCKCHAIN-LANDING-PAGE-VERSION-2.png', cover:'https://i.postimg.cc/fyTmc4g1/Screenshot-2026-10-11-183355.png' },
+  { t:'Trident Vintage Wear',         c:'uiux', y:'2023', d:'Trident Vintage Wear brings timeless streetwear and retro fashion together, showcasing vintage-inspired clothing with a bold style that appeals to those who want to express their personality through unique and classic outfits.', tags:['Branding','Landing Page'], tool:'Figma', image:'https://i.postimg.cc/fysr7bxY/sasasa.png', cover:'https://i.postimg.cc/mD10TqSJ/Cover4.png' },
 
   /* ── WEB DEVELOPMENT (unchanged) ─────────────────────────── */
   { t:'NFC Cards Web System', c:'web', y:'2025', d:'The NFC Card Web System allows users to order NFC cards and manage or customize their digital business cards independently, without needing admin permission. It offers a convenient, flexible, and paperless way to share contact details and social media links with just one tap.', tags:['Tailwind CSS','Laravel','Supabase','Laragon - MySQL','Github','Hostinger'], tool:'Visual Studio Code', url:'https://justatap.online/' },
   { t:'Apexed Automation System', c:'web', y:'2025', d:'Apexed Automation System is designed to streamline business operations by automating repetitive tasks, improving workflow efficiency, and simplifying daily processes.', tags:['Next.js','Laravel','Supabase','Tailwind CSS','Laragon - MySQL','Github','DeepSeek','CloudFlare'], tool:'Visual Studio Code', url:'https://apexed.online/' },
   { t:'Parang Beach Resort Website', c:'web', y:'2024', d:'Parang Beach Resort Website is designed to showcase the resort’s amenities, accommodations, and services, allowing visitors to explore the destination, discover available facilities, and easily inquire about bookings for a relaxing getaway.', tags:['WordPress','Custom Code','Bluehost'], tool:'Visual Studio Code', url:'https://parangbeachresort.com/' }
 ];
+
+/* ============================================================
+   2b. CASE STUDIES
+   ------------------------------------------------------------
+   Full write-ups for the three flagship UI/UX projects.
+   Keys must match PROJECTS[].t exactly.
+   ============================================================ */
+const CASE_STUDIES = {
+
+  /* --------------------------------------------------------- */
+  'Manhattan Home Design': {
+    blurb: 'How a nine-section page became five — and why the hero ended up split instead of full-bleed.',
+    meta: [
+      ['Role', 'UI/UX Designer'],
+      ['Timeline', '3 weeks · 2025'],
+      ['Scope', 'Landing page redesign'],
+      ['Tools', 'Figma, FigJam']
+    ],
+    sections: [
+      {
+        h: 'Background',
+        html: `
+          <p>The Manhattan Home Design landing page had been built up over several years, one campaign at a time. By the time I was brought in it had three different button styles, two competing hero messages, and a <em>Book a consultation</em> link sitting below five full sections of product photography.</p>
+          <p>The brief from the marketing lead was one sentence long: <em>"People land on the page, they scroll, and they leave."</em></p>
+          <p>That's a symptom, not a problem. So the first two days weren't spent designing anything — they were spent turning that sentence into something I could actually test.</p>
+        `
+      },
+      {
+        h: 'What I was actually solving',
+        html: `
+          <p>Three testable problems came out of that first pass:</p>
+          <ul>
+            <li>Visitors couldn't tell within the first screen whether the company <strong>sells furniture</strong>, <strong>offers interior design services</strong>, or both.</li>
+            <li>The consultation — the highest-value action on the page — was buried under five product sections.</li>
+            <li>On mobile the layout was a desktop grid squeezed into a narrow column: tap targets under 40px, and horizontal scroll on the room gallery.</li>
+          </ul>
+          <div class="cs-note">
+            <p class="cs-note-label">Note</p>
+            <p>I deliberately kept the problem list to three. A longer list would have meant a longer project, and three weeks was already tight.</p>
+          </div>
+        `
+      },
+      {
+        h: 'Research',
+        html: `
+          <p>I kept this small on purpose. Three weeks doesn't leave room for a full research phase, and honestly the client didn't need one — they needed decisions. So I did three things:</p>
+          <ol>
+            <li>A heuristic review of the current page — I went through it on desktop and phone and wrote down every point of friction I could defend.</li>
+            <li>Five 20-minute conversations with people who had furnished an apartment or house in the last 18 months.</li>
+            <li>A teardown of six competitors, looking specifically at what they put above the fold.</li>
+          </ol>
+          <p>Two things people said stayed with me:</p>
+          <blockquote>
+            "I genuinely can't tell if this is a furniture store or a design firm. I'd have to scroll to figure it out."
+            <footer>— Participant 2, rented a 1BR in 2024</footer>
+          </blockquote>
+          <blockquote>
+            "I don't want to see a sofa on a white background. I want to see it in a room. Otherwise I can't picture it in my apartment."
+            <footer>— Participant 4, bought a full living room set</footer>
+          </blockquote>
+          <p>That second quote changed the direction of the project. People aren't shopping for a sofa. They're shopping for a <strong>finished room</strong>. The competitors who understood that were selling rooms, and those were the sites participants remembered by name a week later.</p>
+        `
+      },
+      {
+        h: 'Design direction',
+        html: `
+          <p>Three rules came out of the research, and I wrote them down before opening Figma so I'd stop myself from drifting:</p>
+          <ul>
+            <li><strong>Lead with rooms.</strong> Product shots support the story; room shots carry it.</li>
+            <li><strong>One primary action.</strong> The consultation is the goal — not "Shop now".</li>
+            <li><strong>Halve the page.</strong> Nine sections down to five.</li>
+          </ul>
+        `
+      },
+      {
+        h: 'Structure',
+        html: `
+          <p>The old page had nine sections. The new one has five, and each one has a single job:</p>
+          <ol>
+            <li><strong>Hero</strong> — one message, one action, answered in under five seconds.</li>
+            <li><strong>Room setups</strong> — the "I can picture it in my place" moment.</li>
+            <li><strong>How the design service works</strong> — three steps, plain language, no jargon.</li>
+            <li><strong>Proof</strong> — two testimonials with real names and photos, not stock quotes.</li>
+            <li><strong>Consultation form</strong> — short enough to fill in on a phone.</li>
+          </ol>
+          <p>Everything else moved to the footer or got cut. I had to argue for cutting the "featured brands" carousel — it was there because a partner had asked for it, not because it helped anyone.</p>
+        `
+      },
+      {
+        h: 'Wireframes — and a decision that changed',
+        html: `
+          <p>Round one put the headline on top of a full-bleed photograph. It looked great in the mockup.</p>
+          <p>It would have been a maintenance problem in production.</p>
+          <p>The client's photo library was inconsistent — some images were bright and airy, others were shot in dark rooms with warm lamps. Type over that means sourcing new photography every time the hero gets swapped, and that wasn't in the budget.</p>
+          <p>Round two split the hero: copy on a solid panel, image on the right. Less dramatic, more durable. We shipped round two.</p>
+          <div class="cs-note">
+            <p class="cs-note-label">Takeaway</p>
+            <p>The best-looking option isn't always the right one. A hero that breaks the moment someone swaps an image is a hero that quietly gets abandoned six months later.</p>
+          </div>
+        `
+      },
+      {
+        h: 'Visual design',
+        html: `
+          <p>The brand already had a serif in its logo, so I kept that for headlines and paired it with a neutral sans for everything else — navigation, body copy, buttons, form labels. Two typefaces, no third.</p>
+          <p>Colour stayed close to what they already owned: warm neutrals, one accent, and the photography doing most of the emotional work. I resisted adding a second accent colour even though the "Book" button really wanted one. One accent is a system; two is a preference.</p>
+          <p>Grid: 12 columns, 1200px max width, 8px spacing base. Boring, and that's the point.</p>
+        `
+      },
+      {
+        h: 'Design system',
+        html: `
+          <p>Because this was one page, I kept the system deliberately small — 24 components. Buttons (two sizes, three states), form fields, the room card, the step card, the testimonial block, and the type and spacing scales.</p>
+          <p>Small enough that the client's developer implemented it without a handoff meeting. That was the goal: a system the next person can actually use, not a system that documents itself for its own sake.</p>
+        `
+      },
+      {
+        h: 'Testing',
+        html: `
+          <p>Five moderated sessions on the prototype, all on participants' own devices. Three tasks: find the design service, find a sofa, book a consultation.</p>
+          <ul>
+            <li>Four of five found the consultation call-to-action in under eight seconds — the previous version averaged closer to forty.</li>
+            <li>The one who didn't was looking for a phone number. That's a valid preference, so we added one to the header.</li>
+            <li>Two people tapped the room gallery expecting it to expand. It didn't. We made the first tile interactive and left the rest static — enough to signal, not enough to slow the page down.</li>
+          </ul>
+        `
+      },
+      {
+        h: 'Outcome',
+        html: `
+          <p>I can only report what the client told me: consultation requests went up by roughly 40% in the first month after launch, and average time on page increased.</p>
+          <p>I didn't instrument the analytics myself, so treat that as the client's number rather than a verified one. The honest version is: the page got simpler, the primary action got findable, and the client was happy enough to come back for a second direction.</p>
+        `
+      },
+      {
+        h: "What I'd do differently",
+        html: `
+          <ul>
+            <li>Replace the form with a real booking flow. A form is a lead; a calendar slot is a commitment.</li>
+            <li>Get analytics access on day one instead of relying on second-hand reporting.</li>
+            <li>Test with the client's actual photography in round one, not placeholder images. Half my revision time went into that.</li>
+          </ul>
+        `
+      }
+    ]
+  },
+
+  /* --------------------------------------------------------- */
+  'Manhattan Home Design - New Version': {
+    blurb: 'A second direction: what happens when you stop optimising for conversion and start designing for brand.',
+    meta: [
+      ['Role', 'UI/UX Designer'],
+      ['Timeline', '4 weeks · 2025'],
+      ['Scope', 'Editorial landing page concept'],
+      ['Tools', 'Figma, FigJam']
+    ],
+    sections: [
+      {
+        h: 'Why a second version',
+        html: `
+          <p>Version one solved a conversion problem. It also, in solving it, made the brand feel more like a furniture e-commerce site than a design studio.</p>
+          <p>Six months after launch the client came back with a different question: <em>what would this look like if we led with the studio instead of the products?</em></p>
+          <p>That's not a redesign brief. It's a positioning brief. So the constraint changed completely — from "convert the visitor" to "make the visitor understand who we are".</p>
+        `
+      },
+      {
+        h: 'The tension worth naming',
+        html: `
+          <p>There's a real conflict here and it's worth saying out loud. Conversion design wants short pages, one obvious action, and a path so clear it's almost patronising. Editorial design wants length, atmosphere, and room to breathe.</p>
+          <p>You cannot fully have both on one page. Anyone who tells you otherwise is selling something.</p>
+          <p>So the goal for version two was never "better". It was <strong>different, on purpose</strong> — a version that carries the brand when the audience is already warm, and lets version one handle cold traffic from ads.</p>
+          <div class="cs-note">
+            <p class="cs-note-label">Framing</p>
+            <p>Two landing pages with two jobs is a legitimate answer. One page trying to do both jobs is the thing that fails.</p>
+          </div>
+        `
+      },
+      {
+        h: 'What changed',
+        html: `
+          <ul>
+            <li>The hero goes from a split layout to full-bleed, with the headline set lower in the frame so the photography reads first.</li>
+            <li>Room photography gets real space — full-width, one or two per screen, no cropping to fit a grid.</li>
+            <li>A new <strong>Studio</strong> section: who they are, how they work, process photos, a face attached to the name.</li>
+            <li>The type scale steps up a level. Headlines are roughly 20% larger across the board.</li>
+            <li>The sticky call-to-action bar is gone. There's one CTA, at the end, and it's a deliberate destination rather than a nag.</li>
+          </ul>
+        `
+      },
+      {
+        h: 'Rhythm and whitespace',
+        html: `
+          <p>I set a strict vertical rhythm: every section starts with 120px of breathing room on desktop, 72px on mobile. Consistent, non-negotiable, applied even where it felt like too much.</p>
+          <p>When you're building something atmospheric, the whitespace <em>is</em> the design. Getting it wrong by 20px is visible. Getting it wrong by 40px makes the whole thing feel cheap.</p>
+        `
+      },
+      {
+        h: 'Typography',
+        html: `
+          <p>The serif that carried the headlines in version one gets more room here — bigger, looser, set at a slower reading pace. Body copy line-height goes from 1.6 to 1.7, which sounds trivial and isn't.</p>
+          <p>One rule I held to: the serif never appears below 20px. Serifs at small sizes on screens turn to mush, and this wasn't the project to fight that battle.</p>
+        `
+      },
+      {
+        h: 'Motion, kept minimal',
+        html: `
+          <p>Two animations only:</p>
+          <ul>
+            <li>A slow fade-up as sections enter the viewport. 600ms, subtle, no bounce.</li>
+            <li>A gentle parallax on the room photography. Enough to give depth, not enough to notice.</li>
+          </ul>
+          <p>Anything more and the page starts performing for itself rather than for the work. In an editorial layout the photography is the content — motion should never compete with it.</p>
+        `
+      },
+      {
+        h: 'What I learned',
+        html: `
+          <ul>
+            <li>Editorial and conversion aren't opposites. They're different jobs, and the mistake is asking one page to do both.</li>
+            <li>Full-bleed photography only works when the photograph is good enough. We cut two sections because the images simply weren't there — and the page was better for it.</li>
+            <li>Handing over a second version is far easier when the first one has clear logic. Version two could be explained in one sentence: <em>same system, different emphasis</em>.</li>
+          </ul>
+        `
+      },
+      {
+        h: 'Where it stands',
+        html: `
+          <p>Approved as a direction, delivered as a high-fidelity concept. The client is deciding which version to run for their next seasonal campaign — version one for paid traffic, this one for the brand homepage.</p>
+          <p>Either way, both versions share the same underlying system, so switching between them doesn't mean starting over.</p>
+        `
+      }
+    ]
+  },
+
+  /* --------------------------------------------------------- */
+  'Quishas Kitchenette Restaurant': {
+    blurb: 'A restaurant site built for the person standing on a sidewalk deciding where to eat.',
+    meta: [
+      ['Role', 'UI/UX Designer'],
+      ['Timeline', '2.5 weeks · 2024'],
+      ['Scope', 'Mobile-first site + reservation flow'],
+      ['Tools', 'Figma, Maze']
+    ],
+    sections: [
+      {
+        h: 'Background',
+        html: `
+          <p>Quishas Kitchenette is a small restaurant — one location, one owner, a handful of staff. Before this project their entire online presence was a Facebook page and a menu PDF that was scanned crookedly and uploaded in 2021.</p>
+          <p>The ask was simple: a site where people can see the menu without downloading anything, find the opening hours, and reserve a table.</p>
+          <p>That's it. No e-commerce, no loyalty program, no content strategy.</p>
+        `
+      },
+      {
+        h: 'The assumption I started from',
+        html: `
+          <p>Almost everyone visiting a restaurant site is on a phone, standing up, deciding where to eat in the next thirty minutes. They're not browsing. They're checking.</p>
+          <p>If that's true, then everything about the design follows: the important information has to be reachable with one thumb, without zooming, without scrolling past a mood video.</p>
+          <p>So I designed mobile first and desktop second. That's the opposite of how I'd approach a portfolio site, and it was the right call here.</p>
+        `
+      },
+      {
+        h: 'Research',
+        html: `
+          <p>Three quick things, all under a week combined:</p>
+          <ol>
+            <li>Looked at ten local restaurant websites and noted what was missing on the first screen.</li>
+            <li>A 30-minute conversation with the owner about how reservations actually reach them today.</li>
+            <li>Read through 40 recent Facebook comments and reviews to find the questions people kept asking.</li>
+          </ol>
+          <p>The website review was bleak. Nine of the ten opened with a full-screen photo and the words "Welcome to..." — and none of them told me the hours or the menu without at least one scroll and one tap.</p>
+          <p>The Facebook comments were far more useful. People weren't asking about the brand story. They were asking:</p>
+          <blockquote>
+            "Open ba kayo ng Sunday?" · "May parking ba?" · "Do you take reservations for 10 pax?"
+            <footer>— Recurring questions from recent comments</footer>
+          </blockquote>
+          <p>Practical questions. The site's job was to answer them, and everything else was optional.</p>
+        `
+      },
+      {
+        h: 'Four design decisions',
+        html: `
+          <ol>
+            <li><strong>Hours and open/closed status in the first screen.</strong> A live indicator that reflects the actual current time, so nobody has to do the mental arithmetic at 8pm.</li>
+            <li><strong>The menu is the page, not a PDF.</strong> Categories as tabs, prices visible, no download, works on a slow connection.</li>
+            <li><strong>Reservation is a short form, not a phone number.</strong> Two fields: party size and time. Name and contact at the end, not the start.</li>
+            <li><strong>Photos come second.</strong> The food photography was inconsistent — some shots were excellent, some were taken on a phone in bad light. Putting them in a gallery means one weak image doesn't sink the page.</li>
+          </ol>
+        `
+      },
+      {
+        h: 'Mobile constraints I held to',
+        html: `
+          <ul>
+            <li>Tap targets at least 44px, no exceptions.</li>
+            <li>Body text never below 16px — anything smaller and iOS zooms in when someone focuses an input, which throws off the whole layout.</li>
+            <li>A sticky bottom bar with exactly two actions: Menu and Reserve. Two, not three.</li>
+            <li>The menu has to be readable with one hand while walking. I tested that literally — walked down a hallway holding my phone.</li>
+          </ul>
+        `
+      },
+      {
+        h: 'Testing — and the two things it broke',
+        html: `
+          <p>Six people, all on their own phones. Not a simulator, not a desktop browser resized to 375px. Actual phones, actual thumbs.</p>
+          <p>Two findings changed the design:</p>
+          <ul>
+            <li><strong>Nobody noticed the menu tabs.</strong> The category navigation sat just below the fold and everyone scrolled straight past it. I moved category switching into the sticky bar, where it's visible at all times.</li>
+            <li><strong>Three of six tried to tap the phone number like a link.</strong> It wasn't one. It is now.</li>
+          </ul>
+          <p>The second one is embarrassing in hindsight — of course people tap a phone number. But it only becomes obvious when you watch someone do it.</p>
+        `
+      },
+      {
+        h: 'Visual direction',
+        html: `
+          <p>Warm, but I actively avoided the rustic-restaurant clichés: no chalkboard typefaces, no fake wood textures, no hand-drawn arrows.</p>
+          <p>Instead: warm neutral base, one deep green for the brand, and the food photography carrying all the colour. When the food is the product, the interface should get out of the way.</p>
+        `
+      },
+      {
+        h: 'Outcome',
+        html: `
+          <p>Delivered as desktop and mobile designs with an interactive prototype of the reservation flow.</p>
+          <p>The owner reports that reservations now come through the site instead of Instagram DMs — which was the actual goal. DMs get lost when one person is running the floor during dinner service.</p>
+        `
+      },
+      {
+        h: 'What comes next',
+        html: `
+          <p>Online ordering, eventually. It wasn't in scope and I'd rather ship a good menu than a half-finished ordering system.</p>
+          <p>That said, the menu is structured so categories, items and prices are already separate pieces. Adding a cart later is a build on top of this, not a rebuild of it.</p>
+        `
+      }
+    ]
+  }
+};
 
 const GRADS = [
   'linear-gradient(135deg,#FFE7D6,#FFCFA9)',
@@ -1817,6 +2222,7 @@ function projectCard(p, i) {
 /* ── UI/UX CASE-STUDY CARD ─────────────────────────────────── */
 function uiuxProjectCard(p, i) {
   const coverSrc = (p.cover && p.cover.trim()) || p.image || '';
+  const hasCase = !!(CASE_STUDIES[p.t]);
 
   const cover = coverSrc
     ? `<img src="${coverSrc}" alt="${p.t} — cover" loading="lazy"
@@ -1842,18 +2248,28 @@ function uiuxProjectCard(p, i) {
        </a>`
     : '';
 
+  const caseBadge = hasCase
+    ? `<div class="pointer-events-none absolute inset-x-4 bottom-4 flex justify-start">
+         <span class="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 text-[9.5px] font-extrabold uppercase tracking-[0.12em] text-ink shadow-sm backdrop-blur">
+           <svg class="h-3 w-3 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5A2.5 2.5 0 0 0 17.5 16H4V5.5Z"/><path d="M4 18.5A2.5 2.5 0 0 0 6.5 21H20"/></svg>
+           Full case study
+         </span>
+       </div>`
+    : '';
+
   return `
   <article class="project-card group flex flex-col" data-project="${p.t}" tabindex="0"
-           role="button" aria-label="${p.t} — open case study preview">
+           role="button" aria-label="${p.t} — ${hasCase ? 'open case study preview' : 'open design preview'}">
 
     <!-- COVER IMAGE -->
     <div class="uiux-cover">
       ${cover}
-      <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/0 to-black/30"></div>
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/0 to-black/35"></div>
       <div class="absolute inset-x-4 top-4 flex items-center justify-between text-[10px] font-extrabold uppercase tracking-[0.15em] text-white">
         <span>UI/UX Design</span>
         <span class="text-white/80">${p.y}</span>
       </div>
+      ${caseBadge}
     </div>
 
     <!-- BODY -->
@@ -1931,11 +2347,77 @@ function webProjectCard(p, i) {
   </article>`;
 }
 
+/* ── GROUP HEADERS (only used on the UI/UX side) ───────────── */
+function featuredGroupHeader() {
+  const count = PROJECTS.filter(p => p.c === 'uiux' && CASE_STUDIES[p.t]).length;
+  return `
+  <div class="col-span-full">
+    <div class="flex flex-col gap-4 rounded-3xl border border-brand-200/70 bg-gradient-to-br from-brand-50 via-brand-50/40 to-transparent p-5 shadow-soft sm:flex-row sm:items-center sm:justify-between dark:border-brand-500/25 dark:from-brand-500/10 dark:via-brand-500/5">
+      <div class="flex items-start gap-3.5">
+        <span class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-brand-500 text-white shadow-sm">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 3 2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2l.9-5.5-4-3.9L9.5 8 12 3Z"/>
+          </svg>
+        </span>
+        <div class="min-w-0">
+          <h2 class="text-[16px] font-extrabold leading-snug tracking-tight text-ink">
+            Top 3 projects with full case studies
+          </h2>
+          <p class="mt-1.5 max-w-2xl text-[12.5px] leading-relaxed text-muted">
+            These three go past the visuals — research, dead ends, the reasoning behind each decision,
+            and what I'd change next time. Open a card and hit
+            <strong class="text-ink/85">View case study</strong>.
+          </p>
+        </div>
+      </div>
+      <span class="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-brand-200/80 bg-card/80 px-3.5 py-2 text-[10px] font-extrabold uppercase tracking-[.14em] text-brand-600 dark:border-brand-500/25">
+        <span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>
+        ${count} case studies
+      </span>
+    </div>
+  </div>`;
+}
+
+function gridDivider(title, meta) {
+  return `
+  <div class="col-span-full flex items-center gap-4 pt-3 pb-1">
+    <h3 class="text-[11.5px] font-extrabold uppercase tracking-[.16em] text-muted">${title}</h3>
+    <span class="h-px flex-1 bg-line/10"></span>
+    <span class="text-[11px] font-bold text-muted/70">${meta}</span>
+  </div>`;
+}
+
 function renderProjects(filter = 'all') {
   const grid = document.getElementById('projectGrid');
-  const list = filter === 'all' ? PROJECTS : PROJECTS.filter(p => p.c === filter);
-  grid.innerHTML = list.map((p, i) => projectCard(p, i)).join('');
-  [...grid.children].forEach((el, i) => {
+  let html = '';
+
+  if (filter === 'web') {
+    /* ── Web Development view: untouched, no headers ── */
+    const web = PROJECTS.filter(p => p.c === 'web');
+    html = web.map((p, i) => projectCard(p, i)).join('');
+  } else {
+    const featured = PROJECTS.filter(p => p.c === 'uiux' && CASE_STUDIES[p.t]);
+    const others   = PROJECTS.filter(p => p.c === 'uiux' && !CASE_STUDIES[p.t]);
+    const web      = PROJECTS.filter(p => p.c === 'web');
+
+    html += featuredGroupHeader();
+    html += featured.map((p, i) => projectCard(p, i)).join('');
+
+    if (others.length) {
+      html += gridDivider('More UI/UX design work', `${others.length} projects`);
+      html += others.map((p, i) => projectCard(p, i)).join('');
+    }
+
+    if (filter === 'all' && web.length) {
+      html += gridDivider('Web development', `${web.length} live systems`);
+      html += web.map((p, i) => projectCard(p, i)).join('');
+    }
+  }
+
+  grid.innerHTML = html;
+
+  /* animate cards only — header rows stay static */
+  [...grid.querySelectorAll('.project-card')].forEach((el, i) => {
     el.style.animation = `riseIn .7s cubic-bezier(.22,1,.36,1) ${Math.min(i * 45, 620)}ms both`;
   });
 }
@@ -2368,6 +2850,7 @@ function makePreview(p) {
       <div class="flex flex-wrap items-center gap-2">
         <span class="rounded-full bg-brand-500 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white">UI/UX Design</span>
         <span class="text-[11px] font-bold text-muted">${p.y}</span>
+        ${CASE_STUDIES[p.t] ? `<span class="rounded-full border border-line/12 bg-canvas px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-muted">Case study</span>` : ''}
       </div>
       <h2 class="mt-3 text-2xl font-extrabold tracking-tight sm:text-3xl">${p.t}</h2>
       <p class="mt-3 max-w-2xl text-[14px] leading-relaxed text-muted">${p.d}</p>
@@ -2384,8 +2867,106 @@ function makePreview(p) {
           <p class="mt-2 text-[13px] font-semibold text-ink/85">${p.tool}</p>
         </div>
       </div>
+      ${CASE_STUDIES[p.t] ? caseStudyBlock(p.t) : ''}
     </div>`;
 }
+
+/* ── CASE STUDY BLOCK (button + collapsible panel) ─────────── */
+function caseStudyBlock(title) {
+  const cs = CASE_STUDIES[title];
+  if (!cs) return '';
+  return `
+  <div class="mt-7 border-t border-line/10 pt-6">
+    <div class="rounded-2xl border border-line/10 bg-canvas/70 p-4 sm:p-5">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex items-start gap-3 min-w-0">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-brand-500 text-white shadow-sm">
+            <svg class="h-4.5 w-4.5" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5A2.5 2.5 0 0 0 17.5 16H4V5.5Z"/>
+              <path d="M4 18.5A2.5 2.5 0 0 0 6.5 21H20"/>
+            </svg>
+          </span>
+          <div class="min-w-0">
+            <p class="text-[13.5px] font-extrabold tracking-tight text-ink">Full case study available</p>
+            <p class="mt-0.5 text-[12px] leading-relaxed text-muted">${cs.blurb}</p>
+          </div>
+        </div>
+        <button type="button" id="csToggle" aria-expanded="false" aria-controls="csPanel"
+          class="group/cs inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-ink px-5 py-2.5 text-[12.5px] font-bold text-canvas shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-500 hover:text-white">
+          <span id="csToggleLabel">View case study</span>
+          <svg id="csChev" class="h-3.5 w-3.5 transition-transform duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="csPanel" class="cs-panel" role="region" aria-label="Case study details">
+      <div class="pt-6">
+        <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          ${cs.meta.map(([k, v]) => `
+            <div class="rounded-2xl border border-line/10 bg-canvas/60 p-3">
+              <p class="text-[9.5px] font-extrabold uppercase tracking-[.14em] text-muted">${k}</p>
+              <p class="mt-1 text-[12px] font-bold leading-snug text-ink">${v}</p>
+            </div>`).join('')}
+        </div>
+
+        ${cs.sections.map(s => `
+          <section class="mt-8">
+            <h4 class="flex items-center gap-2.5 text-[15px] font-extrabold tracking-tight text-ink">
+              <span class="h-4 w-[3px] shrink-0 rounded-full bg-brand-500"></span>${s.h}
+            </h4>
+            <div class="cs-prose mt-3 text-[13.5px] leading-relaxed text-muted">${s.html}</div>
+          </section>`).join('')}
+
+        <div class="mt-8 rounded-2xl border border-line/10 bg-canvas/60 p-4 sm:p-5">
+          <p class="text-[13px] font-extrabold tracking-tight text-ink">Want to talk through this project?</p>
+          <p class="mt-1 text-[12.5px] leading-relaxed text-muted">I'm happy to walk through the files, the research notes or the parts that didn't work.</p>
+          <button type="button" data-goto="contact" data-lightbox-close
+            class="mt-3 inline-flex items-center gap-1.5 rounded-full bg-brand-500 px-4 py-2 text-[12px] font-bold text-white transition-transform duration-300 hover:-translate-y-0.5">
+            Get in touch
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ── CASE STUDY EXPAND / COLLAPSE ──────────────────────────── */
+lightboxBody.addEventListener('click', e => {
+  const btn = e.target.closest('#csToggle');
+  if (!btn) return;
+
+  const panel = document.getElementById('csPanel');
+  const chev  = document.getElementById('csChev');
+  const label = document.getElementById('csToggleLabel');
+  if (!panel) return;
+
+  const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+  if (isOpen) {
+    /* collapse: pin to current pixel height first so it animates from 'auto' */
+    panel.style.height = panel.scrollHeight + 'px';
+    void panel.offsetHeight;
+    panel.style.height = '0px';
+    btn.setAttribute('aria-expanded', 'false');
+    if (chev)  chev.style.transform = '';
+    if (label) label.textContent = 'View case study';
+  } else {
+    panel.style.height = panel.scrollHeight + 'px';
+    btn.setAttribute('aria-expanded', 'true');
+    if (chev)  chev.style.transform = 'rotate(180deg)';
+    if (label) label.textContent = 'Hide case study';
+
+    const onEnd = ev => {
+      if (ev.propertyName !== 'height') return;
+      panel.removeEventListener('transitionend', onEnd);
+      if (btn.getAttribute('aria-expanded') === 'true') panel.style.height = 'auto';
+    };
+    panel.addEventListener('transitionend', onEnd);
+  }
+});
 
 document.getElementById('projectGrid').addEventListener('click', e => {
   if (e.target.closest('[data-view-full]')) return;
@@ -2473,35 +3054,99 @@ document.querySelectorAll('[data-faq]').forEach(item => {
 
 /* ============================================================
    20. CONTACT FORM
+   ------------------------------------------------------------
+   Sends the filled-up form straight to your inbox using
+   FormSubmit's AJAX endpoint. No backend required.
+
+   ⚠️  FIRST-TIME SETUP (one minute):
+   The very first submission triggers a confirmation email from
+   FormSubmit to timothycuasay143@gmail.com. Click the link in
+   that email once, and every message after that lands directly
+   in your inbox. Nothing else to configure.
+
+   If the network request fails for any reason, the form falls
+   back to opening the visitor's mail client with everything
+   pre-filled, so you never lose a message.
    ============================================================ */
+const CONTACT_EMAIL = 'timothycuasay143@gmail.com';
+const CONTACT_ENDPOINT = 'https://formsubmit.co/ajax/' + CONTACT_EMAIL;
+
 const form = document.getElementById('contactForm');
 const formMsg = document.getElementById('formMsg');
-form.addEventListener('submit', e => {
+
+function showFormMsg(type, text) {
+  const styles = {
+    error:   'rounded-xl bg-rose-50 px-4 py-3 text-xs font-bold text-rose-600',
+    success: 'rounded-xl bg-emerald-50 px-4 py-3 text-xs font-bold text-emerald-700',
+    info:    'rounded-xl bg-amber-50 px-4 py-3 text-xs font-bold text-amber-700'
+  };
+  formMsg.className = styles[type] || styles.info;
+  formMsg.textContent = text;
+}
+
+form.addEventListener('submit', async e => {
   e.preventDefault();
-  const name = form.name.value.trim();
-  const email = form.email.value.trim();
-  const message = form.message.value.trim();
+
+  const name    = form.elements.name.value.trim();
+  const email   = form.elements.email.value.trim();
+  const subject = form.elements.subject.value;
+  const message = form.elements.message.value.trim();
+
   if (!name || !email || !message) {
-    formMsg.className = 'rounded-xl bg-rose-50 px-4 py-3 text-xs font-bold text-rose-600';
-    formMsg.textContent = 'Please fill in your name, email and message.';
+    showFormMsg('error', 'Please fill in your name, email and message.');
     return;
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    formMsg.className = 'rounded-xl bg-rose-50 px-4 py-3 text-xs font-bold text-rose-600';
-    formMsg.textContent = 'Please enter a valid email address.';
+    showFormMsg('error', 'Please enter a valid email address.');
     return;
   }
+
   const btn = form.querySelector('button[type="submit"]');
   const original = btn.innerHTML;
   btn.disabled = true;
   btn.innerHTML = 'Sending…';
-  setTimeout(() => {
+  formMsg.className = 'hidden';
+  formMsg.textContent = '';
+
+  const payload = {
+    name,
+    email,
+    subject,
+    message,
+    _subject: `Portfolio enquiry — ${subject}`,
+    _replyto: email,
+    _template: 'table',
+    _captcha: 'false',
+    'Submitted at': new Date().toLocaleString()
+  };
+
+  try {
+    const res = await fetch(CONTACT_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) throw new Error('Request failed with status ' + res.status);
+
+    form.reset();
+    showFormMsg('success', `Thanks, ${name}! Your message has been sent. I'll reply within 24 hours.`);
+  } catch (err) {
+    /* Fallback: open the visitor's mail client with everything pre-filled */
+    const mailSubject = encodeURIComponent(`Portfolio enquiry — ${subject}`);
+    const mailBody = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nTopic: ${subject}\n\nMessage:\n${message}`
+    );
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${mailSubject}&body=${mailBody}`;
+
+    showFormMsg('info', 'Your mail app should have opened with the message ready to send. If it didn\u2019t, email me directly at ' + CONTACT_EMAIL + '.');
+  } finally {
     btn.disabled = false;
     btn.innerHTML = original;
-    form.reset();
-    formMsg.className = 'rounded-xl bg-emerald-50 px-4 py-3 text-xs font-bold text-emerald-700';
-    formMsg.textContent = `Thanks, ${name}! Your message has been sent. I'll reply within 24 hours.`;
-  }, 900);
+  }
 });
 
 /* ============================================================
