@@ -1169,9 +1169,9 @@
               <h3 class="text-base font-extrabold tracking-tight">IT Support</h3>
             </div>
             <ul class="mt-3 space-y-2 text-[13px] font-semibold text-ink/85">
-              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>Application support</li>
-              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>Laptop &amp; device fixes</li>
-              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>Network troubleshooting</li>
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>Helpdesk &amp; first-line support</li>
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>Device &amp; hardware basics</li>
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>Network &amp; connectivity checks</li>
             </ul>
             <div class="flex-1" aria-hidden="true"></div>
             <button data-goto="itsupport" class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-ink transition-colors hover:text-brand-500 self-start">
@@ -1348,17 +1348,25 @@
           <p data-anim class="text-[11px] font-extrabold uppercase tracking-[.18em] text-brand-500">
             <span class="text-ink/30">04 /</span> IT Support
           </p>
-          <h1 data-anim class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Keeping people and systems running</h1>
+          <h1 data-anim class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Starting my IT Support career — ready on day one</h1>
           <p data-anim class="mt-2 max-w-3xl text-[15px] leading-relaxed text-muted">
-            Hands-on support experience in a fast-paced call center environment, where reliable
-            access to business applications is critical.
+            I'm at the start of my IT Support journey and I'm upfront about it no exaggerations, no
+            white lies. What I bring is real: a calm approach to troubleshooting, patience with end
+            users, clean documentation habits, and a genuine willingness to learn. Hire me for
+            attitude, consistency and coachability I'll grow into the technical depth quickly.
           </p>
+          <div data-anim class="mt-4 flex flex-wrap items-center gap-2 text-[11px] font-bold text-muted">
+            <span class="rounded-full border border-line/10 bg-card/60 px-3 py-1.5">Entry-level · Open to training</span>
+            <span class="rounded-full border border-line/10 bg-card/60 px-3 py-1.5">Helpdesk ready</span>
+            <span class="rounded-full border border-line/10 bg-card/60 px-3 py-1.5">Customer-friendly</span>
+          </div>
         </header>
 
         <div class="grid gap-4 xl:grid-cols-3" id="itSupportList"></div>
 
         <div data-anim class="mt-5 rounded-3xl border border-line/10 bg-card/85 p-6 shadow-soft backdrop-blur-xl">
-          <h3 class="text-base font-extrabold tracking-tight">Applications &amp; tools I support</h3>
+          <h3 class="text-base font-extrabold tracking-tight">Apps &amp; tools I'm already comfortable with</h3>
+          <p class="mt-1.5 text-[12.5px] leading-relaxed text-muted">These are the everyday tools I can support from day one and the ones I'm actively sharpening.</p>
           <div class="mt-4 flex flex-wrap gap-2" id="appChips"></div>
         </div>
       </section>
@@ -1752,10 +1760,6 @@ function findTool(name) {
 
 /* ============================================================
    PROJECTS
-   ------------------------------------------------------------
-   UI/UX entries accept an optional `cover` — the image shown on
-   the card. If `cover` is empty it falls back to `image`.
-   Paste your cover URL like:  cover: 'https://i.postimg.cc/....png'
    ============================================================ */
 const PROJECTS = [
   { t:'Manhattan Home Design',        c:'uiux', y:'2025', d:'Manhattan Home Design presents a modern approach to interior design, featuring stylish living spaces, carefully selected furniture, and inspiring home concepts that help clients envision their dream interiors.', tags:['Auto Layout','Design System','Landing Page'], tool:'Figma & FigJam', image:'https://i.postimg.cc/CM2DX2ZD/Frame-2087329103.png', cover:'https://i.postimg.cc/gjnbLjdg/Cover.png' },
@@ -1771,7 +1775,7 @@ const PROJECTS = [
   { t:'Block Chain',                  c:'uiux', y:'2023', d:'The Blockchain project focuses on using decentralized technology to provide secure, transparent, and reliable digital transactions, with an emphasis on data integrity and trust between users.', tags:['Futuristic','Landing Page','Branding'], tool:'Figma', image:'https://i.postimg.cc/8cnLpKPd/BLOCKCHAIN-LANDING-PAGE-VERSION-2.png', cover:'https://i.postimg.cc/fyTmc4g1/Screenshot-2026-10-11-183355.png' },
   { t:'Trident Vintage Wear',         c:'uiux', y:'2023', d:'Trident Vintage Wear brings timeless streetwear and retro fashion together, showcasing vintage-inspired clothing with a bold style that appeals to those who want to express their personality through unique and classic outfits.', tags:['Branding','Landing Page'], tool:'Figma', image:'https://i.postimg.cc/fysr7bxY/sasasa.png', cover:'https://i.postimg.cc/mD10TqSJ/Cover4.png' },
 
-  /* ── WEB DEVELOPMENT (unchanged) ─────────────────────────── */
+  /* ── WEB DEVELOPMENT ─────────────────────────── */
   { t:'NFC Cards Web System', c:'web', y:'2025', d:'The NFC Card Web System allows users to order NFC cards and manage or customize their digital business cards independently, without needing admin permission. It offers a convenient, flexible, and paperless way to share contact details and social media links with just one tap.', tags:['Tailwind CSS','Laravel','Supabase','Laragon - MySQL','Github','Hostinger'], tool:'Visual Studio Code', url:'https://justatap.online/' },
   { t:'Apexed Automation System', c:'web', y:'2025', d:'Apexed Automation System is designed to streamline business operations by automating repetitive tasks, improving workflow efficiency, and simplifying daily processes.', tags:['Next.js','Laravel','Supabase','Tailwind CSS','Laragon - MySQL','Github','DeepSeek','CloudFlare'], tool:'Visual Studio Code', url:'https://apexed.online/' },
   { t:'Parang Beach Resort Website', c:'web', y:'2024', d:'Parang Beach Resort Website is designed to showcase the resort’s amenities, accommodations, and services, allowing visitors to explore the destination, discover available facilities, and easily inquire about bookings for a relaxing getaway.', tags:['WordPress','Custom Code','Bluehost'], tool:'Wordpress & Plugins', url:'https://parangbeachresort.com/' }
@@ -1779,13 +1783,9 @@ const PROJECTS = [
 
 /* ============================================================
    2b. CASE STUDIES
-   ------------------------------------------------------------
-   Full write-ups for the three flagship UI/UX projects.
-   Keys must match PROJECTS[].t exactly.
    ============================================================ */
 const CASE_STUDIES = {
 
-  /* --------------------------------------------------------- */
   'Manhattan Home Design': {
     blurb: 'How a nine-section page became five — and why the hero ended up split instead of full-bleed.',
     meta: [
@@ -1923,7 +1923,6 @@ const CASE_STUDIES = {
     ]
   },
 
-  /* --------------------------------------------------------- */
   'Manhattan Home Design - New Version': {
     blurb: 'A second direction: what happens when you stop optimising for conversion and start designing for brand.',
     meta: [
@@ -2010,7 +2009,6 @@ const CASE_STUDIES = {
     ]
   },
 
-  /* --------------------------------------------------------- */
   'Quishas Kitchenette Restaurant': {
     blurb: 'A restaurant site built for the person standing on a sidewalk deciding where to eat.',
     meta: [
@@ -2125,9 +2123,9 @@ const GRADS = [
 const SERVICES = [
   { n:'01', t:'UI/UX Design', ico:'pen', d:'Interface design, user flows and design systems that make complex products feel simple.', chips:['Wireframing','Prototyping','Design Systems','Usability'] },
   { n:'02', t:'Web Development', ico:'code', d:'Turning designs and requirements into responsive, functional websites and web systems.', chips:['Next.js','Laravel','Tailwind CSS','Supabase'] },
-  { n:'03', t:'Application & Software Support', ico:'app', d:'First-line technical assistance for business-critical applications used every day.', chips:['Duck Creek','Genesys','Claim Center','MS Teams'] },
-  { n:'04', t:'Laptop & Device Troubleshooting', ico:'laptop', d:'Diagnosing hardware and operating system issues that stop employees from working.', chips:['Boot issues','OS errors','Updates','Diagnostics'] },
-  { n:'05', t:'Network Troubleshooting', ico:'wifi', d:'Investigating connectivity problems that block access to applications and internal resources.', chips:['LAN','Wi-Fi','Stability','Diagnostics'] }
+  { n:'03', t:'Application & Software Support', ico:'app', d:'First-line technical assistance for business-critical applications used every day.', chips:['Outlook & Email Clients','Google Workspace','Excel & Word','Microsoft Teams'] },
+  { n:'04', t:'Laptop & Device Troubleshooting', ico:'laptop', d:'First-level fixes for laptops, monitors and peripherals because a broken device shouldn\'t cost a team member their whole day.', chips:['Setups','Peripherals','OS basics', 'Triage'] },
+  { n:'05', t:'Network Troubleshooting', ico:'wifi', d:'First-line connectivity checks to confirm a user is online and to escalate complex issues with the exact details Tier 2 needs.', chips:['LAN','Wi-Fi','Connectivity','Triage'] }
 ];
 
 const PROCESS = [
@@ -2143,13 +2141,70 @@ const SHOWCASE = [
   { t:'Parang Beach Resort Website', y:'2025', d:'Parang Beach Resort Website is designed to showcase the resort’s amenities, accommodations, and services, allowing visitors to explore the destination, discover available facilities, and easily inquire about bookings for a relaxing getaway.', stack:['WordPress','Custom Code','Bluehost'], features:['Resort Gallery','Accommodation Details','Booking Inquiries','Amenities and Services','Contact Information','Responsive Design'] }
 ];
 
+/* ══════════════════════════════════════════════════════════════
+   IT SUPPORT — ENTRY-LEVEL, HONEST, HR-FRIENDLY
+   ──────────────────────────────────────────────────────────────
+   Rewritten to reflect an entry-level IT Support candidate.
+   No overclaiming — just the real tasks a first-time hire can
+   confidently do, framed for HR and hiring managers.
+   ══════════════════════════════════════════════════════════════ */
 const IT_SUPPORT = [
-  { n:'01', t:'Application & Software Support', ico:'app', d:'First-line technical assistance for business-critical applications, helping users resolve software issues and maintain smooth day-to-day operations.', items:['Password resets & access issues','Application errors & crashes','Installation & configuration','User guidance & escalation'] },
-  { n:'02', t:'Laptop & Device Troubleshooting', ico:'laptop', d:'Diagnosing and resolving hardware and operating system issues affecting employee laptops and devices.', items:['Power & startup problems','Restart and boot-related issues','Software update failures','OS and system-level errors','General device diagnostics'] },
-  { n:'03', t:'Network Troubleshooting', ico:'wifi', d:'Investigating network and connectivity problems that prevent access to applications, internal resources and essential business systems.', items:['Local Area Network (LAN) problems','Wi-Fi connectivity issues','Network access failures','Connection stability checks','Basic connectivity diagnostics'] }
+  {
+    n:'01',
+    t:'Helpdesk & First-Line Support',
+    ico:'app',
+    d:'The front door of IT answering questions, logging tickets and helping users get back to work. This is where I start, and where I plan to grow.',
+    items:[
+      'Password resets and account unlock requests',
+      'Logging, updating and closing tickets in a helpdesk system',
+      'Following knowledge base guides and standard operating procedures',
+      'Walking users through simple fixes over chat, call or email',
+      'Knowing when to escalate to a senior technician'
+    ]
+  },
+  {
+    n:'02',
+    t:'Device & Hardware Basics',
+    ico:'laptop',
+    d:'Simple, hands-on troubleshooting for the everyday issues end users run into with their laptops, monitors and peripherals the small fixes that keep people working.',
+    items:[
+      'Setting up monitors, keyboards, mice and docking stations',
+      'Printer, scanner and peripheral connection issues',
+      'Windows update checks and basic software installations',
+      'Restart, boot and simple error message troubleshooting',
+      'Keeping a clean record of what was checked and fixed'
+    ]
+  },
+  {
+    n:'03',
+    t:'Network & Connectivity Checks',
+    ico:'wifi',
+    d:'First-level checks to confirm whether a user is online and to gather the details a senior tech needs when the issue is bigger than a simple fix.',
+    items:[
+      'Reconnecting users to Wi-Fi (forget network, rejoin)',
+      'Basic cable and router check before escalating',
+      'Ping and ipconfig tests to confirm connectivity',
+      'Noting the exact error messages users see',
+      'Passing complex network issues up to Tier 2 with clear notes'
+    ]
+  }
 ];
 
-const APPS = ['Claim Center','Duck Creek','Genesys','WPC App','Microsoft Excel','Microsoft Teams','AnyDesk'];
+/* Apps & tools an entry-level IT hire can comfortably support.
+   Framed honestly — the tools I know and can support day one. */
+const APPS = [
+  'Microsoft 365',
+  'Microsoft Teams',
+  'Outlook & Email Clients',
+  'Excel & Word',
+  'Windows 10 / 11',
+  'Google Workspace',
+  'AnyDesk & TeamViewer',
+  'Jira Service Management',
+  'Chrome & Edge',
+  'Printers & Scanners',
+  'Basic Wi-Fi & LAN'
+];
 
 /* ============================================================
    TESTIMONIALS
@@ -2263,7 +2318,7 @@ function toolIcon(t) {
   return `<span class="tool-icon-wrap"><span style="color:#${t.color}; font-size:${size}; font-weight:900; line-height:1; letter-spacing:-.02em;">${letter}</span></span>`;
 }
 
-/* Testimonial avatar renderer — image if `avatar` is set, otherwise initials */
+/* Testimonial avatar renderer */
 function testiAvatar(t, size = 'h-11 w-11', textSize = 'text-[12px]', radius = 'rounded-2xl') {
   if (t.avatar && t.avatar.trim()) {
     return `<span class="relative shrink-0 overflow-hidden ${radius} shadow-sm ${size}" style="background:${t.accent}">
@@ -2438,9 +2493,9 @@ function uiuxProjectCard(p, i) {
        </a>`
     : '';
 
-  const caseBadge = hasCase
+    const caseBadge = hasCase
     ? `<div class="pointer-events-none absolute inset-x-4 bottom-4 flex justify-start">
-         <span class="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 text-[9.5px] font-extrabold uppercase tracking-[0.12em] text-ink shadow-sm backdrop-blur">
+         <span class="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 text-[9.5px] font-extrabold uppercase tracking-[0.12em] text-[#0B1220] shadow-sm backdrop-blur">
            <svg class="h-3 w-3 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5A2.5 2.5 0 0 0 17.5 16H4V5.5Z"/><path d="M4 18.5A2.5 2.5 0 0 0 6.5 21H20"/></svg>
            Full case study
          </span>
@@ -2537,7 +2592,7 @@ function webProjectCard(p, i) {
   </article>`;
 }
 
-/* ── GROUP HEADERS (only used on the UI/UX side) ───────────── */
+/* ── GROUP HEADERS ───────────── */
 function featuredGroupHeader() {
   const count = PROJECTS.filter(p => p.c === 'uiux' && CASE_STUDIES[p.t]).length;
   return `
@@ -2582,7 +2637,6 @@ function renderProjects(filter = 'all') {
   let html = '';
 
   if (filter === 'web') {
-    /* ── Web Development view: untouched, no headers ── */
     const web = PROJECTS.filter(p => p.c === 'web');
     html = web.map((p, i) => projectCard(p, i)).join('');
   } else {
@@ -2606,7 +2660,6 @@ function renderProjects(filter = 'all') {
 
   grid.innerHTML = html;
 
-  /* animate cards only — header rows stay static */
   [...grid.querySelectorAll('.project-card')].forEach((el, i) => {
     el.style.animation = `riseIn .7s cubic-bezier(.22,1,.36,1) ${Math.min(i * 45, 620)}ms both`;
   });
@@ -2746,7 +2799,7 @@ function renderProjects(filter = 'all') {
         ${t.tags.map(tag => `<span class="rounded-md bg-canvas px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-muted">${tag}</span>`).join('')}
       </div>
 
-      <!-- Hover overlay: blurred modal with 2 icon-only buttons -->
+      <!-- Hover overlay -->
       <div class="testi-overlay" aria-hidden="true">
         <a href="${t.url}" target="_blank" rel="noopener noreferrer"
            class="testi-action" aria-label="Visit live system" title="Visit live system">
@@ -3026,11 +3079,6 @@ document.addEventListener('keydown', e => {
 
 /* ============================================================
    16. PROJECT PREVIEW
-   ------------------------------------------------------------
-   UI/UX cards use the SAME cover image that the card displays.
-   Falls back to `image` only if `cover` is missing.
-   Web Development cards never call this function (they open
-   the live site in a new tab), so their behaviour is unchanged.
    ============================================================ */
 function makePreview(p) {
   const coverSrc = (p.cover && p.cover.trim()) || p.image || '';
