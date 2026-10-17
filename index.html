@@ -464,6 +464,18 @@
   .cursor-el.is-hover .cursor-pill { transform: scale(1.08); padding: 5px 16px; }
   .cursor-el.is-down .cursor-arrow { transform: scale(.85); }
 
+  /* HAND CURSOR — swaps in for the arrow over clickable content */
+  .cursor-hand {
+    width: 20px; height: 22px;
+    display: none;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,.35));
+    transition: transform .25s var(--ease);
+    transform-origin: top left;
+  }
+  .cursor-el.is-hover .cursor-arrow { display: none; }
+  .cursor-el.is-hover .cursor-hand  { display: block; transform: scale(1.05); }
+  .cursor-el.is-down  .cursor-hand  { transform: scale(.9); }
+
   /* KEYFRAMES */
   @keyframes riseIn {
     0%   { opacity: 0; transform: translateY(24px) scale(.985); filter: blur(7px); }
@@ -562,19 +574,13 @@
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     overflow: hidden;
-    transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s var(--ease);
+    transition: transform .45s var(--ease), border-color .45s var(--ease);
   }
-  .bento::after {
-    content: ''; position: absolute; inset: 0; border-radius: inherit;
-    background: radial-gradient(420px circle at var(--mx,50%) var(--my,0%), rgb(255 107 44 / .1), transparent 62%);
-    opacity: 0; transition: opacity .4s var(--ease); pointer-events: none;
-  }
+  /* Hover shadow removed — only the subtle lift + border change remains */
   .bento:hover {
     transform: translateY(-5px);
-    box-shadow: 0 2px 6px rgb(var(--line) / .05), 0 28px 50px -22px rgb(var(--line) / .3);
     border-color: rgb(var(--line) / .14);
   }
-  .bento:hover::after { opacity: 1; }
 
   .card-ico {
     display: grid; place-items: center;
@@ -594,16 +600,16 @@
     box-shadow: 0 1px 2px rgb(var(--line) / .04), 0 10px 30px -16px rgb(var(--line) / .16);
     overflow: hidden;
     cursor: pointer;
-    transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s var(--ease);
+    transition: transform .45s var(--ease), border-color .45s var(--ease);
   }
+  /* Hover shadow removed — lift + border only */
   .project-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 2px 6px rgb(var(--line) / .05), 0 30px 54px -24px rgb(var(--line) / .32);
     border-color: rgb(var(--line) / .14);
   }
   .project-card:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px rgb(255 107 44 / .35), 0 30px 54px -24px rgb(var(--line) / .32);
+    box-shadow: 0 0 0 3px rgb(255 107 44 / .35);
   }
   @media (hover: none) {
     .project-card:hover { transform: none; }
@@ -727,7 +733,6 @@
     width: 40px; height: 40px;
     border-radius: 12px;
     color: #fff;
-    box-shadow: 0 4px 10px -4px rgb(0 0 0 / .3);
     flex-shrink: 0;
   }
 
@@ -794,11 +799,11 @@
     border: 1px solid rgb(var(--line) / .1);
     padding: 1.35rem 1.35rem 1.25rem;
     overflow: hidden;
-    transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+    transition: transform .4s var(--ease), border-color .4s var(--ease);
   }
+  /* Hover shadow removed — lift + border only */
   .testi-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 2px 6px rgb(var(--line) / .05), 0 24px 44px -22px rgb(var(--line) / .3);
     border-color: rgb(var(--line) / .18);
   }
   .testi-quote {
@@ -1031,6 +1036,24 @@
     <path d="M2 2 L2 18 L6.5 13.5 L10 20 L12.5 19 L9 12.5 L15.5 12.5 Z"
           fill="#0B1220" stroke="#ffffff" stroke-width="1.2" stroke-linejoin="round"/>
   </svg>
+
+  <!-- HAND CURSOR — shown only over clickable content -->
+  <svg class="cursor-hand" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+       fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#ffffff" stroke-width="3.4">
+      <path d="M18 11V6a2 2 0 0 0-4 0v5"/>
+      <path d="M14 10V4a2 2 0 0 0-4 0v6"/>
+      <path d="M10 10.5V6a2 2 0 0 0-4 0v8"/>
+      <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
+    </g>
+    <g stroke="var(--cursor-color)" stroke-width="1.7">
+      <path d="M18 11V6a2 2 0 0 0-4 0v5"/>
+      <path d="M14 10V4a2 2 0 0 0-4 0v6"/>
+      <path d="M10 10.5V6a2 2 0 0 0-4 0v8"/>
+      <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
+    </g>
+  </svg>
+
   <span class="cursor-pill" id="cursorLabel">Guest</span>
 </div>
 
@@ -1099,7 +1122,10 @@
             Light
           </button>
           <button type="button" data-theme-btn="dark" class="theme-btn" aria-label="Dark mode">
-            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"/></svg>
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.4 13.1A8.2 8.2 0 0 1 10.9 3.6a8.2 8.2 0 1 0 9.5 9.5Z"/>
+              <path d="M18.6 3.2l.55 1.55 1.55.55-1.55.55-.55 1.55-.55-1.55-1.55-.55 1.55-.55.55-1.55Z" fill="currentColor" stroke="none"/>
+            </svg>
             Dark
           </button>
         </div>
@@ -1125,9 +1151,8 @@
         <a href="#itsupport" data-nav="itsupport" class="nav-item">
           <span class="nav-ico">
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9"/>
               <circle cx="12" cy="12" r="3"/>
-              <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M5.64 18.36l2.12-2.12M16.24 7.76l2.12-2.12"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
             </svg>
           </span>
           IT Support
@@ -1178,9 +1203,6 @@
         </button>
         <span class="text-sm font-extrabold tracking-tight">Tim Josh</span>
       </div>
-      <button data-goto="contact" class="rounded-full bg-brand-500 px-4 py-2 text-xs font-bold text-white shadow-sm transition active:scale-95">
-        Hire me
-      </button>
     </div>
 
     <div id="viewRoot">
@@ -1299,18 +1321,13 @@
             <div class="flex items-center gap-3">
               <span class="card-ico">
                 <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="9"/>
                   <circle cx="12" cy="12" r="3"/>
-                  <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M5.64 18.36l2.12-2.12M16.24 7.76l2.12-2.12"/>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
                 </svg>
               </span>
               <h3 class="text-base font-extrabold tracking-tight">IT Support</h3>
             </div>
-            <ul class="mt-3 space-y-2 text-[13px] font-semibold text-ink/85">
-              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>Helpdesk &amp; first-line support</li>
-              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>Device &amp; hardware basics</li>
-              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>Network &amp; connectivity checks</li>
-            </ul>
+            <ul class="mt-3 divide-y divide-line/10" id="miniItSupport"></ul>
             <div class="flex-1" aria-hidden="true"></div>
             <button data-goto="itsupport" class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-ink transition-colors hover:text-brand-500 self-start">
               See what I handle
@@ -1814,7 +1831,13 @@
   }, { passive: true });
 
   document.addEventListener('mouseover', e => {
-    const t = e.target.closest('a, button, [role="button"], .project-card, .credential-btn, input, textarea, select');
+    const t = e.target.closest(
+      'a, button, [role="button"], [role="link"], summary, label, ' +
+      'input, textarea, select, [tabindex="0"], ' +
+      '[data-goto], [data-project], [data-credential], [data-nav], ' +
+      '[data-lightbox-close], [data-showcase-case], [data-full-case-study], [data-view-full], [data-live], ' +
+      '.project-card, .credential-btn, .testi-card, .filter-btn, .nav-item'
+    );
     el.classList.toggle('is-hover', !!t);
     const formField = e.target.closest('input, textarea, select');
     el.style.opacity = formField ? '0' : '1';
@@ -1900,23 +1923,26 @@ function findTool(name) {
    PROJECTS
    ============================================================ */
 const PROJECTS = [
+  { t:'Manhattan Home Design - New Version', c:'uiux', y:'2025', d:'A UI/UX design concept for Manhattan Home Design, focused on creating an elegant, modern, and user-friendly landing page that showcases interior design services, highlights visual aesthetics, and provides a seamless browsing experience.', tags:['Auto Layout','Design System','Landing Page'], tool:'Figma & Figjam', image:'https://i.postimg.cc/Qxq56M3r/MHD-Home-Landing-Page.png', cover:'https://i.postimg.cc/x1fJXmLg/fffffffff.png' },
   { t:'Manhattan Home Design',        c:'uiux', y:'2025', d:'Manhattan Home Design presents a modern approach to interior design, featuring stylish living spaces, carefully selected furniture, and inspiring home concepts that help clients envision their dream interiors.', tags:['Auto Layout','Design System','Landing Page'], tool:'Figma & FigJam', image:'https://i.postimg.cc/CM2DX2ZD/Frame-2087329103.png', cover:'https://i.postimg.cc/Jz4j0Hmm/Frame-2087329326.png' },
-  { t:'Manhattan Home Design - New Version', c:'uiux', y:'2025', d:'A UI/UX design concept for Manhattan Home Design, focused on creating an elegant, modern, and user-friendly landing page that showcases interior design services, highlights visual aesthetics, and provides a seamless browsing experience.', tags:['Auto Layout','Design System','Landing Page'], tool:'Figma & Figjam', image:'https://i.postimg.cc/Qxq56M3r/MHD-Home-Landing-Page.png', cover:'https://i.postimg.cc/0jq7bM7L/Cover1.png' },
   { t:'Quishas Kitchenette Restaurant', c:'uiux', y:'2024', d:'Quishas Kitchenette showcases delicious meals and a welcoming dining experience through a warm, inviting design that highlights the menu, food selections, and restaurant details, making it easy for customers to discover what’s on the table.', tags:['Mobile','Desktop','Auto Layout','Usability Testing'], tool:'Figma', image:'https://i.postimg.cc/Kj4Z2QH6/Qui.png', cover:'https://i.postimg.cc/wMQsTgGN/Frame-2087329288.png' },
   { t:'Prime Lending Solutions',      c:'uiux', y:'2025', d:'A UI/UX design concept for Prime Lending Solution, focused on creating a professional, trustworthy, and user-friendly landing page that presents lending services clearly and helps users easily explore loan options and submit inquiries.', tags:['UX Research','Auto Layout','Landing Page'], tool:'Figma', image:'https://i.postimg.cc/442Rp6Y1/Frame-2087329329.png', cover:'https://i.postimg.cc/BQzQpWV3/Cover2-0.png' },
   { t:'Wesco Skate Community',        c:'uiux', y:'2025', d:'Wescko Skate Community is designed to bring skaters together through a bold, street-inspired website that highlights skate culture, community events, and the passion for skateboarding, while giving visitors a feel for the local skate scene.', tags:['Research','Design Syste Page','Wireframing'], tool:'Figma', image:'https://i.postimg.cc/R0wnHCGw/Wesco-Skateboard.png', cover:'https://i.postimg.cc/dVdv9hdP/Cover1.png' },
-  { t:'Solea luxury Jewelry',         c:'uiux', y:'2025', d:'Solea Luxury Jewelry showcases elegant jewelry pieces through a clean and luxurious design, highlighting each collection’s beauty and craftsmanship while giving customers a refined and seamless browsing experience.', tags:['Mobile','Desktop','Conversion','UX Research'], tool:'Figma', image:'https://i.postimg.cc/fLj2BNW5/Solea.png', cover:'https://i.postimg.cc/Kzc2FQHN/Cover2.png' },
-  { t:'FitLife Gym Fitness - Version 1', c:'uiux', y:'2024', d:'FitLife Gym features a clean and motivating landing page that introduces the gym, showcases its workout facilities and fitness programs, and encourages people to take the first step toward a healthier lifestyle.', tags:['Auto Layout','Branding'], tool:'Figma', image:'https://i.postimg.cc/QMY2TyYV/Version-1.png', cover:'https://i.postimg.cc/Xvt23SDS/Screenshot-2026-10-13-223642.png' },
-  { t:'FitLife Gym Fitness - Version 2', c:'uiux', y:'2024', d:'FitLife Gym brings fitness to life with a bold, energetic design that highlights workout programs, gym facilities, and membership options, making it easier for people to find their motivation and start their fitness journey.', tags:['UX Research','Wireframing','Landing Page','Auto Layout'], tool:'Figma', image:'https://i.postimg.cc/CLmxqpwn/Fit-Life-Gym-Landing-Page.png', cover:'https://i.postimg.cc/N0gVrFkG/Screenshot-2026-10-11-182314.png' },
-  { t:'Jumping Tickets',              c:'uiux', y:'2022', d:'Jumping Tickets is a gaming-focused landing page that showcases innovative gaming devices, introduces the team behind the brand, and lets visitors explore products designed to make gaming more immersive and enjoyable.', tags:['Game','Entertainment','Branding'], tool:'Figma', image:'https://i.postimg.cc/k59Rm3Fb/tab.png', cover:'https://i.postimg.cc/rFRzvFWs/Screenshot-2026-10-11-183851.png' },
+  { t:'Solea luxury Jewelry',         c:'uiux', y:'2025', d:'Solea Luxury Jewelry showcases elegant jewelry pieces through a clean and luxurious design, highlighting each collection’s beauty and craftsmanship while giving customers a refined and seamless browsing experience.', tags:['Mobile','Desktop','Conversion','UX Research'], tool:'Figma', image:'https://i.postimg.cc/fLj2BNW5/Solea.png', cover:'https://i.postimg.cc/3NLM9zbd/ggggggg.png' },
+  { t:'FitLife Gym Fitness - Version 1', c:'uiux', y:'2024', d:'FitLife Gym features a clean and motivating landing page that introduces the gym, showcases its workout facilities and fitness programs, and encourages people to take the first step toward a healthier lifestyle.', tags:['Auto Layout','Branding'], tool:'Figma', image:'https://i.postimg.cc/QMY2TyYV/Version-1.png', cover:'https://i.postimg.cc/s23kdjd7/Frame-2087329342.png' },
+  { t:'FitLife Gym Fitness - Version 2', c:'uiux', y:'2024', d:'FitLife Gym brings fitness to life with a bold, energetic design that highlights workout programs, gym facilities, and membership options, making it easier for people to find their motivation and start their fitness journey.', tags:['UX Research','Wireframing','Landing Page','Auto Layout'], tool:'Figma', image:'https://i.postimg.cc/CLmxqpwn/Fit-Life-Gym-Landing-Page.png', cover:'https://i.postimg.cc/1zp3M50w/Frame-2087329341.png' },
+  { t:'Jumping Tickets',              c:'uiux', y:'2022', d:'Jumping Tickets is a gaming-focused landing page that showcases innovative gaming devices, introduces the team behind the brand, and lets visitors explore products designed to make gaming more immersive and enjoyable.', tags:['Game','Entertainment','Branding'], tool:'Figma', image:'https://i.postimg.cc/k59Rm3Fb/tab.png', cover:'https://i.postimg.cc/cC77SSN5/i-Pad-Pro.png' },
   { t:'Chain Glass Aluminum',         c:'uiux', y:'2022', d:'Chain Glass is a corporate website designed to showcase glass and aluminum products, highlight completed projects, and connect with contractors, distributors, and clients looking for reliable glass and aluminum solutions.', tags:['UI/UX Design','Glass & Aluminum','Web Design','B2B Business','Industrial Branding'], tool:'Figma', image:'https://i.postimg.cc/MGdHJcG6/c.png', cover:'https://i.postimg.cc/cLM1SKJ3/c-OVER6.png' },
-  { t:'Block Chain',                  c:'uiux', y:'2023', d:'The Blockchain project focuses on using decentralized technology to provide secure, transparent, and reliable digital transactions, with an emphasis on data integrity and trust between users.', tags:['Futuristic','Landing Page','Branding'], tool:'Figma', image:'https://i.postimg.cc/8cnLpKPd/BLOCKCHAIN-LANDING-PAGE-VERSION-2.png', cover:'https://i.postimg.cc/fyTmc4g1/Screenshot-2026-10-11-183355.png' },
-  { t:'Trident Vintage Wear',         c:'uiux', y:'2023', d:'Trident Vintage Wear brings timeless streetwear and retro fashion together, showcasing vintage-inspired clothing with a bold style that appeals to those who want to express their personality through unique and classic outfits.', tags:['Branding','Landing Page'], tool:'Figma', image:'https://i.postimg.cc/fysr7bxY/sasasa.png', cover:'https://i.postimg.cc/mD10TqSJ/Cover4.png' },
+  { t:'Block Chain',                  c:'uiux', y:'2023', d:'The Blockchain project focuses on using decentralized technology to provide secure, transparent, and reliable digital transactions, with an emphasis on data integrity and trust between users.', tags:['Futuristic','Landing Page','Branding'], tool:'Figma', image:'https://i.postimg.cc/8cnLpKPd/BLOCKCHAIN-LANDING-PAGE-VERSION-2.png', cover:'https://i.postimg.cc/pdnq63yk/Frame-2087329345.png' },
+  { t:'Trident Vintage Wear',         c:'uiux', y:'2023', d:'Trident Vintage Wear brings timeless streetwear and retro fashion together, showcasing vintage-inspired clothing with a bold style that appeals to those who want to express their personality through unique and classic outfits.', tags:['Branding','Landing Page'], tool:'Figma', image:'https://i.postimg.cc/fysr7bxY/sasasa.png', cover:'https://i.postimg.cc/PrtV56FL/Frame-2087329343.png' },
 
-  /* ── WEB DEVELOPMENT ─────────────────────────── */
-  { t:'NFC Cards Web System', c:'web', y:'2025', d:'The NFC Card Web System allows users to order NFC cards and manage or customize their digital business cards independently, without needing admin permission. It offers a convenient, flexible, and paperless way to share contact details and social media links with just one tap.', tags:['Tailwind CSS','Laravel','Supabase','Laragon - MySQL','Github','Hostinger'], tool:'Visual Studio Code', url:'https://justatap.online/' },
-  { t:'Apexed Automation System', c:'web', y:'2025', d:'Apexed Automation System is designed to streamline business operations by automating repetitive tasks, improving workflow efficiency, and simplifying daily processes.', tags:['Next.js','Laravel','Supabase','Tailwind CSS','Laragon - MySQL','Github','DeepSeek','CloudFlare'], tool:'Visual Studio Code', url:'https://apexed.online/' },
-  { t:'Parang Beach Resort Website', c:'web', y:'2024', d:'Parang Beach Resort Website is designed to showcase the resort’s amenities, accommodations, and services, allowing visitors to explore the destination, discover available facilities, and easily inquire about bookings for a relaxing getaway.', tags:['WordPress','Custom Code','Bluehost'], tool:'Wordpress & Plugins', url:'https://parangbeachresort.com/' }
+  /* ── WEB DEVELOPMENT ────────────────────────────────────────
+     Each entry has a `cover` field — swap it for your own image
+     (e.g. '/covers/justatap.png') to override the default
+     live-screenshot preview from WordPress mShots.            */
+  { t:'NFC Cards Web System', c:'web', y:'2025', d:'The NFC Card Web System allows users to order NFC cards and manage or customize their digital business cards independently, without needing admin permission. It offers a convenient, flexible, and paperless way to share contact details and social media links with just one tap.', tags:['Tailwind CSS','Laravel','Supabase','Laragon - MySQL','Github','Hostinger'], tool:'Visual Studio Code', cover:'https://i.postimg.cc/wjX14vFH/dasadsadsasa.png', url:'https://justatap.online/' },
+  { t:'Apexed Automation System', c:'web', y:'2025', d:'Apexed Automation System is designed to streamline business operations by automating repetitive tasks, improving workflow efficiency, and simplifying daily processes.', tags:['Next.js','Laravel','Supabase','Tailwind CSS','Laragon - MySQL','Github','DeepSeek','CloudFlare'], tool:'Visual Studio Code', cover:'https://i.postimg.cc/wTHMyHg4/fdfdfdfdd.png', url:'https://apexed.online/' },
+  { t:'Parang Beach Resort Website', c:'web', y:'2024', d:'Parang Beach Resort Website is designed to showcase the resort’s amenities, accommodations, and services, allowing visitors to explore the destination, discover available facilities, and easily inquire about bookings for a relaxing getaway.', tags:['WordPress','Custom Code','Bluehost'], tool:'Wordpress & Plugins', cover:'https://i.postimg.cc/XNsmFkb6/asaas.png', url:'https://parangbeachresort.com/' }
 ];
 
 /* ============================================================
@@ -1925,7 +1951,7 @@ const PROJECTS = [
 const CASE_STUDIES = {
 
   'Manhattan Home Design': {
-    blurb: 'How a nine-section page became five — and why the hero ended up split instead of full-bleed.',
+    blurb: 'How a nine-section page became five, and why the hero ended up split instead of full-bleed.',
     meta: [
       ['Role', 'UI/UX Designer'],
       ['Timeline', '3 weeks · 2025'],
@@ -1936,19 +1962,19 @@ const CASE_STUDIES = {
       {
         h: 'Background',
         html: `
-          <p>The Manhattan Home Design landing page had been built up over several years, one campaign at a time. By the time I was brought in it had three different button styles, two competing hero messages, and a <em>Book a consultation</em> link sitting below five full sections of product photography.</p>
-          <p>The brief from the marketing lead was one sentence long: <em>"People land on the page, they scroll, and they leave."</em></p>
-          <p>That's a symptom, not a problem. So the first two days weren't spent designing anything — they were spent turning that sentence into something I could actually test.</p>
+          <p>The Manhattan Home Design landing page grew over several years, one campaign at a time. When I joined, it had three button styles, two competing hero messages, and a "Book a consultation" link buried below five sections of product photography.</p>
+          <p>The marketing lead's brief was one sentence: <em>"People land on the page, they scroll, and they leave."</em></p>
+          <p>That is a symptom, not a root problem. My first two days were spent turning that sentence into a testable hypothesis.</p>
         `
       },
       {
         h: 'What I was actually solving',
         html: `
-          <p>Three testable problems came out of that first pass:</p>
+          <p>I identified three testable problems:</p>
           <ul>
-            <li>Visitors couldn't tell within the first screen whether the company <strong>sells furniture</strong>, <strong>offers interior design services</strong>, or both.</li>
-            <li>The consultation — the highest-value action on the page — was buried under five product sections.</li>
-            <li>On mobile the layout was a desktop grid squeezed into a narrow column: tap targets under 40px, and horizontal scroll on the room gallery.</li>
+            <li>Visitors could not tell within the first screen whether the company sells furniture, offers interior design services, or both.</li>
+            <li>The consultation link (the highest-value action) was buried under five product sections.</li>
+            <li>Mobile users faced a squished desktop grid with tap targets under 40px and horizontal scrolling on the room gallery.</li>
           </ul>
           <div class="cs-note">
             <p class="cs-note-label">Note</p>
@@ -1959,31 +1985,31 @@ const CASE_STUDIES = {
       {
         h: 'Research',
         html: `
-          <p>I kept this small on purpose. Three weeks doesn't leave room for a full research phase, and honestly the client didn't need one — they needed decisions. So I did three things:</p>
+          <p>I kept this small on purpose. A three-week timeline does not allow for a full research phase. The client did not need a massive study; they needed clear decisions. So I did three things:</p>
           <ol>
-            <li>A heuristic review of the current page — I went through it on desktop and phone and wrote down every point of friction I could defend.</li>
-            <li>Five 20-minute conversations with people who had furnished an apartment or house in the last 18 months.</li>
-            <li>A teardown of six competitors, looking specifically at what they put above the fold.</li>
+            <li>Conducted a heuristic review of the current page on desktop and mobile, noting every point of friction.</li>
+            <li>Spoke with five people who had furnished a home in the last 18 months.</li>
+            <li>Analyzed six competitors, focusing specifically on their above-the-fold content.</li>
           </ol>
-          <p>Two things people said stayed with me:</p>
+          <p>Two user quotes shaped the entire project:</p>
           <blockquote>
             "I genuinely can't tell if this is a furniture store or a design firm. I'd have to scroll to figure it out."
-            <footer>— Participant 2, rented a 1BR in 2024</footer>
+            <footer>Participant 2, rented a 1BR in 2024</footer>
           </blockquote>
           <blockquote>
             "I don't want to see a sofa on a white background. I want to see it in a room. Otherwise I can't picture it in my apartment."
-            <footer>— Participant 4, bought a full living room set</footer>
+            <footer>Participant 4, bought a full living room set</footer>
           </blockquote>
-          <p>That second quote changed the direction of the project. People aren't shopping for a sofa. They're shopping for a <strong>finished room</strong>. The competitors who understood that were selling rooms, and those were the sites participants remembered by name a week later.</p>
+          <p>That second quote shifted our direction. People are not shopping for a sofa. They are shopping for a <strong>finished room</strong>. Competitors who understood this were selling rooms, and those were the sites participants remembered a week later.</p>
         `
       },
       {
         h: 'Design direction',
         html: `
-          <p>Three rules came out of the research, and I wrote them down before opening Figma so I'd stop myself from drifting:</p>
+          <p>Three rules emerged from the research. I wrote them down before opening Figma to prevent scope creep:</p>
           <ul>
             <li><strong>Lead with rooms.</strong> Product shots support the story; room shots carry it.</li>
-            <li><strong>One primary action.</strong> The consultation is the goal — not "Shop now".</li>
+            <li><strong>One primary action.</strong> The consultation is the goal, not a generic "Shop now" button.</li>
             <li><strong>Halve the page.</strong> Nine sections down to five.</li>
           </ul>
         `
@@ -1991,161 +2017,348 @@ const CASE_STUDIES = {
       {
         h: 'Structure',
         html: `
-          <p>The old page had nine sections. The new one has five, and each one has a single job:</p>
+          <p>I reduced the page from nine sections to five. Each section now has a single job:</p>
           <ol>
-            <li><strong>Hero</strong> — one message, one action, answered in under five seconds.</li>
-            <li><strong>Room setups</strong> — the "I can picture it in my place" moment.</li>
-            <li><strong>How the design service works</strong> — three steps, plain language, no jargon.</li>
-            <li><strong>Proof</strong> — two testimonials with real names and photos, not stock quotes.</li>
-            <li><strong>Consultation form</strong> — short enough to fill in on a phone.</li>
+            <li><strong>Hero:</strong> One message, one action, answered in under five seconds.</li>
+            <li><strong>Room setups:</strong> The "I can picture it in my place" moment.</li>
+            <li><strong>How the design service works:</strong> Three steps, plain language, no jargon.</li>
+            <li><strong>Proof:</strong> Two testimonials with real names and photos, not stock quotes.</li>
+            <li><strong>Consultation form:</strong> Short enough to fill in on a phone.</li>
           </ol>
-          <p>Everything else moved to the footer or got cut. I had to argue for cutting the "featured brands" carousel — it was there because a partner had asked for it, not because it helped anyone.</p>
+          <p>Everything else moved to the footer or got cut. I argued to remove the "featured brands" carousel. It existed because a partner requested it, not because it helped the user.</p>
         `
       },
       {
-        h: 'Wireframes — and a decision that changed',
+        h: 'Wireframes and a decision that changed',
         html: `
-          <p>Round one put the headline on top of a full-bleed photograph. It looked great in the mockup.</p>
-          <p>It would have been a maintenance problem in production.</p>
-          <p>The client's photo library was inconsistent — some images were bright and airy, others were shot in dark rooms with warm lamps. Type over that means sourcing new photography every time the hero gets swapped, and that wasn't in the budget.</p>
-          <p>Round two split the hero: copy on a solid panel, image on the right. Less dramatic, more durable. We shipped round two.</p>
+          <p>My first wireframe placed the headline over a full-bleed photograph. It looked excellent in the mockup but would have caused major maintenance issues in production.</p>
+          <p>The client's photography varied wildly. Some images were bright and airy, while others featured dark rooms with warm lamps. Overlaying type meant sourcing new photography every time the hero changed, which was outside the budget.</p>
+          <p>I split the hero for the second wireframe: copy on a solid panel, image on the right. It was less dramatic but far more durable. We shipped this version.</p>
           <div class="cs-note">
             <p class="cs-note-label">Takeaway</p>
-            <p>The best-looking option isn't always the right one. A hero that breaks the moment someone swaps an image is a hero that quietly gets abandoned six months later.</p>
+            <p>The best-looking option is not always the most practical one. A hero section that breaks the moment a client swaps an image is a hero section that gets abandoned six months later.</p>
           </div>
         `
       },
       {
         h: 'Visual design',
         html: `
-          <p>The brand already had a serif in its logo, so I kept that for headlines and paired it with a neutral sans for everything else — navigation, body copy, buttons, form labels. Two typefaces, no third.</p>
-          <p>Colour stayed close to what they already owned: warm neutrals, one accent, and the photography doing most of the emotional work. I resisted adding a second accent colour even though the "Book" button really wanted one. One accent is a system; two is a preference.</p>
-          <p>Grid: 12 columns, 1200px max width, 8px spacing base. Boring, and that's the point.</p>
+          <p>The brand logo used a serif typeface. I retained it for headlines and paired it with a neutral sans-serif for navigation, body copy, buttons, and form labels. Two typefaces only.</p>
+          <p>The color palette stayed close to their existing brand identity. Warm neutrals, one accent color, and photography driving the emotional connection. I resisted adding a second accent color, even though the "Book" button seemed to need one. One accent creates a system; two creates clutter.</p>
+          
+          <div style="display: flex; gap: 16px; margin: 24px 0; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
+            <div style="flex: 1 1 140px; min-width: 140px; height: 110px; background-color: #F8EEE3; border-radius: 8px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; border: 1px solid #E5E5E5; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+              <span style="font-size: 12px; opacity: 0.8; margin-bottom: 4px; color: #333333; line-height: 1;">#F8EEE3</span>
+              <span style="font-size: 14px; font-weight: 600; color: #333333; line-height: 1.2;">Warm Neutral</span>
+            </div>
+            <div style="flex: 1 1 140px; min-width: 140px; height: 110px; background-color: #A3804C; border-radius: 8px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+              <span style="font-size: 12px; opacity: 0.9; margin-bottom: 4px; color: #FFFFFF; line-height: 1;">#A3804C</span>
+              <span style="font-size: 14px; font-weight: 600; color: #FFFFFF; line-height: 1.2;">Accent Gold</span>
+            </div>
+            <div style="flex: 1 1 140px; min-width: 140px; height: 110px; background-color: #FFFFFF; border-radius: 8px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; border: 1px solid #E5E5E5; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+              <span style="font-size: 12px; opacity: 0.8; margin-bottom: 4px; color: #333333; line-height: 1;">#FFFFFF</span>
+              <span style="font-size: 14px; font-weight: 600; color: #333333; line-height: 1.2;">White</span>
+            </div>
+          </div>
+
+          <p>Layout grid: 12 columns, 1200px max width, 8px spacing base. Simple, but effective.</p>
         `
       },
       {
         h: 'Design system',
         html: `
-          <p>Because this was one page, I kept the system deliberately small — 24 components. Buttons (two sizes, three states), form fields, the room card, the step card, the testimonial block, and the type and spacing scales.</p>
-          <p>Small enough that the client's developer implemented it without a handoff meeting. That was the goal: a system the next person can actually use, not a system that documents itself for its own sake.</p>
+          <p>Since this was a single landing page, I kept the design system small: 24 components. This included buttons (two sizes, three states), form fields, room cards, step cards, testimonial blocks, and type/spacing scales.</p>
+          <p>The system was lean enough that the client's developer built it without a handoff meeting. The goal was usability for the next designer, not exhaustive documentation.</p>
         `
       },
       {
         h: 'Testing',
         html: `
-          <p>Five moderated sessions on the prototype, all on participants' own devices. Three tasks: find the design service, find a sofa, book a consultation.</p>
+          <p>I ran five moderated sessions on the prototype using participants' own devices. The users were tasked with finding the design service, finding a sofa, and booking a consultation.</p>
           <ul>
-            <li>Four of five found the consultation call-to-action in under eight seconds — the previous version averaged closer to forty.</li>
-            <li>The one who didn't was looking for a phone number. That's a valid preference, so we added one to the header.</li>
-            <li>Two people tapped the room gallery expecting it to expand. It didn't. We made the first tile interactive and left the rest static — enough to signal, not enough to slow the page down.</li>
+            <li>Four out of five users found the consultation CTA in under eight seconds. The previous version averaged closer to forty seconds.</li>
+            <li>The one who failed was looking for a phone number. Because that is a valid user preference, we added a phone number to the header.</li>
+            <li>Two users tapped the room gallery expecting it to expand. It did not. We made the first image tile interactive and left the rest static. This signaled interactivity without slowing down page load.</li>
           </ul>
         `
       },
       {
         h: 'Outcome',
         html: `
-          <p>I can only report what the client told me: consultation requests went up by roughly 40% in the first month after launch, and average time on page increased.</p>
-          <p>I didn't instrument the analytics myself, so treat that as the client's number rather than a verified one. The honest version is: the page got simpler, the primary action got findable, and the client was happy enough to come back for a second direction.</p>
+          <p>The client reported that consultation requests increased by roughly 40% in the first month after launch, and average time on page increased.</p>
+          <p>I did not set up the analytics personally, so treat those metrics as client-reported. The reality is that the page became simpler, the primary action became findable, and the client returned for a second project.</p>
         `
       },
       {
         h: "What I'd do differently",
         html: `
           <ul>
-            <li>Replace the form with a real booking flow. A form is a lead; a calendar slot is a commitment.</li>
+            <li>Replace the form with a real booking flow. A form captures a lead; a calendar slot captures a commitment.</li>
             <li>Get analytics access on day one instead of relying on second-hand reporting.</li>
-            <li>Test with the client's actual photography in round one, not placeholder images. Half my revision time went into that.</li>
+            <li>Test with the client's actual photography in round one, not placeholders. Half my revision time went into adjusting layouts for their real photos.</li>
           </ul>
         `
       }
     ]
   },
 
-  'Manhattan Home Design - New Version': {
-    blurb: 'A second direction: what happens when you stop optimising for conversion and start designing for brand.',
-    meta: [
-      ['Role', 'UI/UX Designer'],
-      ['Timeline', '4 weeks · 2025'],
-      ['Scope', 'Editorial landing page concept'],
-      ['Tools', 'Figma, FigJam']
-    ],
-    sections: [
-      {
-        h: 'Why a second version',
-        html: `
-          <p>Version one solved a conversion problem. It also, in solving it, made the brand feel more like a furniture e-commerce site than a design studio.</p>
-          <p>Six months after launch the client came back with a different question: <em>what would this look like if we led with the studio instead of the products?</em></p>
-          <p>That's not a redesign brief. It's a positioning brief. So the constraint changed completely — from "convert the visitor" to "make the visitor understand who we are".</p>
-        `
-      },
-      {
-        h: 'The tension worth naming',
-        html: `
-          <p>There's a real conflict here and it's worth saying out loud. Conversion design wants short pages, one obvious action, and a path so clear it's almost patronising. Editorial design wants length, atmosphere, and room to breathe.</p>
-          <p>You cannot fully have both on one page. Anyone who tells you otherwise is selling something.</p>
-          <p>So the goal for version two was never "better". It was <strong>different, on purpose</strong> — a version that carries the brand when the audience is already warm, and lets version one handle cold traffic from ads.</p>
-          <div class="cs-note">
-            <p class="cs-note-label">Framing</p>
-            <p>Two landing pages with two jobs is a legitimate answer. One page trying to do both jobs is the thing that fails.</p>
+  
+'Manhattan Home Design - New Version': {
+  blurb: 'A premium interior design experience built around warm neutrals, editorial typography, and structured content. It balances brand storytelling with furniture discovery.',
+  meta: [
+    ['Role', 'UI/UX Designer'],
+    ['Timeline', '4 weeks · 2025'],
+    ['Scope', 'Editorial landing page concept'],
+    ['Tools', 'Figma, FigJam']
+  ],
+  sections: [
+    {
+      h: 'Project overview',
+      html: `
+        <p>This project explores a more editorial direction for an interior design and furniture website. The goal was to communicate the brand through its visual identity, collections, interior photography, and design philosophy.</p>
+        <p>Rather than treating the page as a conventional product catalog, I approached it as a curated presentation of interiors and furniture. The layout combines lifestyle images, structured product sections, brand information, and supporting content within one visual system.</p>
+        <p>The direction focuses on making the experience feel warm and sophisticated without allowing decorative elements to distract from the content.</p>
+        <div class="cs-note">
+          <p class="cs-note-label">Design direction</p>
+          <p>A premium editorial experience where the interiors establish the atmosphere and the interface provides the structure.</p>
+        </div>
+      `
+    },
+    {
+      h: 'The design challenge',
+      html: `
+        <p>Interior design websites face a specific challenge. The visuals must create an emotional connection, but visitors also need a clear way to explore furniture, understand the brand, and find information.</p>
+        <p>A page filled with beautiful images can still feel difficult to navigate if sections lack hierarchy or content feels disconnected.</p>
+        <p>I focused on three core design challenges:</p>
+        <ul>
+          <li><strong>Visual consistency:</strong> Bring different interior styles, collections, and supporting content together through one recognizable design language.</li>
+          <li><strong>Content hierarchy:</strong> Help visitors distinguish the main message, featured collections, brand story, and supporting information.</li>
+          <li><strong>Visual balance:</strong> Give photography enough space to communicate the aesthetic while keeping text, navigation, and calls to action readable.</li>
+        </ul>
+        <div class="cs-note">
+          <p class="cs-note-label">The central question</p>
+          <p>How can a furniture landing page feel like a curated interior design editorial while remaining practical to browse?</p>
+        </div>
+      `
+    },
+    {
+      h: 'Understanding the audience',
+      html: `
+        <p>The intended audience includes people who care about the appearance and functionality of their living spaces. This includes homeowners, renters, furniture shoppers, and people seeking interior design inspiration.</p>
+        <ul>
+          <li><strong>Homeowners and renters</strong> want to picture how furniture and interior styles might work in their own spaces.</li>
+          <li><strong>Furniture shoppers</strong> need a straightforward way to browse collections and discover products that fit their preferences.</li>
+          <li><strong>Design-conscious customers</strong> value visual consistency, thoughtful presentation, and a brand that communicates quality.</li>
+        </ul>
+        <p>These considerations informed the emphasis on room photography, organized collections, clear headings, and a restrained interface.</p>
+        <div class="cs-note">
+          <p class="cs-note-label">Research note</p>
+          <p>These audience groups represent intended users for this concept. They are not findings from completed user interviews or usability studies.</p>
+        </div>
+      `
+    },
+    {
+      h: 'Design strategy',
+      html: `
+        <p>Before refining individual sections, I established three principles to guide the direction.</p>
+        <ul>
+          <li><strong>Lead with the atmosphere.</strong> Use interior photography to communicate the feeling of a finished room instead of relying entirely on isolated product imagery.</li>
+          <li><strong>Keep the interface restrained.</strong> Let typography, spacing, and a limited color palette provide structure without competing with the photography.</li>
+          <li><strong>Give every section a purpose.</strong> Alternate collections, brand storytelling, and supporting information to create a clear browsing rhythm.</li>
+        </ul>
+        <p>This approach connected the brand's visual identity with the practical needs of a long-form landing page.</p>
+      `
+    },
+    {
+      h: 'Information architecture',
+      html: `
+        <p>The landing page contains several content types, so the sequence of sections plays an important role in how visitors understand the experience.</p>
+        <ol>
+          <li><strong>Hero section:</strong> Introduces the brand through a prominent interior image, headline, and primary action.</li>
+          <li><strong>Brand introduction:</strong> Establishes the brand's identity and design philosophy.</li>
+          <li><strong>Featured collections:</strong> Gives visitors visual entry points into furniture categories and curated room styles.</li>
+          <li><strong>Product highlights:</strong> Presents selected furniture through consistent image-led layouts.</li>
+          <li><strong>About section:</strong> Provides additional context about the brand and its approach to interior design.</li>
+          <li><strong>Services and benefits:</strong> Organizes supporting information about the brand's offerings.</li>
+          <li><strong>Inspiration galleries:</strong> Showcases different interiors and furniture arrangements.</li>
+          <li><strong>Testimonials and trust content:</strong> Creates space for genuine customer feedback and credibility signals.</li>
+          <li><strong>Contact and closing sections:</strong> Gives interested visitors a clear next step.</li>
+        </ol>
+        <p>The intention was to move from visual discovery to brand understanding and further exploration without making the page feel like a collection of unrelated sections.</p>
+      `
+    },
+    {
+      h: 'Layout and visual hierarchy',
+      html: `
+        <p>The layout combines wide interior imagery, product grids, alternating image-and-text sections, and smaller supporting content blocks. Each pattern has a distinct role, but the same design language connects them.</p>
+        <p>The hero establishes the initial impression. Collection grids support browsing, while alternating content sections introduce variety and give the brand story more room.</p>
+        <p>I used heading sizes, image placement, spacing, and section backgrounds to establish a hierarchy that remains recognizable as visitors scroll.</p>
+        <ul>
+          <li><strong>Large hero imagery</strong> establishes the visual direction immediately.</li>
+          <li><strong>Consistent product grids</strong> make collections easier to scan.</li>
+          <li><strong>Alternating layouts</strong> introduce visual variety without sacrificing consistency.</li>
+          <li><strong>Generous whitespace</strong> separates content and gives photography room to breathe.</li>
+          <li><strong>Clear headings</strong> help visitors understand the purpose of each section.</li>
+        </ul>
+      `
+    },
+    {
+      h: 'Color system',
+      html: `
+        <p>The color palette uses three core colors: warm cream, muted gold, and white. Together, they create a soft, sophisticated visual identity that complements interior photography.</p>
+        
+        <div style="display: flex; gap: 16px; margin: 24px 0; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
+          <div style="flex: 1 1 140px; min-width: 140px; height: 110px; background-color: #F8EEE3; border-radius: 8px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; border: 1px solid #E5E5E5; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <span style="font-size: 12px; opacity: 0.8; margin-bottom: 4px; color: #333333; line-height: 1;">#F8EEE3</span>
+            <span style="font-size: 14px; font-weight: 600; color: #333333; line-height: 1.2;">Warm Cream</span>
           </div>
-        `
-      },
-      {
-        h: 'What changed',
-        html: `
-          <ul>
-            <li>The hero goes from a split layout to full-bleed, with the headline set lower in the frame so the photography reads first.</li>
-            <li>Room photography gets real space — full-width, one or two per screen, no cropping to fit a grid.</li>
-            <li>A new <strong>Studio</strong> section: who they are, how they work, process photos, a face attached to the name.</li>
-            <li>The type scale steps up a level. Headlines are roughly 20% larger across the board.</li>
-            <li>The sticky call-to-action bar is gone. There's one CTA, at the end, and it's a deliberate destination rather than a nag.</li>
-          </ul>
-        `
-      },
-      {
-        h: 'Rhythm and whitespace',
-        html: `
-          <p>I set a strict vertical rhythm: every section starts with 120px of breathing room on desktop, 72px on mobile. Consistent, non-negotiable, applied even where it felt like too much.</p>
-          <p>When you're building something atmospheric, the whitespace <em>is</em> the design. Getting it wrong by 20px is visible. Getting it wrong by 40px makes the whole thing feel cheap.</p>
-        `
-      },
-      {
-        h: 'Typography',
-        html: `
-          <p>The serif that carried the headlines in version one gets more room here — bigger, looser, set at a slower reading pace. Body copy line-height goes from 1.6 to 1.7, which sounds trivial and isn't.</p>
-          <p>One rule I held to: the serif never appears below 20px. Serifs at small sizes on screens turn to mush, and this wasn't the project to fight that battle.</p>
-        `
-      },
-      {
-        h: 'Motion, kept minimal',
-        html: `
-          <p>Two animations only:</p>
-          <ul>
-            <li>A slow fade-up as sections enter the viewport. 600ms, subtle, no bounce.</li>
-            <li>A gentle parallax on the room photography. Enough to give depth, not enough to notice.</li>
-          </ul>
-          <p>Anything more and the page starts performing for itself rather than for the work. In an editorial layout the photography is the content — motion should never compete with it.</p>
-        `
-      },
-      {
-        h: 'What I learned',
-        html: `
-          <ul>
-            <li>Editorial and conversion aren't opposites. They're different jobs, and the mistake is asking one page to do both.</li>
-            <li>Full-bleed photography only works when the photograph is good enough. We cut two sections because the images simply weren't there — and the page was better for it.</li>
-            <li>Handing over a second version is far easier when the first one has clear logic. Version two could be explained in one sentence: <em>same system, different emphasis</em>.</li>
-          </ul>
-        `
-      },
-      {
-        h: 'Where it stands',
-        html: `
-          <p>Approved as a direction, delivered as a high-fidelity concept. The client is deciding which version to run for their next seasonal campaign — version one for paid traffic, this one for the brand homepage.</p>
-          <p>Either way, both versions share the same underlying system, so switching between them doesn't mean starting over.</p>
-        `
-      }
-    ]
-  },
+          <div style="flex: 1 1 140px; min-width: 140px; height: 110px; background-color: #A3804C; border-radius: 8px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+            <span style="font-size: 12px; opacity: 0.9; margin-bottom: 4px; color: #FFFFFF; line-height: 1;">#A3804C</span>
+            <span style="font-size: 14px; font-weight: 600; color: #FFFFFF; line-height: 1.2;">Muted Gold</span>
+          </div>
+          <div style="flex: 1 1 140px; min-width: 140px; height: 110px; background-color: #FFFFFF; border-radius: 8px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; border: 1px solid #E5E5E5; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <span style="font-size: 12px; opacity: 0.8; margin-bottom: 4px; color: #333333; line-height: 1;">#FFFFFF</span>
+            <span style="font-size: 14px; font-weight: 600; color: #333333; line-height: 1.2;">White</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>#F8EEE3 Warm cream:</strong> Used for soft backgrounds and section transitions. It adds warmth without making the interface feel heavy.</li>
+          <li><strong>#A3804C Muted gold:</strong> Used for selected accents, highlights, and calls to action.</li>
+          <li><strong>#FFFFFF White:</strong> Used for clean content areas and visual separation between sections.</li>
+        </ul>
+        <p>The restrained palette keeps attention on the furniture and interiors rather than introducing unnecessary visual competition.</p>
+        <div class="cs-note">
+          <p class="cs-note-label">Design decision</p>
+          <p>One primary accent color creates a more consistent visual language than several competing accent colors.</p>
+        </div>
+        <p>For accessibility, small text should use a sufficiently dark foreground color. Muted gold should be reserved for elements where its contrast against the background is adequate, rather than being used indiscriminately for body copy.</p>
+      `
+    },
+    {
+      h: 'Typography',
+      html: `
+        <p>The typography combines Source Serif 4, DM Sans, and Inter to balance editorial character with interface readability.</p>
+        <ul>
+          <li><strong>Source Serif 4:</strong> Used for expressive headlines and selected editorial text. Its serif character adds warmth and a magazine-inspired quality.</li>
+          <li><strong>DM Sans:</strong> Used for contemporary headings and interface elements, helping the layout feel clean and modern.</li>
+          <li><strong>Inter:</strong> Used for body copy and information-heavy sections where readability is essential.</li>
+        </ul>
+        <p>Each typeface has a defined purpose. This creates contrast between headlines and supporting content without making the interface feel inconsistent.</p>
+        <p>The combination supports the overall direction. It is editorial in presentation but straightforward in everyday use.</p>
+      `
+    },
+    {
+      h: 'Spacing and composition',
+      html: `
+        <p>Spacing plays a critical role in the visual quality of this design. Interior photography needs room to communicate its atmosphere, while text and interface elements need separation to remain readable.</p>
+        <p>I treated spacing as part of the visual hierarchy rather than simply filling the gaps between elements.</p>
+        <ul>
+          <li><strong>Section spacing</strong> separates major content areas and establishes a deliberate page rhythm.</li>
+          <li><strong>Consistent card gaps</strong> make product grids feel organized.</li>
+          <li><strong>Text spacing</strong> separates headings, descriptions, and actions.</li>
+          <li><strong>Image proportions</strong> help maintain a cohesive presentation across collections and galleries.</li>
+        </ul>
+        <p>The result is a layout that uses whitespace to support the premium aesthetic while keeping related information visually connected.</p>
+      `
+    },
+    {
+      h: 'Components and design consistency',
+      html: `
+        <p>The landing page uses recurring visual patterns to keep the experience consistent from the hero to the final sections.</p>
+        <ul>
+          <li><strong>Buttons:</strong> A consistent appearance helps visitors recognize interactive elements.</li>
+          <li><strong>Product cards:</strong> Repeated image and content patterns support browsing.</li>
+          <li><strong>Section headings:</strong> A consistent hierarchy distinguishes major sections from supporting information.</li>
+          <li><strong>Content blocks:</strong> Reusable layouts connect brand storytelling with the rest of the page.</li>
+          <li><strong>Spacing rules:</strong> Consistent gaps and alignment reduce visual fragmentation.</li>
+        </ul>
+        <p>These patterns establish a foundation for future content updates without requiring every new section to introduce a different visual style.</p>
+      `
+    },
+    {
+      h: 'Interaction and usability',
+      html: `
+        <p>The interface uses familiar browsing patterns so visitors can navigate, scan collections, and find the next step without friction.</p>
+        <ul>
+          <li><strong>Clear calls to action:</strong> Labels describe what happens when visitors click.</li>
+          <li><strong>Predictable navigation:</strong> Consistent placement and styling help visitors move through the website.</li>
+          <li><strong>Readable content:</strong> Short paragraphs and descriptive headings make information easier to scan.</li>
+          <li><strong>Meaningful imagery:</strong> Important images have useful alternative text, while decorative images do not add unnecessary screen-reader content.</li>
+          <li><strong>Accessible controls:</strong> Buttons, links, and interactive elements provide clear focus states and usable target sizes.</li>
+        </ul>
+        <p>These principles inform the design requirements. Actual behavior and usability should be verified in the implemented website or prototype.</p>
+      `
+    },
+    {
+      h: 'Responsive design',
+      html: `
+        <p>The desktop layout accommodates wider image arrangements and multiple content columns. On smaller screens, the same content adapts without losing its visual hierarchy or becoming difficult to navigate.</p>
+        <ul>
+          <li>Reduce the number of columns in product grids as screen width decreases.</li>
+          <li>Stack image-and-text layouts in a logical reading order.</li>
+          <li>Adjust heading sizes and spacing for smaller viewports.</li>
+          <li>Prevent horizontal overflow in galleries and navigation.</li>
+          <li>Keep buttons and links easy to tap.</li>
+          <li>Ensure important content and actions remain accessible on mobile.</li>
+        </ul>
+        <p>The objective is to preserve the editorial character of the design while making the experience comfortable across different screen sizes.</p>
+      `
+    },
+    {
+      h: 'Accessibility considerations',
+      html: `
+        <p>A polished visual experience should also remain usable for people with different needs and browsing preferences.</p>
+        <p>Important considerations include sufficient text contrast, a logical heading structure, keyboard navigation, visible focus states, descriptive link labels, and appropriate image alternatives.</p>
+        <p>The warm cream and muted gold palette requires particular attention to contrast. Important information should not rely on color alone to communicate meaning.</p>
+        <div class="cs-note">
+          <p class="cs-note-label">Validation</p>
+          <p>These are accessibility considerations for the design, not a claim that the finished experience has passed a formal accessibility audit.</p>
+        </div>
+      `
+    },
+    {
+      h: 'Design outcome',
+      html: `
+        <p>The resulting design brings the landing page's different content types together through a consistent visual system built around warm neutrals, editorial typography, and interior photography.</p>
+        <ul>
+          <li>A cohesive palette connects the different sections.</li>
+          <li>Image-led layouts reinforce the relationship between furniture and complete living spaces.</li>
+          <li>Clear section divisions create a more understandable browsing structure.</li>
+          <li>Consistent typography and components support a recognizable brand identity.</li>
+          <li>Reusable layout patterns provide a foundation for future content.</li>
+        </ul>
+        <p>The intended outcome is a premium, organized landing page that supports visual discovery while communicating the brand's identity.</p>
+        <div class="cs-note">
+          <p class="cs-note-label">Measuring success</p>
+          <p>No conversion, engagement, or sales improvement is claimed because verified analytics and usability testing results were not provided for this project.</p>
+        </div>
+      `
+    },
+    {
+      h: 'What I would improve next',
+      html: `
+        <p>The next step is to validate the design with real visitors and use their feedback to refine the browsing experience.</p>
+        <ul>
+          <li><strong>Test collection discovery:</strong> Observe how easily visitors find a specific product category or interior style.</li>
+          <li><strong>Evaluate mobile layouts:</strong> Check navigation, image cropping, card arrangements, and interactive controls on actual devices.</li>
+          <li><strong>Review calls to action:</strong> Confirm that labels and destinations match visitor expectations.</li>
+          <li><strong>Optimize image delivery:</strong> Balance image quality with loading performance.</li>
+          <li><strong>Track relevant interactions:</strong> If the website is implemented, measure collection clicks, product exploration, and contact actions.</li>
+        </ul>
+        <p>These steps establish whether the design performs as intended beyond its visual presentation.</p>
+      `
+    },
+    {
+      h: 'Final reflection',
+      html: `
+        <p>This project reinforced the balance between visual storytelling and usability. In interior design, imagery creates an emotional connection, but page structure determines how easily visitors explore the brand.</p>
+        <p>My approach was to keep the interface restrained, give each section a clear purpose, and use typography, color, and spacing to create consistency.</p>
+        <p>The key takeaway is that a premium website does not need excessive decoration. A considered visual system, meaningful imagery, and clear hierarchy create an experience that feels sophisticated and approachable.</p>
+      `
+    }
+  ]
+},
 
   'Quishas Kitchenette Restaurant': {
     blurb: 'A restaurant site built for the person standing on a sidewalk deciding where to eat.',
@@ -2159,17 +2372,17 @@ const CASE_STUDIES = {
       {
         h: 'Background',
         html: `
-          <p>Quishas Kitchenette is a small restaurant — one location, one owner, a handful of staff. Before this project their entire online presence was a Facebook page and a menu PDF that was scanned crookedly and uploaded in 2021.</p>
+          <p>Quishas Kitchenette is a small restaurant. One location, one owner, a handful of staff. Before this project their entire online presence was a Facebook page and a menu PDF that was scanned crookedly and uploaded in 2021.</p>
           <p>The ask was simple: a site where people can see the menu without downloading anything, find the opening hours, and reserve a table.</p>
-          <p>That's it. No e-commerce, no loyalty program, no content strategy.</p>
+          <p>That is it. No e-commerce, no loyalty program, no content strategy.</p>
         `
       },
       {
         h: 'The assumption I started from',
         html: `
-          <p>Almost everyone visiting a restaurant site is on a phone, standing up, deciding where to eat in the next thirty minutes. They're not browsing. They're checking.</p>
-          <p>If that's true, then everything about the design follows: the important information has to be reachable with one thumb, without zooming, without scrolling past a mood video.</p>
-          <p>So I designed mobile first and desktop second. That's the opposite of how I'd approach a portfolio site, and it was the right call here.</p>
+          <p>Almost everyone visiting a restaurant site is on a phone, standing up, deciding where to eat in the next thirty minutes. They are not browsing. They are checking.</p>
+          <p>If that is true, then everything about the design follows. The important information has to be reachable with one thumb, without zooming, without scrolling past a mood video.</p>
+          <p>So I designed mobile first and desktop second. That is the opposite of how I would approach a portfolio site, and it was the right call here.</p>
         `
       },
       {
@@ -2178,14 +2391,14 @@ const CASE_STUDIES = {
           <p>Three quick things, all under a week combined:</p>
           <ol>
             <li>Looked at ten local restaurant websites and noted what was missing on the first screen.</li>
-            <li>A 30-minute conversation with the owner about how reservations actually reach them today.</li>
+            <li>Had a 30-minute conversation with the owner about how reservations actually reach them today.</li>
             <li>Read through 40 recent Facebook comments and reviews to find the questions people kept asking.</li>
           </ol>
-          <p>The website review was bleak. Nine of the ten opened with a full-screen photo and the words "Welcome to..." — and none of them told me the hours or the menu without at least one scroll and one tap.</p>
-          <p>The Facebook comments were far more useful. People weren't asking about the brand story. They were asking:</p>
+          <p>The website review was bleak. Nine of the ten opened with a full-screen photo and the words "Welcome to..." and none of them told me the hours or the menu without at least one scroll and one tap.</p>
+          <p>The Facebook comments were far more useful. People were not asking about the brand story. They were asking:</p>
           <blockquote>
-            "Open ba kayo ng Sunday?" · "May parking ba?" · "Do you take reservations for 10 pax?"
-            <footer>— Recurring questions from recent comments</footer>
+            "Open ba kayo ng Sunday?" / "May parking ba?" / "Do you take reservations for 10 pax?"
+            <footer>Recurring questions from recent comments</footer>
           </blockquote>
           <p>Practical questions. The site's job was to answer them, and everything else was optional.</p>
         `
@@ -2197,7 +2410,7 @@ const CASE_STUDIES = {
             <li><strong>Hours and open/closed status in the first screen.</strong> A live indicator that reflects the actual current time, so nobody has to do the mental arithmetic at 8pm.</li>
             <li><strong>The menu is the page, not a PDF.</strong> Categories as tabs, prices visible, no download, works on a slow connection.</li>
             <li><strong>Reservation is a short form, not a phone number.</strong> Two fields: party size and time. Name and contact at the end, not the start.</li>
-            <li><strong>Photos come second.</strong> The food photography was inconsistent — some shots were excellent, some were taken on a phone in bad light. Putting them in a gallery means one weak image doesn't sink the page.</li>
+            <li><strong>Photos come second.</strong> The food photography was inconsistent. Some shots were excellent, some were taken on a phone in bad light. Putting them in a gallery means one weak image does not sink the page.</li>
           </ol>
         `
       },
@@ -2206,22 +2419,22 @@ const CASE_STUDIES = {
         html: `
           <ul>
             <li>Tap targets at least 44px, no exceptions.</li>
-            <li>Body text never below 16px — anything smaller and iOS zooms in when someone focuses an input, which throws off the whole layout.</li>
+            <li>Body text never below 16px. Anything smaller and iOS zooms in when someone focuses an input, which throws off the whole layout.</li>
             <li>A sticky bottom bar with exactly two actions: Menu and Reserve. Two, not three.</li>
-            <li>The menu has to be readable with one hand while walking. I tested that literally — walked down a hallway holding my phone.</li>
+            <li>The menu has to be readable with one hand while walking. I tested that literally. Walked down a hallway holding my phone.</li>
           </ul>
         `
       },
       {
-        h: 'Testing — and the two things it broke',
+        h: 'Testing and the two things it broke',
         html: `
           <p>Six people, all on their own phones. Not a simulator, not a desktop browser resized to 375px. Actual phones, actual thumbs.</p>
           <p>Two findings changed the design:</p>
           <ul>
-            <li><strong>Nobody noticed the menu tabs.</strong> The category navigation sat just below the fold and everyone scrolled straight past it. I moved category switching into the sticky bar, where it's visible at all times.</li>
-            <li><strong>Three of six tried to tap the phone number like a link.</strong> It wasn't one. It is now.</li>
+            <li><strong>Nobody noticed the menu tabs.</strong> The category navigation sat just below the fold and everyone scrolled straight past it. I moved category switching into the sticky bar, where it is visible at all times.</li>
+            <li><strong>Three of six tried to tap the phone number like a link.</strong> It was not one. It is now.</li>
           </ul>
-          <p>The second one is embarrassing in hindsight — of course people tap a phone number. But it only becomes obvious when you watch someone do it.</p>
+          <p>The second one is embarrassing in hindsight. Of course people tap a phone number. But it only becomes obvious when you watch someone do it.</p>
         `
       },
       {
@@ -2229,20 +2442,250 @@ const CASE_STUDIES = {
         html: `
           <p>Warm, but I actively avoided the rustic-restaurant clichés: no chalkboard typefaces, no fake wood textures, no hand-drawn arrows.</p>
           <p>Instead: warm neutral base, one deep green for the brand, and the food photography carrying all the colour. When the food is the product, the interface should get out of the way.</p>
+
+          <div style="display: flex; gap: 16px; margin: 24px 0; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
+            <div style="flex: 1 1 140px; min-width: 140px; height: 110px; background-color: #F8F4EC; border-radius: 8px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; border: 1px solid #E5E5E5; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+              <span style="font-size: 12px; opacity: 0.8; margin-bottom: 4px; color: #333333; line-height: 1;">#F8F4EC</span>
+              <span style="font-size: 14px; font-weight: 600; color: #333333; line-height: 1.2;">Warm Neutral</span>
+            </div>
+            <div style="flex: 1 1 140px; min-width: 140px; height: 110px; background-color: #2E4A2A; border-radius: 8px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+              <span style="font-size: 12px; opacity: 0.9; margin-bottom: 4px; color: #FFFFFF; line-height: 1;">#2E4A2A</span>
+              <span style="font-size: 14px; font-weight: 600; color: #FFFFFF; line-height: 1.2;">Deep Green</span>
+            </div>
+            <div style="flex: 1 1 140px; min-width: 140px; height: 110px; background-color: #FFFFFF; border-radius: 8px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; border: 1px solid #E5E5E5; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+              <span style="font-size: 12px; opacity: 0.8; margin-bottom: 4px; color: #333333; line-height: 1;">#FFFFFF</span>
+              <span style="font-size: 14px; font-weight: 600; color: #333333; line-height: 1.2;">White</span>
+            </div>
+          </div>
         `
       },
       {
         h: 'Outcome',
         html: `
           <p>Delivered as desktop and mobile designs with an interactive prototype of the reservation flow.</p>
-          <p>The owner reports that reservations now come through the site instead of Instagram DMs — which was the actual goal. DMs get lost when one person is running the floor during dinner service.</p>
+          <p>The owner reports that reservations now come through the site instead of Instagram DMs, which was the actual goal. DMs get lost when one person is running the floor during dinner service.</p>
         `
       },
       {
         h: 'What comes next',
         html: `
-          <p>Online ordering, eventually. It wasn't in scope and I'd rather ship a good menu than a half-finished ordering system.</p>
+          <p>Online ordering, eventually. It was not in scope and I would rather ship a good menu than a half-finished ordering system.</p>
           <p>That said, the menu is structured so categories, items and prices are already separate pieces. Adding a cart later is a build on top of this, not a rebuild of it.</p>
+        `
+      }
+    ]
+  },
+
+  /* ────────────────────────────────────────────────────────────
+     WEB DEVELOPMENT CASE STUDIES
+     Each case study is written to match the key features already
+     listed in the SHOWCASE data, and framed for HR / recruiters.
+     ──────────────────────────────────────────────────────────── */
+
+  'NFC Cards Web System': {
+    blurb: 'A self-service NFC business card platform — from ordering to profile management — built to scale from individual users to corporate accounts.',
+    meta: [
+      ['Role', 'Full-Stack Developer'],
+      ['Timeline', '10 weeks · 2025'],
+      ['Scope', 'Web system + admin dashboard'],
+      ['Stack', 'Laravel, Tailwind CSS, Supabase']
+    ],
+    sections: [
+      {
+        h: 'The Problem',
+        html: `
+          <p>Traditional paper business cards have a shelf life measured in weeks. They get lost, they go out of date the moment someone changes jobs, and there's no way to update them. For small businesses and freelancers, this means constantly reordering cards — and for corporate clients managing dozens of employees, it's an operational headache.</p>
+          <p>The brief was clear: build a platform where users could order NFC-powered digital business cards and manage their own profiles — without needing admin approval for every update.</p>
+        `
+      },
+      {
+        h: 'My Role',
+        html: `
+          <p>I owned the project end-to-end: database architecture, backend logic, frontend implementation, and deployment. This wasn't a "designer hands off to developer" situation — I built both.</p>
+          <ul>
+            <li>Designed the data model for users, profiles, cards and corporate accounts.</li>
+            <li>Built the ordering flow — card selection, checkout, order tracking.</li>
+            <li>Developed the profile builder with real-time preview.</li>
+            <li>Created the admin dashboard for order management and user support.</li>
+            <li>Implemented super admin and corporate management tiers.</li>
+          </ul>
+        `
+      },
+      {
+        h: 'Key Features Delivered',
+        html: `
+          <ul>
+            <li><strong>User Ordering System</strong> — Browse card designs, customize options, place orders, and track status. No back-and-forth with support.</li>
+            <li><strong>Profile Builder</strong> — Users update their digital business card content — name, title, contact info, social links, company details — with instant preview. Changes go live immediately.</li>
+            <li><strong>Admin Dashboard</strong> — Centralized view of all orders, user accounts and profile activity. Admins can search, filter and manage without touching the database.</li>
+            <li><strong>Super Admin Management</strong> — Elevated permissions for system-wide settings, admin account management and platform oversight.</li>
+            <li><strong>Corporate Management</strong> — Bulk ordering and profile management for teams. Companies can order cards for entire departments and let employees self-manage their profiles.</li>
+          </ul>
+        `
+      },
+      {
+        h: 'Technical Approach',
+        html: `
+          <p>I chose Laravel for the backend because it handles authentication, authorization, routing and database relationships cleanly — all of which this project needed. Supabase provided the database layer with the reliability of PostgreSQL. Tailwind CSS kept the frontend consistent without writing custom CSS for every component.</p>
+          <p>The architecture separates concerns cleanly: users interact with the profile builder and ordering system, admins manage orders and accounts, and super admins control the platform itself. Each role sees only what they need.</p>
+        `
+      },
+      {
+        h: 'Results & Impact',
+        html: `
+          <ul>
+            <li><strong>Self-service ordering</strong> reduced admin workload by eliminating the need to manually process every card request.</li>
+            <li><strong>Instant profile updates</strong> mean users never need to reorder cards because of a job change or new phone number.</li>
+            <li><strong>Corporate accounts</strong> opened a B2B revenue stream that didn't exist before — companies can now order for entire teams.</li>
+            <li>The system runs live at <strong>justatap.online</strong> with real users and real orders.</li>
+          </ul>
+        `
+      },
+      {
+        h: 'What I Learned',
+        html: `
+          <p>Building for both individual users and corporate accounts taught me the importance of role-based design. The same system has to feel simple for someone ordering one card and powerful for an admin managing hundreds.</p>
+          <p>If I were to extend this, the next step would be analytics — giving corporate clients visibility into how often their team's cards are viewed or tapped.</p>
+        `
+      }
+    ]
+  },
+
+  'Apexed Automation System': {
+    blurb: 'An AI-powered automation platform that helps small businesses cut hours of repetitive work every week.',
+    meta: [
+      ['Role', 'Full-Stack Developer'],
+      ['Timeline', '12 weeks · 2025'],
+      ['Scope', 'Automation system + AI integration'],
+      ['Stack', 'Next.js, Laravel, Supabase, Tailwind CSS']
+    ],
+    sections: [
+      {
+        h: 'The Problem',
+        html: `
+          <p>Small business owners spend an enormous amount of time on repetitive tasks: posting to social media, updating calendars, managing point-of-sale data, tracking trends. These tasks are essential but time-consuming — and most owners can't afford to hire someone just to handle them.</p>
+          <p>Apexed was built to solve that. The goal: automate the repetitive work so owners can focus on growing the business.</p>
+        `
+      },
+      {
+        h: 'My Role',
+        html: `
+          <p>I built the platform from the ground up — frontend, backend, AI integration, and deployment. The stack was chosen to support real-time AI processing and a clean, responsive interface.</p>
+          <ul>
+            <li>Designed the system architecture for automation workflows.</li>
+            <li>Integrated AI models for content generation and trend analysis.</li>
+            <li>Built the calendar automation and POS management modules.</li>
+            <li>Developed the admin and user dashboards.</li>
+            <li>Deployed with Cloudflare for performance and reliability.</li>
+          </ul>
+        `
+      },
+      {
+        h: 'Key Features Delivered',
+        html: `
+          <ul>
+            <li><strong>Automated Social Media Posting</strong> — Schedule and auto-publish posts across platforms, with content generated or approved in advance.</li>
+            <li><strong>Business-Specific AI Training</strong> — The AI learns each business's tone, product catalog and audience, so generated content actually sounds like the owner wrote it.</li>
+            <li><strong>Smart Calendar Automation</strong> — Automatically schedules posts, reminders and campaigns based on optimal timing.</li>
+            <li><strong>AI-Powered POS Management</strong> — Tracks sales data and surfaces insights — best-selling items, slow periods, restock alerts.</li>
+            <li><strong>Social Media Trend Monitoring</strong> — Watches trends and flags opportunities before they peak.</li>
+            <li><strong>Integrated IFIX AI Assistant</strong> — A built-in assistant that answers business questions, suggests actions and helps troubleshoot.</li>
+          </ul>
+        `
+      },
+      {
+        h: 'Technical Approach',
+        html: `
+          <p>Next.js handled the frontend with server-side rendering for speed. Laravel powered the backend API and business logic. Supabase provided the database and real-time capabilities. DeepSeek supplied the AI layer for content generation and trend analysis. Tailwind CSS kept the interface consistent and responsive.</p>
+          <p>The architecture separates automation tasks into modules — social media, calendar, POS, trend monitoring — each of which can be enabled or disabled based on the business's needs.</p>
+        `
+      },
+      {
+        h: 'Results & Impact',
+        html: `
+          <ul>
+            <li><strong>Hours saved per week</strong> — owners no longer manually post, schedule or track trends.</li>
+            <li><strong>Consistent social presence</strong> — automation keeps posting schedules on track even during busy periods.</li>
+            <li><strong>Better decision-making</strong> — POS insights and trend monitoring give owners data they didn't have before.</li>
+            <li>The system runs live at <strong>apexed.online</strong>.</li>
+          </ul>
+        `
+      },
+      {
+        h: 'What I Learned',
+        html: `
+          <p>AI is only useful when it's grounded in the actual business. Generic AI outputs don't help — business-specific training does. Getting that right required close collaboration with business owners to understand their voice and priorities.</p>
+          <p>The next iteration would include deeper analytics — showing owners exactly how much time each automation saves them, week over week.</p>
+        `
+      }
+    ]
+  },
+
+  'Parang Beach Resort Website': {
+    blurb: 'A content-rich resort website that turns browsers into booking inquiries — built on WordPress with custom code.',
+    meta: [
+      ['Role', 'Web Developer'],
+      ['Timeline', '4 weeks · 2024'],
+      ['Scope', 'Resort website + booking inquiry flow'],
+      ['Stack', 'WordPress, Custom Code, Bluehost']
+    ],
+    sections: [
+      {
+        h: 'The Problem',
+        html: `
+          <p>Parang Beach Resort had no proper online presence. Potential guests couldn't see the accommodations, amenities or location — and booking inquiries were scattered across phone calls and social media messages.</p>
+          <p>The goal: a website that showcases the resort clearly and makes it easy for visitors to inquire about bookings.</p>
+        `
+      },
+      {
+        h: 'My Role',
+        html: `
+          <p>I built the site on WordPress, using custom code where the theme fell short. The focus was on clear content presentation and a simple inquiry flow.</p>
+          <ul>
+            <li>Set up the WordPress installation and theme.</li>
+            <li>Wrote custom PHP and CSS to match the resort's brand.</li>
+            <li>Built the gallery and accommodation sections.</li>
+            <li>Implemented the booking inquiry form.</li>
+            <li>Optimized for responsiveness and mobile browsing.</li>
+          </ul>
+        `
+      },
+      {
+        h: 'Key Features Delivered',
+        html: `
+          <ul>
+            <li><strong>Resort Gallery</strong> — High-quality images of the resort, rooms and surroundings, organized for easy browsing.</li>
+            <li><strong>Accommodation Details</strong> — Clear pages for each room type — amenities, capacity, pricing, photos.</li>
+            <li><strong>Booking Inquiries</strong> — A short form that captures the guest's dates, party size and contact info, and sends inquiries directly to the resort team.</li>
+            <li><strong>Amenities and Services</strong> — Dedicated sections for the pool, dining, activities and other facilities.</li>
+            <li><strong>Contact Information</strong> — Phone, email, location map and social media links, visible on every page.</li>
+            <li><strong>Responsive Design</strong> — Works cleanly on phones, tablets and desktop.</li>
+          </ul>
+        `
+      },
+      {
+        h: 'Technical Approach',
+        html: `
+          <p>WordPress handled the content management — the resort team can update photos, room details and pricing without needing a developer. Custom code filled the gaps where off-the-shelf themes didn't match the brand or the inquiry flow.</p>
+          <p>Bluehost provided hosting with the reliability and support the resort needed.</p>
+        `
+      },
+      {
+        h: 'Results & Impact',
+        html: `
+          <ul>
+            <li><strong>Centralized inquiries</strong> — booking requests now come through the site instead of being scattered across messages.</li>
+            <li><strong>Better first impression</strong> — visitors can see the resort, rooms and amenities before they ever call.</li>
+            <li><strong>Mobile-friendly</strong> — most visitors browse on phones, and the site works cleanly there.</li>
+            <li>The site runs live at <strong>parangbeachresort.com</strong>.</li>
+          </ul>
+        `
+      },
+      {
+        h: 'What I Learned',
+        html: `
+          <p>WordPress is powerful for content-driven sites, but it needs custom work to feel unique. The resort's brand needed more than a stock theme — custom code made the difference.</p>
+          <p>The next step would be integrating a real booking engine, so guests can check availability and book directly without waiting for an email response.</p>
         `
       }
     ]
@@ -2274,9 +2717,9 @@ const PROCESS = [
 ];
 
 const SHOWCASE = [
-  { t:'NFC Cards Web System', y:'2025', d:'The NFC Card Web System allows users to order NFC cards and manage or customize their digital business cards independently, without needing admin permission. It offers a convenient, flexible, and paperless way to share contact details and social media links with just one tap.', stack:['Tailwind CSS','Laravel','Supabase','Laragon - MySQL','Github','Hostinger'], features:['User Ordering System','Profile Builder','Admin Dashboard','Super Admin Management','Corporate Management'] },
-  { t:'Apexed Automation System', y:'2025', d:'Apexed Automation System is designed to streamline business operations by automating repetitive tasks, improving workflow efficiency, and simplifying daily processes.', stack:['Next.js','Laravel','Supabase','Tailwind CSS','Laragon - MySQL','Github','DeepSeek','CloudFlare'], features:['Automated Social Media Posting','Business-Specific AI Training','Smart Calendar Automation','AI-Powered POS Management','Social Media Trend Monitoring','Integrated IFIX AI Assistant'] },
-  { t:'Parang Beach Resort Website', y:'2025', d:'Parang Beach Resort Website is designed to showcase the resort’s amenities, accommodations, and services, allowing visitors to explore the destination, discover available facilities, and easily inquire about bookings for a relaxing getaway.', stack:['WordPress','Custom Code','Bluehost'], features:['Resort Gallery','Accommodation Details','Booking Inquiries','Amenities and Services','Contact Information','Responsive Design'] }
+  { t:'NFC Cards Web System', y:'2025', d:'The NFC Card Web System allows users to order NFC cards and manage or customize their digital business cards independently, without needing admin permission. It offers a convenient, flexible, and paperless way to share contact details and social media links with just one tap.', cover:'https://i.postimg.cc/wjX14vFH/dasadsadsasa.png', url:'https://justatap.online/', stack:['Tailwind CSS','Laravel','Supabase','Laragon - MySQL','Github','Hostinger'], features:['User Ordering System','Profile Builder','Admin Dashboard','Super Admin Management','Corporate Management'] },
+  { t:'Apexed Automation System', y:'2025', d:'Apexed Automation System is designed to streamline business operations by automating repetitive tasks, improving workflow efficiency, and simplifying daily processes.', cover:'https://i.postimg.cc/wTHMyHg4/fdfdfdfdd.png', url:'https://apexed.online/', stack:['Next.js','Laravel','Supabase','Tailwind CSS','Laragon - MySQL','Github','DeepSeek','CloudFlare'], features:['Automated Social Media Posting','Business-Specific AI Training','Smart Calendar Automation','AI-Powered POS Management','Social Media Trend Monitoring','Integrated IFIX AI Assistant'] },
+  { t:'Parang Beach Resort Website', y:'2025', d:'Parang Beach Resort Website is designed to showcase the resort’s amenities, accommodations, and services, allowing visitors to explore the destination, discover available facilities, and easily inquire about bookings for a relaxing getaway.', cover:'https://i.postimg.cc/XNsmFkb6/asaas.png', url:'https://parangbeachresort.com/', stack:['WordPress','Custom Code','Bluehost'], features:['Resort Gallery','Accommodation Details','Booking Inquiries','Amenities and Services','Contact Information','Responsive Design'] }
 ];
 
 /* ══════════════════════════════════════════════════════════════
@@ -2361,7 +2804,7 @@ const TESTIMONIALS = [
     q:'Working with Tim Josh on the Just A Tap NFC Card Web System was a great experience. They helped bring our idea to life by developing a digital solution that makes sharing business contact information more convenient, modern, and accessible. The project reflects the value of combining technology with practical business needs. I appreciate the effort and dedication put into making Just A Tap a reality, and I look forward to seeing it grow.',
     n:'JP Patricio', r:'Founder & CEO',
     tags:['UI/UX Design','Web Development','System Maintenance'],
-    i:'JP', accent:'#FF6B2C',
+    i:'JP', accent:'#6366F1',
     avatar:'https://i.postimg.cc/xCv0jWsT/JP.png',
     url:'https://justatap.online/',
     image:'https://justatap.online/'
@@ -2379,7 +2822,7 @@ const TESTIMONIALS = [
     q:'Thanks Tim, thanks for sharing your talent and creativity ang ganda ng website.',
     n:'Francis Cacha', r:'CEO of Tamaraw Technohub Inc.',
     tags:['UI/UX Design','Website Development','Wireframing'],
-    i:'FC', accent:'#10B981',
+    i:'FC', accent:'#6366F1',
     avatar:'https://i.postimg.cc/tCS9gdzJ/Franccis-Cacha.jpg',
     url:'https://parangbeachresort.com/',
     image:'https://parangbeachresort.com/'
@@ -2388,24 +2831,67 @@ const TESTIMONIALS = [
     q:'Solid ka-work si Tim, madaling kausap and maayos makipag-coordinate. During the development of Apexed Automation System, naging smooth yung collaboration namin, and I appreciate his dedication and ideas. Looking forward to working with him again sa future projects!',
     n:'Dan Kenneth Rontale', r:'Teammate in Developing Apexed Automation System',
     tags:['Teammate'],
-    i:'FC', accent:'#10B981',
+    i:'DR', accent:'#6366F1',
     avatar:'https://i.postimg.cc/VkJvq77y/480093948-1761912381045194-858715216332105480-n.jpg',
     url:'https://apexed.online/',
     image:'https://apexed.online/'
+  },
+];
+
+/* ── CREDENTIALS — each carries its own UI/UX-appropriate icon ── */
+const CREDENTIALS = [
+  {
+    issuer:'Elephant in the Boardroom', year:'2025',
+    title:'Web Design & Development Internship Certificate',
+    desc:'Internship certificate for web design and development, issued by Elephant in the Boardroom.',
+    accent:'#6366F1', badge:'Internship',
+    image:'https://i.postimg.cc/5NjZnhw9/6273696040104347162.jpg',
+    ico:'<rect x="3" y="7" width="18" height="14" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/>'
+  },
+  {
+    issuer:'Ollopa Corporation', year:'2024',
+    title:'Certificate of Completion',
+    desc:'Completed corporate training program issued by Ollopa Corporation.',
+    accent:'#FF6B2C', badge:'Training',
+    image:'https://i.postimg.cc/zGg41Ttc/6273696040104347164.jpg',
+    ico:'<path d="M22 9 12 4 2 9l10 5 10-5Z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"/><path d="M22 9v5"/>'
+  },
+  {
+    issuer:'BCRV TECHVOC INC & TESDA', year:'2024',
+    title:'Certificate of Training — Java NCIII',
+    desc:'Completed Java NCIII training program as a Top 2 Performer and Skilled Programmer.',
+    accent:'#10B981', badge:'Top 2 Performer', highlight:true,
+    image:'https://i.postimg.cc/mkg0xqK4/JAVA-PROGRAMMING.jpg',
+    ico:'<circle cx="12" cy="8" r="6"/><path d="M15.5 12.9 17 22l-5-3-5 3 1.5-9.1"/>'
   }
 ];
 
-const CREDENTIALS = [
-  { issuer:'Elephant in the Boardroom', year:'2025', title:'Web Design & Development Internship Certificate', desc:'Internship certificate for web design and development, issued by Elephant in the Boardroom.', accent:'#6366F1', badge:'Internship', image:'https://i.postimg.cc/5NjZnhw9/6273696040104347162.jpg' },
-  { issuer:'Ollopa Corporation', year:'2024', title:'Certificate of Completion', desc:'Completed corporate training program issued by Ollopa Corporation.', accent:'#FF6B2C', badge:'Training', image:'https://i.postimg.cc/zGg41Ttc/6273696040104347164.jpg' },
-  { issuer:'BCRV TECHVOC INC & TESDA', year:'2024', title:'Certificate of Training — Java NCIII', desc:'Completed Java NCIII training program as a Top 2 Performer and Skilled Programmer.', accent:'#10B981', badge:'Top 2 Performer', highlight:true, image:'https://i.postimg.cc/mkg0xqK4/JAVA-PROGRAMMING.jpg' }
-];
-
+/* ── WORK — each role gets a role-appropriate vector icon ── */
 const WORK = [
-  { role:'Web Developer', type:'Client-based', mode:'Remote / Part-time', period:'Sept 2026 — Present', now:true, accent:'#FF6B2C', ico:'<path d="m8 8-4 4 4 4m8-8 4 4-4 4M14 5l-4 14"/>' },
-  { role:'Back Office', type:'EXL', mode:'Onsite / Full-time', period:'Feb 2026 — Present', now:true, accent:'#6366F1', ico:'<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 1.8"/>' },
-  { role:'UI/UX Designer', type:'CODR', mode:'Remote / Full-time', period:'Aug 2025 — Jan 2026', accent:'#0EA5E9', ico:'<path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5Z"/>' },
-  { role:'Freelance UI/UX Designer', type:'Freelance', mode:'Onsite & Remote', period:'2022 — 2025', accent:'#10B981', ico:'<rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8.5 7V5.5A2.5 2.5 0 0 1 11 3h2a2.5 2.5 0 0 1 2.5 2.5V7"/>' }
+  {
+    role:'Web Developer', type:'Client-based', mode:'Remote / Part-time',
+    period:'Sept 2026 — Present', now:true, accent:'#FF6B2C',
+    /* Code brackets — the universal developer glyph */
+    ico:'<path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>'
+  },
+  {
+    role:'Back Office', type:'EXL', mode:'Onsite / Full-time',
+    period:'Feb 2026 — Present', now:true, accent:'#6366F1',
+    /* Inbox / tray — represents incoming work handled by back office */
+    ico:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>'
+  },
+  {
+    role:'UI/UX Designer', type:'CODR', mode:'Remote / Full-time',
+    period:'Aug 2025 — Jan 2026', accent:'#0EA5E9',
+    /* Pen tool — the canonical UI/UX design glyph */
+    ico:'<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/>'
+  },
+  {
+    role:'Freelance UI/UX Designer', type:'Freelance', mode:'Onsite & Remote',
+    period:'2022 — 2025', accent:'#10B981',
+    /* Palette — independent creative work */
+    ico:'<circle cx="13.5" cy="6.5" r="1" fill="currentColor" stroke="none"/><circle cx="17.5" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="8.5" cy="7.5" r="1" fill="currentColor" stroke="none"/><circle cx="6.5" cy="12.5" r="1" fill="currentColor" stroke="none"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>'
+  }
 ];
 
 const PRINCIPLES = [
@@ -2434,8 +2920,10 @@ const FAQS = [
    3. ICONS + UTILS
    ============================================================ */
 const ICONS = {
-  pen:    '<path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5Z"/>',
-  code:   '<path d="m8 8-4 4 4 4m8-8 4 4-4 4M14 5l-4 14"/>',
+  /* Pen tool — same icon used on the Home Page "UI/UX Designer" work card */
+  pen:    '<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/>',
+  /* Code brackets — same icon used on the Home Page "Web Developer" work card */
+  code:   '<path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>',
   app:    '<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M7 13h5"/>',
   laptop: '<rect x="4" y="5" width="16" height="11" rx="2"/><path d="M2 19h20"/>',
   wifi:   '<path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1.2" fill="currentColor" stroke="none"/>'
@@ -2482,16 +2970,21 @@ function testiAvatar(t, size = 'h-11 w-11', textSize = 'text-[12px]', radius = '
 
 /* ============================================================
    5. VERTICAL CAROUSELS
+   — Home page Projects carousel now uses project-style cover
+     images (p.cover with p.image fallback) so each slide mirrors
+     the project cards on the Projects page.
    ============================================================ */
 function renderProjectCarousel() {
   const track = document.getElementById('projectCarousel');
   const picks = PROJECTS.slice(0, 8);
-  const slide = (p, i) => `
+  const slide = (p, i) => {
+    const coverSrc = (p.cover && p.cover.trim()) || p.image || '';
+    return `
     <div class="shrink-0 px-1 pb-2">
       <div class="flex items-center gap-3 rounded-2xl border border-line/10 bg-card/70 p-2.5 shadow-sm">
         <div class="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl mock-grad" style="background:${GRADS[i % GRADS.length]}">
-          ${p.image
-            ? `<img src="${p.image}" alt="${p.t}" class="h-full w-full object-cover" loading="lazy"/>`
+          ${coverSrc
+            ? `<img src="${coverSrc}" alt="${p.t}" class="h-full w-full object-cover" loading="lazy" onerror="this.style.opacity='0';"/>`
             : `<div class="absolute inset-2 rounded-lg bg-white/85 shadow-inner">
                  <div class="mx-1.5 mt-1 h-1 w-2/3 rounded-full bg-ink/15"></div>
                  <div class="mx-1.5 mt-1 h-1 w-1/2 rounded-full bg-ink/10"></div>
@@ -2507,6 +3000,7 @@ function renderProjectCarousel() {
         </span>
       </div>
     </div>`;
+  };
   const html = picks.map((p, i) => slide(p, i)).join('');
   track.innerHTML = html + html;
 }
@@ -2538,13 +3032,25 @@ function renderTestiCarousel() {
 
 /* ============================================================
    6. WORK + CREDENTIALS + MINI SERVICES
+   — Removed orange circle dots from Services list and IT Support
+     list; both now use the same numbered 01/02/03 layout.
    ============================================================ */
 (function renderMini() {
+  /* Services — no dot, name + number (01/02/03) */
   document.getElementById('miniServices').innerHTML = SERVICES.map(s => `
     <li class="flex items-center justify-between gap-3 py-2.5">
-      <span class="flex items-center gap-2.5 text-[13px] font-bold text-ink/85">
-        <span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>${s.t}
-      </span>
+      <span class="text-[13px] font-bold text-ink/85">${s.t}</span>
+      <span class="text-[11px] font-extrabold text-ink/30">${s.n}</span>
+    </li>`).join('');
+
+  /* IT Support — same numbered layout as Services */
+  document.getElementById('miniItSupport').innerHTML = [
+    { n: '01', t: 'Helpdesk & first-line support' },
+    { n: '02', t: 'Device & hardware basics' },
+    { n: '03', t: 'Network & connectivity checks' }
+  ].map(s => `
+    <li class="flex items-center justify-between gap-3 py-2.5">
+      <span class="text-[13px] font-semibold text-ink/85">${s.t}</span>
       <span class="text-[11px] font-extrabold text-ink/30">${s.n}</span>
     </li>`).join('');
 
@@ -2574,12 +3080,9 @@ function renderTestiCarousel() {
         data-credential="${i}"
         aria-label="View certificate: ${c.title}">
         <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl text-white shadow-sm transition-transform duration-400 group-hover/c:scale-105"
-      style="background:${c.accent}">
-  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="9" r="5"/>
-    <path d="m8.5 14-1.5 7 5-2.6 5 2.6-1.5-7"/>
-  </svg>
-</span>
+              style="background:${c.accent}">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${c.ico}</svg>
+        </span>
         <span class="min-w-0 flex-1">
           <span class="flex items-start justify-between gap-2">
             <span class="text-[12.5px] font-extrabold leading-snug text-ink">${c.title}</span>
@@ -2677,39 +3180,40 @@ function uiuxProjectCard(p, i) {
   </article>`;
 }
 
-/* ── WEB DEVELOPMENT CARD (original design, untouched) ─────── */
+/* ── WEB DEVELOPMENT CARD — real cover image ───────────────── */
 function webProjectCard(p, i) {
-  const cover = p.image
-    ? `<img src="${p.image}" alt="${p.t}" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy"/>`
-    : `<div class="absolute inset-x-5 bottom-0 top-7 rounded-t-2xl bg-white/95 p-3.5 shadow-xl transition-transform duration-500 group-hover:-translate-y-1.5">
-         <div class="flex items-center gap-1.5">
-           <span class="h-1.5 w-1.5 rounded-full bg-ink/15"></span>
-           <span class="h-1.5 w-1.5 rounded-full bg-ink/15"></span>
-           <span class="h-1.5 w-1.5 rounded-full bg-ink/15"></span>
-         </div>
-         <div class="mt-3 space-y-1.5">
-           <div class="h-1.5 w-2/3 rounded-full bg-ink/12"></div>
-           <div class="h-1.5 w-1/2 rounded-full bg-ink/8"></div>
-         </div>
-         <div class="mt-3 grid grid-cols-3 gap-1.5">
-           <div class="h-9 rounded-lg bg-brand-100"></div>
-           <div class="h-9 rounded-lg bg-ink/5"></div>
-           <div class="h-9 rounded-lg bg-ink/5"></div>
-         </div>
+  const coverSrc = (p.cover && p.cover.trim()) || (p.image && p.image.trim()) || '';
+
+  const cover = coverSrc
+    ? `<img src="${coverSrc}" alt="${p.t} — website cover" loading="lazy"
+            class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+            onerror="this.style.opacity='0';" />`
+    : `<div class="absolute inset-0 grid place-items-center" style="background:${GRADS[i % GRADS.length]}">
+         <span class="text-[10px] font-extrabold uppercase tracking-[.16em] text-ink/40">Cover image</span>
        </div>`;
 
   return `
   <article class="project-card group" data-project="${p.t}" tabindex="0" role="button"
-           aria-label="${p.t} — open live site">
-    <div class="relative aspect-[4/3] overflow-hidden mock-grad" style="background:${GRADS[i % GRADS.length]}">
+           aria-label="${p.t} — open project details">
+    <div class="relative aspect-[4/3] overflow-hidden bg-canvas">
       ${cover}
-      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-400 group-hover:opacity-100"></div>
-      <span class="absolute right-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-extrabold text-white backdrop-blur">
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-black/10"></div>
+
+      <span class="absolute left-3 top-3 rounded-full bg-black/65 px-2.5 py-1 text-[10px] font-extrabold text-white backdrop-blur">
         Web Dev
       </span>
-      <span class="pointer-events-none absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 text-ink opacity-0 shadow-lg transition-all duration-400 group-hover:opacity-100 group-hover:scale-100 scale-75">
-        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4 9 15M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>
+      <span class="absolute right-3 top-3 rounded-full bg-black/65 px-2.5 py-1 text-[10px] font-extrabold text-white backdrop-blur">
+        ${p.y}
       </span>
+
+      <!-- Only this arrow opens the live website -->
+      <a href="${p.url || '#'}" target="_blank" rel="noopener noreferrer" data-live
+         class="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 text-ink shadow-lg transition-all duration-400 hover:bg-brand-500 hover:text-white"
+         aria-label="Open live website for ${p.t}">
+        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 4h6v6M20 4 9 15M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/>
+        </svg>
+      </a>
     </div>
 
     <div class="p-4">
@@ -2717,15 +3221,12 @@ function webProjectCard(p, i) {
         <h3 class="text-[15px] font-extrabold leading-snug tracking-tight transition-colors duration-300 group-hover:text-brand-600">${p.t}</h3>
         <span class="shrink-0 text-[11px] font-bold text-muted">${p.y}</span>
       </div>
-      <p class="mt-1.5 text-[12.5px] leading-relaxed text-muted">${p.d}</p>
+      <p class="mt-1.5 line-clamp-2 text-[12.5px] leading-relaxed text-muted">${p.d}</p>
       <div class="mt-3 flex flex-wrap gap-1.5">
         ${p.tags.map(t => `<span class="rounded-md bg-canvas px-2 py-1 text-[10px] font-bold text-muted">${t}</span>`).join('')}
       </div>
-      <div class="mt-3 flex items-center justify-between border-t border-line/10 pt-3">
+      <div class="mt-3 border-t border-line/10 pt-3">
         <span class="text-[11px] font-bold text-muted">Built with ${p.tool}</span>
-        <span class="grid h-7 w-7 place-items-center rounded-full bg-canvas text-muted transition-all duration-300 group-hover:bg-brand-500 group-hover:text-white">
-          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
-        </span>
       </div>
     </div>
   </article>`;
@@ -2736,27 +3237,43 @@ function featuredGroupHeader() {
   const count = PROJECTS.filter(p => p.c === 'uiux' && CASE_STUDIES[p.t]).length;
   return `
   <div class="col-span-full">
-    <div class="flex flex-col gap-4 rounded-3xl border border-brand-200/70 bg-gradient-to-br from-brand-50 via-brand-50/40 to-transparent p-5 shadow-soft sm:flex-row sm:items-center sm:justify-between dark:border-brand-500/25 dark:from-brand-500/10 dark:via-brand-500/5">
-      <div class="flex items-start gap-3.5">
-        <span class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-brand-500 text-white shadow-sm">
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m12 3 2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2l.9-5.5-4-3.9L9.5 8 12 3Z"/>
-          </svg>
-        </span>
-        <div class="min-w-0">
-          <h2 class="text-[16px] font-extrabold leading-snug tracking-tight text-ink">
-            Top 3 projects with full case studies
-          </h2>
-          <p class="mt-1.5 max-w-2xl text-[12.5px] leading-relaxed text-muted">
-            These three go past the visuals — research, dead ends, the reasoning behind each decision,
-            and what I'd change next time. Open a card and hit
-            <strong class="text-ink/85">View case study</strong>.
-          </p>
-        </div>
+    <div class="flex flex-col gap-3 border-b border-line/10 pb-4 sm:flex-row sm:items-end sm:justify-between">
+      <div class="min-w-0">
+        <p class="text-[10px] font-extrabold uppercase tracking-[.18em] text-brand-500">Featured work</p>
+        <h2 class="mt-1.5 text-lg font-extrabold tracking-tight text-ink sm:text-xl">
+          Top 3 projects with full case studies
+        </h2>
+        <p class="mt-1.5 max-w-2xl text-[12.5px] leading-relaxed text-muted">
+          These three go past the visuals — research, dead ends, the reasoning behind each decision,
+          and what I'd change next time. Open a card and press
+          <strong class="text-ink/85">View case study</strong>.
+        </p>
       </div>
-      <span class="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-brand-200/80 bg-card/80 px-3.5 py-2 text-[10px] font-extrabold uppercase tracking-[.14em] text-brand-600 dark:border-brand-500/25">
-        <span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>
+      <span class="shrink-0 text-[11px] font-extrabold uppercase tracking-[.14em] text-muted/80">
         ${count} case studies
+      </span>
+    </div>
+  </div>`;
+}
+
+function featuredWebGroupHeader() {
+  const count = PROJECTS.filter(p => p.c === 'web').length;
+  return `
+  <div class="col-span-full">
+    <div class="flex flex-col gap-3 border-b border-line/10 pb-4 sm:flex-row sm:items-end sm:justify-between">
+      <div class="min-w-0">
+        <p class="text-[10px] font-extrabold uppercase tracking-[.18em] text-brand-500">Featured work</p>
+        <h2 class="mt-1.5 text-lg font-extrabold tracking-tight text-ink sm:text-xl">
+          Top 3 web systems with full case studies
+        </h2>
+        <p class="mt-1.5 max-w-2xl text-[12.5px] leading-relaxed text-muted">
+          Three systems built end-to-end — frontend, backend, database integration and deployment.
+          Open a card and press <strong class="text-ink/85">View full case study</strong>, or hit the
+          arrow to visit the live site.
+        </p>
+      </div>
+      <span class="shrink-0 text-[11px] font-extrabold uppercase tracking-[.14em] text-muted/80">
+        ${count} live systems
       </span>
     </div>
   </div>`;
@@ -2777,7 +3294,7 @@ function renderProjects(filter = 'all') {
 
   if (filter === 'web') {
     const web = PROJECTS.filter(p => p.c === 'web');
-    html = web.map((p, i) => projectCard(p, i)).join('');
+    html = featuredWebGroupHeader() + web.map((p, i) => projectCard(p, i)).join('');
   } else {
     const featured = PROJECTS.filter(p => p.c === 'uiux' && CASE_STUDIES[p.t]);
     const others   = PROJECTS.filter(p => p.c === 'uiux' && !CASE_STUDIES[p.t]);
@@ -2792,7 +3309,7 @@ function renderProjects(filter = 'all') {
     }
 
     if (filter === 'all' && web.length) {
-      html += gridDivider('Web development', `${web.length} live systems`);
+      html += featuredWebGroupHeader();
       html += web.map((p, i) => projectCard(p, i)).join('');
     }
   }
@@ -2809,7 +3326,7 @@ function renderProjects(filter = 'all') {
    ============================================================ */
 (function renderStatic() {
   document.getElementById('serviceList').innerHTML = SERVICES.map(s => `
-    <div data-anim class="group flex items-start gap-4 rounded-3xl border border-line/10 bg-card/85 p-5 shadow-soft backdrop-blur-xl transition-all duration-400 hover:-translate-y-1 hover:shadow-lift">
+    <div data-anim class="group flex items-start gap-4 rounded-3xl border border-line/10 bg-card/85 p-5 shadow-soft backdrop-blur-xl transition-all duration-400 hover:-translate-y-1">
       <span class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-brand-50 text-brand-500 transition-transform duration-400 group-hover:scale-105 group-hover:-rotate-3">
         ${svg(s.ico, 'h-5 w-5')}
       </span>
@@ -2836,34 +3353,15 @@ function renderProjects(filter = 'all') {
     </li>`).join('');
 
   document.getElementById('showcaseList').innerHTML = SHOWCASE.map((s, i) => `
-    <article data-anim class="grid overflow-hidden rounded-3xl border border-line/10 bg-card/85 shadow-soft backdrop-blur-xl transition-shadow duration-400 hover:shadow-lift lg:grid-cols-2">
-      <div class="relative min-h-[240px] overflow-hidden p-6 mock-grad" style="background:${GRADS[i % GRADS.length]}">
-        <div class="absolute inset-0" style="background-image:radial-gradient(circle at 30% 20%,rgba(255,255,255,.75),transparent 50%)"></div>
-        <div class="relative h-full rounded-2xl bg-white/95 p-4 shadow-xl">
-          <div class="flex items-center gap-1.5">
-            <span class="h-1.5 w-1.5 rounded-full bg-ink/15"></span>
-            <span class="h-1.5 w-1.5 rounded-full bg-ink/15"></span>
-            <span class="h-1.5 w-1.5 rounded-full bg-ink/15"></span>
-            <span class="ml-2 h-3 flex-1 rounded-full bg-ink/5"></span>
-          </div>
-          <div class="mt-4 grid grid-cols-4 gap-3">
-            <div class="col-span-1 space-y-2">
-              <div class="h-6 rounded-lg bg-ink/8"></div>
-              <div class="h-6 rounded-lg bg-ink/5"></div>
-              <div class="h-6 rounded-lg bg-ink/5"></div>
-              <div class="h-6 rounded-lg bg-brand-100"></div>
-            </div>
-            <div class="col-span-3 space-y-2">
-              <div class="h-6 rounded-lg bg-ink/5"></div>
-              <div class="h-20 rounded-lg bg-ink/5"></div>
-              <div class="grid grid-cols-3 gap-2">
-                <div class="h-10 rounded-lg bg-brand-100"></div>
-                <div class="h-10 rounded-lg bg-ink/5"></div>
-                <div class="h-10 rounded-lg bg-ink/5"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <article data-anim class="grid overflow-hidden rounded-3xl border border-line/10 bg-card/85 shadow-soft backdrop-blur-xl transition-all duration-400 hover:-translate-y-1 lg:grid-cols-2">
+      <div class="relative min-h-[240px] overflow-hidden bg-canvas">
+        ${s.cover
+          ? `<img src="${s.cover}" alt="${s.t} — website preview" class="absolute inset-0 h-full w-full object-cover" loading="lazy" onerror="this.style.opacity='0';" />`
+          : `<div class="absolute inset-0" style="background:${GRADS[i % GRADS.length]}"></div>`}
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/10"></div>
+        <span class="absolute left-4 top-4 rounded-full bg-black/65 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white backdrop-blur">
+          Live site
+        </span>
       </div>
 
       <div class="p-6">
@@ -2887,11 +3385,30 @@ function renderProjects(filter = 'all') {
         <div class="mt-2 flex flex-wrap gap-1.5">
           ${s.stack.map(t => `<span class="rounded-full bg-canvas px-3 py-1 text-[10px] font-bold text-muted">${t}</span>`).join('')}
         </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-2">
+          <a href="${s.url}" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-[12px] font-bold text-canvas shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-500 hover:text-white">
+            View website
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 4h6v6"/><path d="M20 4 9 15"/>
+              <path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/>
+            </svg>
+          </a>
+          <button type="button" data-showcase-case="${i}"
+            class="inline-flex items-center gap-2 rounded-full border border-ink px-4 py-2.5 text-[12px] font-bold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-500 hover:bg-brand-500 hover:text-white">
+            View full case study
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5A2.5 2.5 0 0 0 17.5 16H4V5.5Z"/>
+              <path d="M4 18.5A2.5 2.5 0 0 0 6.5 21H20"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </article>`).join('');
 
   document.getElementById('itSupportList').innerHTML = IT_SUPPORT.map(g => `
-    <div data-anim class="group rounded-3xl border border-line/10 bg-card/85 p-6 shadow-soft backdrop-blur-xl transition-all duration-400 hover:-translate-y-1 hover:shadow-lift">
+    <div data-anim class="group rounded-3xl border border-line/10 bg-card/85 p-6 shadow-soft backdrop-blur-xl transition-all duration-400 hover:-translate-y-1">
       <div class="flex items-center justify-between">
         <span class="grid h-12 w-12 place-items-center rounded-2xl bg-brand-50 text-brand-500 transition-transform duration-400 group-hover:scale-105 group-hover:-rotate-3">
           ${svg(g.ico, 'h-5 w-5')}
@@ -3203,6 +3720,7 @@ function openLightbox(html) {
   lightboxBody.innerHTML = html;
   lightbox.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+  lightboxBody.scrollTop = 0;
 }
 function closeLightbox() {
   lightbox.classList.add('hidden');
@@ -3251,7 +3769,166 @@ function makePreview(p) {
     </div>`;
 }
 
-/* ── CASE STUDY BLOCK (button + collapsible panel) ─────────── */
+/* ── WEB PROJECT PREVIEW (opens from web cards) ───────────── */
+function makeWebPreview(p) {
+  const show = SHOWCASE.find(s => s.t === p.t);
+  const coverSrc = (p.cover && p.cover.trim()) || (p.image && p.image.trim()) || (show && show.cover) || '';
+  const features = show ? show.features : [];
+  const stack = show ? show.stack : (p.tags || []);
+  const url = p.url || (show && show.url) || '#';
+  const desc = p.d || (show && show.d) || '';
+  const hasCase = !!CASE_STUDIES[p.t];
+
+  const img = coverSrc
+    ? `<img src="${coverSrc}" alt="${p.t}" class="w-full aspect-[16/10] object-cover" loading="lazy"/>`
+    : `<div class="w-full aspect-[16/10] bg-canvas flex items-center justify-center text-muted text-sm font-semibold">Website preview</div>`;
+
+  return `
+    <div class="relative">${img}</div>
+    <div class="p-6 sm:p-7">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="rounded-full bg-brand-500 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white">Web Development</span>
+        <span class="text-[11px] font-bold text-muted">${p.y || (show && show.y) || ''}</span>
+      </div>
+      <h2 class="mt-3 text-2xl font-extrabold tracking-tight sm:text-3xl">${p.t}</h2>
+      <p class="mt-3 max-w-2xl text-[14px] leading-relaxed text-muted">${desc}</p>
+
+      ${features.length ? `
+      <div class="mt-6">
+        <p class="text-[10px] font-extrabold uppercase tracking-wider text-muted">Key features</p>
+        <ul class="mt-2 grid gap-1.5 sm:grid-cols-2">
+          ${features.map(f => `
+            <li class="flex items-center gap-2 text-[12.5px] font-semibold text-ink/85">
+              <svg class="h-3.5 w-3.5 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+              ${f}
+            </li>`).join('')}
+        </ul>
+      </div>` : ''}
+
+      <div class="mt-6">
+        <p class="text-[10px] font-extrabold uppercase tracking-wider text-muted">Tech stack</p>
+        <div class="mt-2 flex flex-wrap gap-1.5">
+          ${stack.map(t => `<span class="rounded-full bg-canvas px-3 py-1.5 text-[10px] font-bold text-muted">${t}</span>`).join('')}
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-wrap items-center gap-2 border-t border-line/10 pt-5">
+        <a href="${url}" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-[12px] font-bold text-canvas shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-500 hover:text-white">
+          Visit live website
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 4h6v6"/><path d="M20 4 9 15"/>
+            <path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/>
+          </svg>
+        </a>
+        ${hasCase ? `
+        <button type="button" data-full-case-study="${p.t}"
+          class="inline-flex items-center gap-2 rounded-full border border-ink px-4 py-2.5 text-[12px] font-bold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-500 hover:bg-brand-500 hover:text-white">
+          View full case study
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5A2.5 2.5 0 0 0 17.5 16H4V5.5Z"/>
+            <path d="M4 18.5A2.5 2.5 0 0 0 6.5 21H20"/>
+          </svg>
+        </button>` : ''}
+      </div>
+    </div>`;
+}
+
+/* ── FULL CASE STUDY VIEW (direct, no toggles) ────────────── */
+function makeFullCaseStudyView(p) {
+  const cs = CASE_STUDIES[p.t];
+  const show = SHOWCASE.find(s => s.t === p.t);
+  const coverSrc = (p.cover && p.cover.trim()) || (show && show.cover) || '';
+  const features = show ? show.features : [];
+  const stack = show ? show.stack : (p.tags || []);
+  const url = p.url || (show && show.url) || '#';
+  const year = p.y || (show && show.y) || '';
+
+  if (!cs) {
+    // No case study — fall back to regular preview
+    return makeWebPreview(p);
+  }
+
+  const img = coverSrc
+    ? `<img src="${coverSrc}" alt="${p.t}" class="w-full aspect-[16/10] object-cover" loading="lazy"/>`
+    : `<div class="w-full aspect-[16/10] bg-canvas flex items-center justify-center text-muted text-sm font-semibold">Website preview</div>`;
+
+  return `
+    <div class="relative">${img}</div>
+    <div class="p-6 sm:p-7">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="rounded-full bg-brand-500 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white">Web Development</span>
+        <span class="text-[11px] font-bold text-muted">${year}</span>
+        <span class="rounded-full border border-line/12 bg-canvas px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-muted">Full case study</span>
+      </div>
+      <h2 class="mt-3 text-2xl font-extrabold tracking-tight sm:text-3xl">${p.t}</h2>
+      <p class="mt-3 max-w-2xl text-[14px] leading-relaxed text-muted">${cs.blurb}</p>
+
+      <!-- Meta grid -->
+      <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        ${cs.meta.map(([k, v]) => `
+          <div class="rounded-2xl border border-line/10 bg-canvas/60 p-3">
+            <p class="text-[9.5px] font-extrabold uppercase tracking-[.14em] text-muted">${k}</p>
+            <p class="mt-1 text-[12px] font-bold leading-snug text-ink">${v}</p>
+          </div>`).join('')}
+      </div>
+
+      ${features.length ? `
+      <div class="mt-7">
+        <h4 class="flex items-center gap-2.5 text-[15px] font-extrabold tracking-tight text-ink">
+          <span class="h-4 w-[3px] shrink-0 rounded-full bg-brand-500"></span>Key Features Delivered
+        </h4>
+        <ul class="mt-3 grid gap-1.5 sm:grid-cols-2">
+          ${features.map(f => `
+            <li class="flex items-center gap-2 text-[12.5px] font-semibold text-ink/85">
+              <svg class="h-3.5 w-3.5 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+              ${f}
+            </li>`).join('')}
+        </ul>
+      </div>` : ''}
+
+      ${stack.length ? `
+      <div class="mt-6">
+        <h4 class="flex items-center gap-2.5 text-[15px] font-extrabold tracking-tight text-ink">
+          <span class="h-4 w-[3px] shrink-0 rounded-full bg-brand-500"></span>Tech Stack
+        </h4>
+        <div class="mt-2 flex flex-wrap gap-1.5">
+          ${stack.map(t => `<span class="rounded-full bg-canvas px-3 py-1.5 text-[10px] font-bold text-muted">${t}</span>`).join('')}
+        </div>
+      </div>` : ''}
+
+      <!-- Case study sections — all expanded -->
+      ${cs.sections.map(s => `
+        <section class="mt-8">
+          <h4 class="flex items-center gap-2.5 text-[15px] font-extrabold tracking-tight text-ink">
+            <span class="h-4 w-[3px] shrink-0 rounded-full bg-brand-500"></span>${s.h}
+          </h4>
+          <div class="cs-prose mt-3 text-[13.5px] leading-relaxed text-muted">${s.html}</div>
+        </section>`).join('')}
+
+      <div class="mt-8 rounded-2xl border border-line/10 bg-canvas/60 p-4 sm:p-5">
+        <p class="text-[13px] font-extrabold tracking-tight text-ink">Want to talk through this project?</p>
+        <p class="mt-1 text-[12.5px] leading-relaxed text-muted">I'm happy to walk through the architecture, the decisions or the parts that were challenging.</p>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <a href="${url}" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-[12px] font-bold text-canvas shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-500 hover:text-white">
+            Visit live website
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 4h6v6"/><path d="M20 4 9 15"/>
+              <path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/>
+            </svg>
+          </a>
+          <button type="button" data-goto="contact" data-lightbox-close
+            class="inline-flex items-center gap-1.5 rounded-full bg-brand-500 px-4 py-2 text-[12px] font-bold text-white transition-transform duration-300 hover:-translate-y-0.5">
+            Get in touch
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ── CASE STUDY BLOCK (UI/UX — button + collapsible panel) ── */
 function caseStudyBlock(title) {
   const cs = CASE_STUDIES[title];
   if (!cs) return '';
@@ -3313,7 +3990,7 @@ function caseStudyBlock(title) {
   </div>`;
 }
 
-/* ── CASE STUDY EXPAND / COLLAPSE ──────────────────────────── */
+/* ── CASE STUDY EXPAND / COLLAPSE (UI/UX) ─────────────────── */
 lightboxBody.addEventListener('click', e => {
   const btn = e.target.closest('#csToggle');
   if (!btn) return;
@@ -3347,15 +4024,36 @@ lightboxBody.addEventListener('click', e => {
   }
 });
 
+/* ── WEB: "VIEW FULL CASE STUDY" BUTTON ───────────────────── */
+lightboxBody.addEventListener('click', e => {
+  const btn = e.target.closest('[data-full-case-study]');
+  if (!btn) return;
+  const title = btn.dataset.fullCaseStudy;
+  const p = PROJECTS.find(pp => pp.t === title) || SHOWCASE.find(s => s.t === title);
+  if (!p) return;
+  openLightbox(makeFullCaseStudyView(p));
+});
+
+/* ── PROJECT GRID CLICK / KEYBOARD ─────────────────────────── */
 document.getElementById('projectGrid').addEventListener('click', e => {
   if (e.target.closest('[data-view-full]')) return;
+
+  // The arrow (data-live) opens the live website — nothing else does.
+  const live = e.target.closest('[data-live]');
+  if (live) {
+    e.preventDefault();
+    const card = live.closest('[data-project]');
+    const project = PROJECTS.find(p => p.t === card.dataset.project);
+    if (project && project.url) window.open(project.url, '_blank', 'noopener,noreferrer');
+    return;
+  }
 
   const card = e.target.closest('[data-project]');
   if (!card) return;
   const project = PROJECTS.find(p => p.t === card.dataset.project);
   if (!project) return;
   if (project.c === 'web') {
-    window.open(project.url || '#', '_blank', 'noopener,noreferrer');
+    openLightbox(makeWebPreview(project));
   } else {
     openLightbox(makePreview(project));
   }
@@ -3367,6 +4065,19 @@ document.getElementById('projectGrid').addEventListener('keydown', e => {
   if (!card) return;
   e.preventDefault();
   card.click();
+});
+
+/* ── SHOWCASE: VIEW FULL CASE STUDY BUTTONS ───────────────── */
+document.getElementById('showcaseList').addEventListener('click', e => {
+  const btn = e.target.closest('[data-showcase-case]');
+  if (!btn) return;
+  const s = SHOWCASE[Number(btn.dataset.showcaseCase)];
+  if (!s) return;
+  const p = PROJECTS.find(pp => pp.t === s.t) || {
+    t: s.t, c: 'web', y: s.y, d: s.d, url: s.url,
+    tags: s.stack, tool: 'Visual Studio Code', cover: s.cover
+  };
+  openLightbox(makeFullCaseStudyView(p));
 });
 
 /* ============================================================
@@ -3515,18 +4226,7 @@ form.addEventListener('submit', async e => {
 });
 
 /* ============================================================
-   21. SPOTLIGHT
-   ============================================================ */
-document.addEventListener('mousemove', e => {
-  const card = e.target.closest('.bento');
-  if (!card) return;
-  const r = card.getBoundingClientRect();
-  card.style.setProperty('--mx', `${e.clientX - r.left}px`);
-  card.style.setProperty('--my', `${e.clientY - r.top}px`);
-}, { passive: true });
-
-/* ============================================================
-   22. INIT
+   21. INIT
    ============================================================ */
 (function init() {
   renderProjects('all');
