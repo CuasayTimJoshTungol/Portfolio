@@ -1245,7 +1245,6 @@
             </div>
             
             <!-- Interactive Mascot (Hidden on mobile, sits below the button on desktop) -->
-            <!-- Updated to point to your local .webp files -->
             <div class="hidden lg:block mr-2 mt-4">
               <peek-pal 
                 poses="poses.webp" 
@@ -1265,6 +1264,7 @@
           </div>
         </div>
 
+        <!-- Bento Grid -->
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
 
           <article data-anim class="bento group p-5 sm:col-span-2 xl:col-span-2">
@@ -1393,6 +1393,23 @@
           </article>
 
         </div>
+
+        <!-- Trusted by — Home page only (Moved to bottom) -->
+        <div data-anim class="mt-5 rounded-3xl border border-line/10 bg-card/70 px-5 py-4 shadow-soft backdrop-blur-xl">
+          <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+            <div class="flex items-center gap-2.5">
+              <p class="text-[11.5px] font-bold text-muted"><span class="text-ink">Trusted by</span> founders &amp; teams</p>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 sm:justify-end">
+              <span class="text-[12.5px] font-extrabold tracking-tight text-ink/55 transition-colors duration-300 hover:text-ink">PROGISUD</span>
+              <span class="text-[12.5px] font-extrabold tracking-tight text-ink/55 transition-colors duration-300 hover:text-ink">Just A Tap</span>
+              <span class="text-[12.5px] font-extrabold tracking-tight text-ink/55 transition-colors duration-300 hover:text-ink">Apexed</span>
+              <span class="text-[12.5px] font-extrabold tracking-tight text-ink/55 transition-colors duration-300 hover:text-ink">Tamaraw Technohub</span>
+              <span class="text-[12.5px] font-extrabold tracking-tight text-ink/55 transition-colors duration-300 hover:text-ink">Parang Beach Resort</span>
+            </div>
+          </div>
+        </div>
+
       </section>
 
       <!-- PROJECTS -->
@@ -1825,7 +1842,7 @@
       'a, button, [role="button"], [role="link"], summary, label, ' +
       'input, textarea, select, [tabindex="0"], ' +
       '[data-goto], [data-project], [data-credential], [data-nav], ' +
-      '[data-lightbox-close], [data-showcase-case], [data-full-case-study], [data-view-full], [data-live], ' +
+      '[data-lightbox-close], [data-showcase-case], [data-full-case-study], [data-view-full], [data-live], [data-full-design], [data-zoom], ' +
       '.project-card, .credential-btn, .testi-card, .filter-btn, .nav-item'
     );
     el.classList.toggle('is-hover', !!t);
@@ -1911,25 +1928,28 @@ function findTool(name) {
 
 /* ============================================================
    PROJECTS
+   ────────────────────────────────────────────────────────────
+   IMPORTANT: Replace the paths below with your actual local
+   file paths. For example, if you have a folder called
+   "designs" in the same directory as this HTML file, use:
+   cover: 'designs/solea-cover.png'
+   image: 'designs/solea-full.png'
    ============================================================ */
 const PROJECTS = [
-  { t:'Manhattan Home Design - New Version', c:'uiux', y:'2025', d:'A UI/UX design concept for Manhattan Home Design, focused on creating an elegant, modern, and user-friendly landing page that showcases interior design services, highlights visual aesthetics, and provides a seamless browsing experience.', tags:['Auto Layout','Design System','Landing Page'], tool:'Figma & Figjam', image:'https://i.postimg.cc/Qxq56M3r/MHD-Home-Landing-Page.png', cover:'https://i.postimg.cc/x1fJXmLg/fffffffff.png' },
-  { t:'Manhattan Home Design',        c:'uiux', y:'2025', d:'Manhattan Home Design presents a modern approach to interior design, featuring stylish living spaces, carefully selected furniture, and inspiring home concepts that help clients envision their dream interiors.', tags:['Auto Layout','Design System','Landing Page'], tool:'Figma & FigJam', image:'https://i.postimg.cc/CM2DX2ZD/Frame-2087329103.png', cover:'https://i.postimg.cc/Jz4j0Hmm/Frame-2087329326.png' },
-  { t:'Quishas Kitchenette Restaurant', c:'uiux', y:'2024', d:'Quishas Kitchenette showcases delicious meals and a welcoming dining experience through a warm, inviting design that highlights the menu, food selections, and restaurant details, making it easy for customers to discover what’s on the table.', tags:['Mobile','Desktop','Auto Layout','Usability Testing'], tool:'Figma', image:'https://i.postimg.cc/Kj4Z2QH6/Qui.png', cover:'https://i.postimg.cc/wMQsTgGN/Frame-2087329288.png' },
-  { t:'Prime Lending Solutions',      c:'uiux', y:'2025', d:'A UI/UX design concept for Prime Lending Solution, focused on creating a professional, trustworthy, and user-friendly landing page that presents lending services clearly and helps users easily explore loan options and submit inquiries.', tags:['UX Research','Auto Layout','Landing Page'], tool:'Figma', image:'https://i.postimg.cc/442Rp6Y1/Frame-2087329329.png', cover:'https://i.postimg.cc/BQzQpWV3/Cover2-0.png' },
-  { t:'Wesco Skate Community',        c:'uiux', y:'2025', d:'Wescko Skate Community is designed to bring skaters together through a bold, street-inspired website that highlights skate culture, community events, and the passion for skateboarding, while giving visitors a feel for the local skate scene.', tags:['Research','Design Syste Page','Wireframing'], tool:'Figma', image:'https://i.postimg.cc/R0wnHCGw/Wesco-Skateboard.png', cover:'https://i.postimg.cc/dVdv9hdP/Cover1.png' },
-  { t:'Solea luxury Jewelry',         c:'uiux', y:'2025', d:'Solea Luxury Jewelry showcases elegant jewelry pieces through a clean and luxurious design, highlighting each collection’s beauty and craftsmanship while giving customers a refined and seamless browsing experience.', tags:['Mobile','Desktop','Conversion','UX Research'], tool:'Figma', image:'https://i.postimg.cc/fLj2BNW5/Solea.png', cover:'https://i.postimg.cc/3NLM9zbd/ggggggg.png' },
-  { t:'FitLife Gym Fitness - Version 1', c:'uiux', y:'2024', d:'FitLife Gym features a clean and motivating landing page that introduces the gym, showcases its workout facilities and fitness programs, and encourages people to take the first step toward a healthier lifestyle.', tags:['Auto Layout','Branding'], tool:'Figma', image:'https://i.postimg.cc/QMY2TyYV/Version-1.png', cover:'https://i.postimg.cc/s23kdjd7/Frame-2087329342.png' },
-  { t:'FitLife Gym Fitness - Version 2', c:'uiux', y:'2024', d:'FitLife Gym brings fitness to life with a bold, energetic design that highlights workout programs, gym facilities, and membership options, making it easier for people to find their motivation and start their fitness journey.', tags:['UX Research','Wireframing','Landing Page','Auto Layout'], tool:'Figma', image:'https://i.postimg.cc/CLmxqpwn/Fit-Life-Gym-Landing-Page.png', cover:'https://i.postimg.cc/1zp3M50w/Frame-2087329341.png' },
-  { t:'Jumping Tickets',              c:'uiux', y:'2022', d:'Jumping Tickets is a gaming-focused landing page that showcases innovative gaming devices, introduces the team behind the brand, and lets visitors explore products designed to make gaming more immersive and enjoyable.', tags:['Game','Entertainment','Branding'], tool:'Figma', image:'https://i.postimg.cc/k59Rm3Fb/tab.png', cover:'https://i.postimg.cc/cC77SSN5/i-Pad-Pro.png' },
-  { t:'Chain Glass Aluminum',         c:'uiux', y:'2022', d:'Chain Glass is a corporate website designed to showcase glass and aluminum products, highlight completed projects, and connect with contractors, distributors, and clients looking for reliable glass and aluminum solutions.', tags:['UI/UX Design','Glass & Aluminum','Web Design','B2B Business','Industrial Branding'], tool:'Figma', image:'https://i.postimg.cc/MGdHJcG6/c.png', cover:'https://i.postimg.cc/cLM1SKJ3/c-OVER6.png' },
-  { t:'Block Chain',                  c:'uiux', y:'2023', d:'The Blockchain project focuses on using decentralized technology to provide secure, transparent, and reliable digital transactions, with an emphasis on data integrity and trust between users.', tags:['Futuristic','Landing Page','Branding'], tool:'Figma', image:'https://i.postimg.cc/8cnLpKPd/BLOCKCHAIN-LANDING-PAGE-VERSION-2.png', cover:'https://i.postimg.cc/pdnq63yk/Frame-2087329345.png' },
-  { t:'Trident Vintage Wear',         c:'uiux', y:'2023', d:'Trident Vintage Wear brings timeless streetwear and retro fashion together, showcasing vintage-inspired clothing with a bold style that appeals to those who want to express their personality through unique and classic outfits.', tags:['Branding','Landing Page'], tool:'Figma', image:'https://i.postimg.cc/fysr7bxY/sasasa.png', cover:'https://i.postimg.cc/PrtV56FL/Frame-2087329343.png' },
+  { t:'Manhattan Home Design - New Version', c:'uiux', y:'2025', d:'A UI/UX design concept for Manhattan Home Design, focused on creating an elegant, modern, and user-friendly landing page that showcases interior design services, highlights visual aesthetics, and provides a seamless browsing experience.', tags:['Auto Layout','Design System','Landing Page'], tool:'Figma & Figjam', image:'full-1.png', cover:'cover-1.png' },
+  { t:'Manhattan Home Design',        c:'uiux', y:'2025', d:'Manhattan Home Design presents a modern approach to interior design, featuring stylish living spaces, carefully selected furniture, and inspiring home concepts that help clients envision their dream interiors.', tags:['Auto Layout','Design System','Landing Page'], tool:'Figma & FigJam', image:'full-2.png', cover:'cover-2.png' },
+  { t:'Quishas Kitchenette Restaurant', c:'uiux', y:'2024', d:'Quishas Kitchenette showcases delicious meals and a welcoming dining experience through a warm, inviting design that highlights the menu, food selections, and restaurant details, making it easy for customers to discover what’s on the table.', tags:['Mobile','Desktop','Auto Layout','Usability Testing'], tool:'Figma', image:'full-3.png', cover:'cover-3.png' },
+  { t:'Prime Lending Solutions',      c:'uiux', y:'2025', d:'A UI/UX design concept for Prime Lending Solution, focused on creating a professional, trustworthy, and user-friendly landing page that presents lending services clearly and helps users easily explore loan options and submit inquiries.', tags:['UX Research','Auto Layout','Landing Page'], tool:'Figma', image:'full-4.png', cover:'cover-4.png' },
+  { t:'Wesco Skate Community',        c:'uiux', y:'2025', d:'Wescko Skate Community is designed to bring skaters together through a bold, street-inspired website that highlights skate culture, community events, and the passion for skateboarding, while giving visitors a feel for the local skate scene.', tags:['Research','Design Syste Page','Wireframing'], tool:'Figma', image:'full-5.png', cover:'cover-5.png' },
+  { t:'Solea luxury Jewelry',         c:'uiux', y:'2025', d:'Solea Luxury Jewelry showcases elegant jewelry pieces through a clean and luxurious design, highlighting each collection’s beauty and craftsmanship while giving customers a refined and seamless browsing experience.', tags:['Mobile','Desktop','Conversion','UX Research'], tool:'Figma', image:'full-6.png', cover:'cover-6.png' },
+  { t:'FitLife Gym Fitness - Version 1', c:'uiux', y:'2024', d:'FitLife Gym features a clean and motivating landing page that introduces the gym, showcases its workout facilities and fitness programs, and encourages people to take the first step toward a healthier lifestyle.', tags:['Auto Layout','Branding'], tool:'Figma', image:'full-7.png', cover:'cover-7.png' },
+  { t:'FitLife Gym Fitness - Version 2', c:'uiux', y:'2024', d:'FitLife Gym brings fitness to life with a bold, energetic design that highlights workout programs, gym facilities, and membership options, making it easier for people to find their motivation and start their fitness journey.', tags:['UX Research','Wireframing','Landing Page','Auto Layout'], tool:'Figma', image:'full-8.png', cover:'cover-8.png' },
+  { t:'Jumping Tickets',              c:'uiux', y:'2022', d:'Jumping Tickets is a gaming-focused landing page that showcases innovative gaming devices, introduces the team behind the brand, and lets visitors explore products designed to make gaming more immersive and enjoyable.', tags:['Game','Entertainment','Branding'], tool:'Figma', image:'full-9.png', cover:'cover-9.png' },
+  { t:'Chain Glass Aluminum',         c:'uiux', y:'2022', d:'Chain Glass is a corporate website designed to showcase glass and aluminum products, highlight completed projects, and connect with contractors, distributors, and clients looking for reliable glass and aluminum solutions.', tags:['UI/UX Design','Glass & Aluminum','Web Design','B2B Business','Industrial Branding'], tool:'Figma', image:'full-10.png', cover:'cover-10.png' },
+  { t:'Block Chain',                  c:'uiux', y:'2023', d:'The Blockchain project focuses on using decentralized technology to provide secure, transparent, and reliable digital transactions, with an emphasis on data integrity and trust between users.', tags:['Futuristic','Landing Page','Branding'], tool:'Figma', image:'full-11.png', cover:'cover-11.png' },
+  { t:'Trident Vintage Wear',         c:'uiux', y:'2023', d:'Trident Vintage Wear brings timeless streetwear and retro fashion together, showcasing vintage-inspired clothing with a bold style that appeals to those who want to express their personality through unique and classic outfits.', tags:['Branding','Landing Page'], tool:'Figma', image:'full-12.png', cover:'cover-12.png' },
 
-  /* ── WEB DEVELOPMENT ────────────────────────────────────────
-     Each entry has a `cover` field — swap it for your own image
-     (e.g. '/covers/justatap.png') to override the default
-     live-screenshot preview from WordPress mShots.            */
+  /* ── WEB DEVELOPMENT ──────────────────────────────────────── */
   { t:'NFC Cards Web System', c:'web', y:'2025', d:'The NFC Card Web System allows users to order NFC cards and manage or customize their digital business cards independently, without needing admin permission. It offers a convenient, flexible, and paperless way to share contact details and social media links with just one tap.', tags:['Tailwind CSS','Laravel','Supabase','Laragon - MySQL','Github','Hostinger'], tool:'Visual Studio Code', cover:'https://i.postimg.cc/wjX14vFH/dasadsadsasa.png', url:'https://justatap.online/' },
   { t:'Apexed Automation System', c:'web', y:'2025', d:'Apexed Automation System is designed to streamline business operations by automating repetitive tasks, improving workflow efficiency, and simplifying daily processes.', tags:['Next.js','Laravel','Supabase','Tailwind CSS','Laragon - MySQL','Github','DeepSeek','CloudFlare'], tool:'Visual Studio Code', cover:'https://i.postimg.cc/wTHMyHg4/fdfdfdfdd.png', url:'https://apexed.online/' },
   { t:'Parang Beach Resort Website', c:'web', y:'2024', d:'Parang Beach Resort Website is designed to showcase the resort’s amenities, accommodations, and services, allowing visitors to explore the destination, discover available facilities, and easily inquire about bookings for a relaxing getaway.', tags:['WordPress','Custom Code','Bluehost'], tool:'Wordpress & Plugins', cover:'https://i.postimg.cc/XNsmFkb6/asaas.png', url:'https://parangbeachresort.com/' }
@@ -1952,141 +1972,293 @@ const CASE_STUDIES = {
       {
         h: 'Background',
         html: `
-          <p>The Manhattan Home Design landing page grew over several years, one campaign at a time. When I joined, it had three button styles, two competing hero messages, and a "Book a consultation" link buried below five sections of product photography.</p>
-          <p>The marketing lead's brief was one sentence: <em>"People land on the page, they scroll, and they leave."</em></p>
-          <p>That is a symptom, not a root problem. My first two days were spent turning that sentence into a testable hypothesis.</p>
+          <style>
+            /* Manhattan Home Design — recruiter-friendly case study */
+            .mhd-cs {
+              --mhd-ink: #24211d;
+              --mhd-muted: #686159;
+              --mhd-line: #e7e0d6;
+              --mhd-soft: #f7f3ed;
+              --mhd-accent: #987342;
+              --mhd-paper: #fffdf9;
+              width: 100%;
+              max-width: none;
+              min-width: 0;
+              color: var(--mhd-ink);
+              font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 1.75;
+              letter-spacing: 0;
+              overflow-wrap: anywhere;
+              -webkit-text-size-adjust: 100%;
+              text-size-adjust: 100%;
+            }
+            .mhd-cs *, .mhd-cs *::before, .mhd-cs *::after { box-sizing: border-box; }
+            .mhd-cs > *:first-child { margin-top: 0; }
+            .mhd-cs > *:last-child { margin-bottom: 0; }
+            .mhd-cs p {
+              width: 100%;
+              max-width: none;
+              margin: 0 0 1.15rem;
+              color: var(--mhd-muted);
+              font-size: 1rem;
+              font-weight: 400;
+              line-height: 1.8;
+              text-wrap: pretty;
+            }
+            .mhd-cs p:last-child { margin-bottom: 0; }
+            .mhd-cs strong { color: var(--mhd-ink); font-weight: 600; }
+            .mhd-cs em { color: var(--mhd-ink); font-style: italic; }
+            .mhd-cs a { color: inherit; text-decoration: underline; text-underline-offset: .15em; overflow-wrap: anywhere; }
+            .mhd-cs img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 14px; }
+            .mhd-cs ul, .mhd-cs ol {
+              width: 100%;
+              max-width: none;
+              margin: 0 0 1.4rem;
+              padding-left: 1.4rem;
+              color: var(--mhd-muted);
+            }
+            .mhd-cs li { margin: 0 0 .7rem; padding-left: .25rem; line-height: 1.75; text-wrap: pretty; }
+            .mhd-cs li:last-child { margin-bottom: 0; }
+            .mhd-cs ul li::marker, .mhd-cs ol li::marker { color: var(--mhd-accent); }
+            .mhd-cs blockquote {
+              width: 100%;
+              max-width: none;
+              margin: 1.5rem 0;
+              padding: 1.1rem 1.35rem;
+              border: 1px solid var(--mhd-line);
+              border-left: 3px solid var(--mhd-accent);
+              border-radius: 0 12px 12px 0;
+              background: var(--mhd-soft);
+              color: var(--mhd-ink);
+              font-size: 1.02rem;
+              font-weight: 400;
+              line-height: 1.7;
+              font-style: italic;
+              text-wrap: pretty;
+            }
+            .mhd-cs blockquote footer {
+              margin-top: .7rem;
+              color: var(--mhd-muted);
+              font-size: .84rem;
+              font-style: normal;
+              font-weight: 500;
+              line-height: 1.5;
+            }
+            .mhd-cs .cs-note {
+              width: 100%;
+              max-width: none;
+              margin: 1.5rem 0;
+              padding: 1.15rem 1.25rem;
+              border: 1px solid var(--mhd-line);
+              border-radius: 12px;
+              background: var(--mhd-soft);
+            }
+            .mhd-cs .cs-note > p { max-width: none; margin: 0; font-size: .96rem; }
+            .mhd-cs .cs-note .cs-note-label {
+              margin: 0 0 .45rem;
+              color: var(--mhd-accent);
+              font-size: .72rem;
+              font-weight: 600;
+              letter-spacing: .1em;
+              line-height: 1.4;
+              text-transform: uppercase;
+            }
+            .mhd-swatches {
+              display: grid;
+              grid-template-columns: repeat(3, minmax(0, 1fr));
+              gap: 14px;
+              width: 100%;
+              max-width: none;
+              margin: 1.5rem 0;
+            }
+            .mhd-swatch {
+              display: flex;
+              min-width: 0;
+              min-height: 120px;
+              flex-direction: column;
+              justify-content: flex-end;
+              gap: 4px;
+              padding: 16px;
+              border: 1px solid var(--mhd-line);
+              border-radius: 12px;
+              font-family: inherit;
+              line-height: 1.35;
+            }
+            .mhd-swatch .mhd-swatch-hex { font-size: .76rem; font-weight: 500; letter-spacing: .04em; }
+            .mhd-swatch .mhd-swatch-name { font-size: .88rem; font-weight: 600; }
+            @media (min-width: 900px) {
+              .mhd-cs { font-size: 16px; }
+              .mhd-cs p, .mhd-cs li { font-size: 1rem; }
+            }
+            @media (max-width: 640px) {
+              .mhd-cs { font-size: 15px; line-height: 1.7; }
+              .mhd-cs ul, .mhd-cs ol { padding-left: 1.15rem; }
+              .mhd-cs blockquote { padding: .95rem 1rem; }
+              .mhd-swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+              .mhd-swatch { min-height: 100px; padding: 12px; }
+            }
+            @media (prefers-reduced-motion: reduce) { .mhd-cs * { transition: none !important; animation: none !important; } }
+          </style>
+
+          <div class="mhd-cs">
+            <p>The Manhattan Home Design landing page grew over several years, one campaign at a time. When I joined, it had three button styles, two competing hero messages, and a "Book a consultation" link buried below five sections of product photography.</p>
+            <p>The marketing lead's brief was one sentence: <em>"People land on the page, they scroll, and they leave."</em></p>
+            <p>That is a symptom, not a root problem. My first two days were spent turning that sentence into a testable hypothesis.</p>
+          </div>
         `
       },
       {
         h: 'What I was actually solving',
         html: `
-          <p>I identified three testable problems:</p>
-          <ul>
-            <li>Visitors could not tell within the first screen whether the company sells furniture, offers interior design services, or both.</li>
-            <li>The consultation link (the highest-value action) was buried under five product sections.</li>
-            <li>Mobile users faced a squished desktop grid with tap targets under 40px and horizontal scrolling on the room gallery.</li>
-          </ul>
-          <div class="cs-note">
-            <p class="cs-note-label">Note</p>
-            <p>I deliberately kept the problem list to three. A longer list would have meant a longer project, and three weeks was already tight.</p>
+          <div class="mhd-cs">
+            <p>I identified three testable problems:</p>
+            <ul>
+              <li>Visitors could not tell within the first screen whether the company sells furniture, offers interior design services, or both.</li>
+              <li>The consultation link (the highest-value action) was buried under five product sections.</li>
+              <li>Mobile users faced a squished desktop grid with tap targets under 40px and horizontal scrolling on the room gallery.</li>
+            </ul>
+            <div class="cs-note">
+              <p class="cs-note-label">Note</p>
+              <p>I deliberately kept the problem list to three. A longer list would have meant a longer project, and three weeks was already tight.</p>
+            </div>
           </div>
         `
       },
       {
         h: 'Research',
         html: `
-          <p>I kept this small on purpose. A three-week timeline does not allow for a full research phase. The client did not need a massive study; they needed clear decisions. So I did three things:</p>
-          <ol>
-            <li>Conducted a heuristic review of the current page on desktop and mobile, noting every point of friction.</li>
-            <li>Spoke with five people who had furnished a home in the last 18 months.</li>
-            <li>Analyzed six competitors, focusing specifically on their above-the-fold content.</li>
-          </ol>
-          <p>Two user quotes shaped the entire project:</p>
-          <blockquote>
-            "I genuinely can't tell if this is a furniture store or a design firm. I'd have to scroll to figure it out."
-            <footer>Participant 2, rented a 1BR in 2024</footer>
-          </blockquote>
-          <blockquote>
-            "I don't want to see a sofa on a white background. I want to see it in a room. Otherwise I can't picture it in my apartment."
-            <footer>Participant 4, bought a full living room set</footer>
-          </blockquote>
-          <p>That second quote shifted our direction. People are not shopping for a sofa. They are shopping for a <strong>finished room</strong>. Competitors who understood this were selling rooms, and those were the sites participants remembered a week later.</p>
+          <div class="mhd-cs">
+            <p>I kept this small on purpose. A three-week timeline does not allow for a full research phase. The client did not need a massive study; they needed clear decisions. So I did three things:</p>
+            <ol>
+              <li>Conducted a heuristic review of the current page on desktop and mobile, noting every point of friction.</li>
+              <li>Spoke with five people who had furnished a home in the last 18 months.</li>
+              <li>Analyzed six competitors, focusing specifically on their above-the-fold content.</li>
+            </ol>
+            <p>Two user quotes shaped the entire project:</p>
+            <blockquote>
+              "I genuinely can't tell if this is a furniture store or a design firm. I'd have to scroll to figure it out."
+              <footer>Participant 2, rented a 1BR in 2024</footer>
+            </blockquote>
+            <blockquote>
+              "I don't want to see a sofa on a white background. I want to see it in a room. Otherwise I can't picture it in my apartment."
+              <footer>Participant 4, bought a full living room set</footer>
+            </blockquote>
+            <p>That second quote shifted our direction. People are not shopping for a sofa. They are shopping for a <strong>finished room</strong>. Competitors who understood this were selling rooms, and those were the sites participants remembered a week later.</p>
+          </div>
         `
       },
       {
         h: 'Design direction',
         html: `
-          <p>Three rules emerged from the research. I wrote them down before opening Figma to prevent scope creep:</p>
-          <ul>
-            <li><strong>Lead with rooms.</strong> Product shots support the story; room shots carry it.</li>
-            <li><strong>One primary action.</strong> The consultation is the goal, not a generic "Shop now" button.</li>
-            <li><strong>Halve the page.</strong> Nine sections down to five.</li>
-          </ul>
+          <div class="mhd-cs">
+            <p>Three rules emerged from the research. I wrote them down before opening Figma to prevent scope creep:</p>
+            <ul>
+              <li><strong>Lead with rooms.</strong> Product shots support the story; room shots carry it.</li>
+              <li><strong>One primary action.</strong> The consultation is the goal, not a generic "Shop now" button.</li>
+              <li><strong>Halve the page.</strong> Nine sections down to five.</li>
+            </ul>
+          </div>
         `
       },
       {
         h: 'Structure',
         html: `
-          <p>I reduced the page from nine sections to five. Each section now has a single job:</p>
-          <ol>
-            <li><strong>Hero:</strong> One message, one action, answered in under five seconds.</li>
-            <li><strong>Room setups:</strong> The "I can picture it in my place" moment.</li>
-            <li><strong>How the design service works:</strong> Three steps, plain language, no jargon.</li>
-            <li><strong>Proof:</strong> Two testimonials with real names and photos, not stock quotes.</li>
-            <li><strong>Consultation form:</strong> Short enough to fill in on a phone.</li>
-          </ol>
-          <p>Everything else moved to the footer or got cut. I argued to remove the "featured brands" carousel. It existed because a partner requested it, not because it helped the user.</p>
+          <div class="mhd-cs">
+            <p>I reduced the page from nine sections to five. Each section now has a single job:</p>
+            <ol>
+              <li><strong>Hero:</strong> One message, one action, answered in under five seconds.</li>
+              <li><strong>Room setups:</strong> The "I can picture it in my place" moment.</li>
+              <li><strong>How the design service works:</strong> Three steps, plain language, no jargon.</li>
+              <li><strong>Proof:</strong> Two testimonials with real names and photos, not stock quotes.</li>
+              <li><strong>Consultation form:</strong> Short enough to fill in on a phone.</li>
+            </ol>
+            <p>Everything else moved to the footer or got cut. I argued to remove the "featured brands" carousel. It existed because a partner requested it, not because it helped the user.</p>
+          </div>
         `
       },
       {
         h: 'Wireframes and a decision that changed',
         html: `
-          <p>My first wireframe placed the headline over a full-bleed photograph. It looked excellent in the mockup but would have caused major maintenance issues in production.</p>
-          <p>The client's photography varied wildly. Some images were bright and airy, while others featured dark rooms with warm lamps. Overlaying type meant sourcing new photography every time the hero changed, which was outside the budget.</p>
-          <p>I split the hero for the second wireframe: copy on a solid panel, image on the right. It was less dramatic but far more durable. We shipped this version.</p>
-          <div class="cs-note">
-            <p class="cs-note-label">Takeaway</p>
-            <p>The best-looking option is not always the most practical one. A hero section that breaks the moment a client swaps an image is a hero section that gets abandoned six months later.</p>
+          <div class="mhd-cs">
+            <p>My first wireframe placed the headline over a full-bleed photograph. It looked excellent in the mockup but would have caused major maintenance issues in production.</p>
+            <p>The client's photography varied wildly. Some images were bright and airy, while others featured dark rooms with warm lamps. Overlaying type meant sourcing new photography every time the hero changed, which was outside the budget.</p>
+            <p>I split the hero for the second wireframe: copy on a solid panel, image on the right. It was less dramatic but far more durable. We shipped this version.</p>
+            <div class="cs-note">
+              <p class="cs-note-label">Takeaway</p>
+              <p>The best-looking option is not always the most practical one. A hero section that breaks the moment a client swaps an image is a hero section that gets abandoned six months later.</p>
+            </div>
           </div>
         `
       },
       {
         h: 'Visual design',
         html: `
-          <p>The brand logo used a serif typeface. I retained it for headlines and paired it with a neutral sans-serif for navigation, body copy, buttons, and form labels. Two typefaces only.</p>
-          <p>The color palette stayed close to their existing brand identity. Warm neutrals, one accent color, and photography driving the emotional connection. I resisted adding a second accent color, even though the "Book" button seemed to need one. One accent creates a system; two creates clutter.</p>
-          
-          <div style="display: flex; gap: 16px; margin: 24px 0; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
-            <div style="flex: 1 1 140px; min-width: 140px; height: 110px; background-color: #F8EEE3; border-radius: 8px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; border: 1px solid #E5E5E5; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-              <span style="font-size: 12px; opacity: 0.8; margin-bottom: 4px; color: #333333; line-height: 1;">#F8EEE3</span>
-              <span style="font-size: 14px; font-weight: 600; color: #333333; line-height: 1.2;">Warm Neutral</span>
-            </div>
-            <div style="flex: 1 1 140px; min-width: 140px; height: 110px; background-color: #A3804C; border-radius: 8px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-              <span style="font-size: 12px; opacity: 0.9; margin-bottom: 4px; color: #FFFFFF; line-height: 1;">#A3804C</span>
-              <span style="font-size: 14px; font-weight: 600; color: #FFFFFF; line-height: 1.2;">Accent Gold</span>
-            </div>
-            <div style="flex: 1 1 140px; min-width: 140px; height: 110px; background-color: #FFFFFF; border-radius: 8px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; border: 1px solid #E5E5E5; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-              <span style="font-size: 12px; opacity: 0.8; margin-bottom: 4px; color: #333333; line-height: 1;">#FFFFFF</span>
-              <span style="font-size: 14px; font-weight: 600; color: #333333; line-height: 1.2;">White</span>
-            </div>
-          </div>
+          <div class="mhd-cs">
+            <p>The brand logo used a serif typeface. I retained it for headlines and paired it with a neutral sans-serif for navigation, body copy, buttons, and form labels. Two typefaces only.</p>
+            <p>The color palette stayed close to their existing brand identity. Warm neutrals, one accent color, and photography driving the emotional connection. I resisted adding a second accent color, even though the "Book" button seemed to need one. One accent creates a system; two creates clutter.</p>
 
-          <p>Layout grid: 12 columns, 1200px max width, 8px spacing base. Simple, but effective.</p>
+            <div class="mhd-swatches">
+              <div class="mhd-swatch" style="background-color: #F8EEE3; color: #333333;">
+                <span class="mhd-swatch-hex">#F8EEE3</span>
+                <span class="mhd-swatch-name">Warm Neutral</span>
+              </div>
+              <div class="mhd-swatch" style="background-color: #A3804C; color: #FFFFFF; border-color: #A3804C;">
+                <span class="mhd-swatch-hex">#A3804C</span>
+                <span class="mhd-swatch-name">Accent Gold</span>
+              </div>
+              <div class="mhd-swatch" style="background-color: #FFFFFF; color: #333333;">
+                <span class="mhd-swatch-hex">#FFFFFF</span>
+                <span class="mhd-swatch-name">White</span>
+              </div>
+            </div>
+
+            <p>Layout grid: 12 columns, 1200px max width, 8px spacing base. Simple, but effective.</p>
+          </div>
         `
       },
       {
         h: 'Design system',
         html: `
-          <p>Since this was a single landing page, I kept the design system small: 24 components. This included buttons (two sizes, three states), form fields, room cards, step cards, testimonial blocks, and type/spacing scales.</p>
-          <p>The system was lean enough that the client's developer built it without a handoff meeting. The goal was usability for the next designer, not exhaustive documentation.</p>
+          <div class="mhd-cs">
+            <p>Since this was a single landing page, I kept the design system small: 24 components. This included buttons (two sizes, three states), form fields, room cards, step cards, testimonial blocks, and type/spacing scales.</p>
+            <p>The system was lean enough that the client's developer built it without a handoff meeting. The goal was usability for the next designer, not exhaustive documentation.</p>
+          </div>
         `
       },
       {
         h: 'Testing',
         html: `
-          <p>I ran five moderated sessions on the prototype using participants' own devices. The users were tasked with finding the design service, finding a sofa, and booking a consultation.</p>
-          <ul>
-            <li>Four out of five users found the consultation CTA in under eight seconds. The previous version averaged closer to forty seconds.</li>
-            <li>The one who failed was looking for a phone number. Because that is a valid user preference, we added a phone number to the header.</li>
-            <li>Two users tapped the room gallery expecting it to expand. It did not. We made the first image tile interactive and left the rest static. This signaled interactivity without slowing down page load.</li>
-          </ul>
+          <div class="mhd-cs">
+            <p>I ran five moderated sessions on the prototype using participants' own devices. The users were tasked with finding the design service, finding a sofa, and booking a consultation.</p>
+            <ul>
+              <li>Four out of five users found the consultation CTA in under eight seconds. The previous version averaged closer to forty seconds.</li>
+              <li>The one who failed was looking for a phone number. Because that is a valid user preference, we added a phone number to the header.</li>
+              <li>Two users tapped the room gallery expecting it to expand. It did not. We made the first image tile interactive and left the rest static. This signaled interactivity without slowing down page load.</li>
+            </ul>
+          </div>
         `
       },
       {
         h: 'Outcome',
         html: `
-          <p>The client reported that consultation requests increased by roughly 40% in the first month after launch, and average time on page increased.</p>
-          <p>I did not set up the analytics personally, so treat those metrics as client-reported. The reality is that the page became simpler, the primary action became findable, and the client returned for a second project.</p>
+          <div class="mhd-cs">
+            <p>The client reported that consultation requests increased by roughly 40% in the first month after launch, and average time on page increased.</p>
+            <p>I did not set up the analytics personally, so treat those metrics as client-reported. The reality is that the page became simpler, the primary action became findable, and the client returned for a second project.</p>
+          </div>
         `
       },
       {
         h: "What I'd do differently",
         html: `
-          <ul>
-            <li>Replace the form with a real booking flow. A form captures a lead; a calendar slot captures a commitment.</li>
-            <li>Get analytics access on day one instead of relying on second-hand reporting.</li>
-            <li>Test with the client's actual photography in round one, not placeholders. Half my revision time went into adjusting layouts for their real photos.</li>
-          </ul>
+          <div class="mhd-cs">
+            <ul>
+              <li>Replace the form with a real booking flow. A form captures a lead; a calendar slot captures a commitment.</li>
+              <li>Get analytics access on day one instead of relying on second-hand reporting.</li>
+              <li>Test with the client's actual photography in round one, not placeholders. Half my revision time went into adjusting layouts for their real photos.</li>
+            </ul>
+          </div>
         `
       }
     ]
@@ -3022,8 +3194,6 @@ function renderTestiCarousel() {
 
 /* ============================================================
    6. WORK + CREDENTIALS + MINI SERVICES
-   — Removed orange circle dots from Services list and IT Support
-     list; both now use the same numbered 01/02/03 layout.
    ============================================================ */
 (function renderMini() {
   /* Services — no dot, name + number (01/02/03) */
@@ -3114,7 +3284,7 @@ function uiuxProjectCard(p, i) {
        </div>`;
 
   const fullDesign = p.image
-    ? `<a href="${p.image}" target="_blank" rel="noopener noreferrer" data-view-full
+    ? `<button type="button" data-view-full data-full-design="${p.t}"
           class="group/link inline-flex shrink-0 items-center gap-1 text-[11px] font-extrabold text-ink/70 transition-colors duration-300 hover:text-brand-600">
          View full design
          <svg class="h-3 w-3 transition-transform duration-300 group-hover/link:translate-x-0.5"
@@ -3122,7 +3292,7 @@ function uiuxProjectCard(p, i) {
               stroke-linecap="round" stroke-linejoin="round">
            <path d="M5 12h14m-6-6 6 6-6 6"/>
          </svg>
-       </a>`
+       </button>`
     : '';
 
     const caseBadge = hasCase
@@ -3710,6 +3880,8 @@ function openLightbox(html) {
   lightboxBody.innerHTML = html;
   lightbox.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+  const card = lightbox.querySelector('.lightbox-card');
+  if (card) card.scrollTop = 0;
   lightboxBody.scrollTop = 0;
 }
 function closeLightbox() {
@@ -3757,6 +3929,125 @@ function makePreview(p) {
       </div>
       ${CASE_STUDIES[p.t] ? caseStudyBlock(p.t) : ''}
     </div>`;
+}
+
+/* ── FULL DESIGN VIEW (UI/UX "View full design" → modal) ────
+   New approach: a zoomable, scrollable viewer that renders the
+   image at its NATURAL resolution instead of forcing it into a
+   small container. Default view = fit-width, but user can click
+   100% to see crisp pixels, or "Original" to open the raw file. */
+function makeFullDesignView(p) {
+  const src = p.image || '';
+  const body = src
+    ? `<div id="fdViewport" class="overflow-auto bg-canvas/60" style="max-height: 65vh;">
+         <div id="fdStage" class="p-2 sm:p-4" style="min-width: 100%;">
+           <img id="fdImage" src="${src}" alt="${p.t} — full landing page design"
+                class="block rounded-xl shadow-xl"
+                style="display:block; margin:0 auto; width:100%; height:auto;"
+                decoding="async" />
+         </div>
+       </div>`
+    : `<div class="flex aspect-[4/3] items-center justify-center bg-canvas text-sm font-semibold text-muted">Design preview unavailable</div>`;
+
+  return `
+    <div class="sticky top-0 z-10 border-b border-line/10 bg-card/95 px-4 py-3 backdrop-blur-xl">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="min-w-0">
+          <p class="text-[9.5px] font-extrabold uppercase tracking-[.16em] text-brand-500">Full design preview</p>
+          <h2 class="mt-0.5 truncate text-[15px] font-extrabold tracking-tight">${p.t}</h2>
+        </div>
+        ${src ? `
+        <div class="flex items-center gap-1">
+          <button type="button" data-zoom="out" aria-label="Zoom out"
+            class="grid h-8 w-8 place-items-center rounded-lg border border-line/12 bg-canvas text-ink transition hover:bg-ink hover:text-canvas">
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg>
+          </button>
+          <span data-zoom-label class="min-w-[52px] text-center text-[11px] font-extrabold text-ink tabular-nums">Fit</span>
+          <button type="button" data-zoom="in" aria-label="Zoom in"
+            class="grid h-8 w-8 place-items-center rounded-lg border border-line/12 bg-canvas text-ink transition hover:bg-ink hover:text-canvas">
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <button type="button" data-zoom="fit"
+            class="rounded-lg border border-line/12 bg-canvas px-2.5 py-1.5 text-[10.5px] font-extrabold uppercase tracking-wider text-ink transition hover:bg-ink hover:text-canvas">Fit</button>
+          <button type="button" data-zoom="100"
+            class="rounded-lg border border-line/12 bg-canvas px-2.5 py-1.5 text-[10.5px] font-extrabold uppercase tracking-wider text-ink transition hover:bg-ink hover:text-canvas">100%</button>
+          <a href="${src}" target="_blank" rel="noopener noreferrer"
+            class="rounded-lg bg-ink px-2.5 py-1.5 text-[10.5px] font-extrabold uppercase tracking-wider text-canvas transition hover:bg-brand-500 hover:text-white">Original</a>
+        </div>` : ''}
+      </div>
+    </div>
+
+    ${body}
+
+    <div class="border-t border-line/10 p-5 sm:p-6">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="rounded-full bg-brand-500 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white">UI/UX Design</span>
+        <span class="text-[11px] font-bold text-muted">${p.y}</span>
+        <span class="text-[11px] font-bold text-muted">· ${p.tool}</span>
+      </div>
+      <p class="mt-3 text-[13px] leading-relaxed text-muted">${p.d}</p>
+      <div class="mt-3 flex flex-wrap gap-1.5">
+        ${p.tags.map(t => `<span class="rounded-full bg-canvas px-3 py-1.5 text-[10px] font-bold text-muted">${t}</span>`).join('')}
+      </div>
+    </div>`;
+}
+
+/* ── ZOOM CONTROLLER FOR FULL DESIGN VIEWER ───────────────── */
+function initDesignZoomer() {
+  const viewport = document.getElementById('fdViewport');
+  const img = document.getElementById('fdImage');
+  const label = document.querySelector('[data-zoom-label]');
+  if (!viewport || !img) return;
+
+  let fitScale = 1;
+  let curScale = 1;
+
+  function apply(scale) {
+    if (!img.naturalWidth) return;
+    curScale = scale;
+    img.style.width = Math.round(img.naturalWidth * scale) + 'px';
+    if (label) label.textContent = Math.round(scale * 100) + '%';
+  }
+
+  function computeFit() {
+    if (!img.naturalWidth) return 1;
+    const pad = window.innerWidth < 640 ? 16 : 32;
+    const avail = viewport.clientWidth - pad;
+    if (avail <= 0) return 1;
+    return Math.min(1, avail / img.naturalWidth);
+  }
+
+  function fit() {
+    fitScale = computeFit();
+    apply(fitScale);
+  }
+
+  function tryInit() {
+    if (!img.naturalWidth) return false;
+    fit();
+    return true;
+  }
+
+  if (!tryInit()) {
+    img.addEventListener('load', tryInit, { once: true });
+  }
+
+  lightboxBody.querySelectorAll('[data-zoom]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const a = btn.dataset.zoom;
+      if (a === 'in')       apply(Math.min(3, curScale + 0.2));
+      else if (a === 'out') apply(Math.max(0.2, curScale - 0.2));
+      else if (a === 'fit') fit();
+      else if (a === '100') apply(1);
+    });
+  });
+}
+
+function openFullDesign(project) {
+  if (!project || !project.image) return;
+  openLightbox(makeFullDesignView(project));
+  requestAnimationFrame(() => initDesignZoomer());
 }
 
 /* ── WEB PROJECT PREVIEW (opens from web cards) ───────────── */
@@ -3967,13 +4258,28 @@ function caseStudyBlock(title) {
           </section>`).join('')}
 
         <div class="mt-8 rounded-2xl border border-line/10 bg-canvas/60 p-4 sm:p-5">
-          <p class="text-[13px] font-extrabold tracking-tight text-ink">Want to talk through this project?</p>
-          <p class="mt-1 text-[12.5px] leading-relaxed text-muted">I'm happy to walk through the files, the research notes or the parts that didn't work.</p>
-          <button type="button" data-goto="contact" data-lightbox-close
-            class="mt-3 inline-flex items-center gap-1.5 rounded-full bg-brand-500 px-4 py-2 text-[12px] font-bold text-white transition-transform duration-300 hover:-translate-y-0.5">
-            Get in touch
-            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
-          </button>
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p class="text-[13px] font-extrabold tracking-tight text-ink">Want to talk through this project?</p>
+              <p class="mt-1 text-[12.5px] leading-relaxed text-muted">I'm happy to walk through the files, the research notes or the parts that didn't work.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 shrink-0">
+              <button type="button" data-goto="contact" data-lightbox-close
+                class="inline-flex items-center justify-center gap-1.5 rounded-full bg-brand-500 px-4 py-2.5 text-[12px] font-bold text-white shadow-sm transition-transform duration-300 hover:-translate-y-0.5 hover:bg-brand-600">
+                Get in touch
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+              </button>
+              <button type="button" data-full-design="${title}"
+                class="inline-flex items-center justify-center gap-1.5 rounded-full border border-ink/20 bg-transparent px-4 py-2.5 text-[12px] font-bold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-ink hover:bg-ink hover:text-canvas">
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2.5"/>
+                  <circle cx="9" cy="9" r="1.8"/>
+                  <path d="m21 15-4.5-4.5L7 20"/>
+                </svg>
+                View full design
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -4022,6 +4328,26 @@ lightboxBody.addEventListener('click', e => {
   const p = PROJECTS.find(pp => pp.t === title) || SHOWCASE.find(s => s.t === title);
   if (!p) return;
   openLightbox(makeFullCaseStudyView(p));
+});
+
+/* ── "VIEW FULL DESIGN" — from inside the case study modal ─── */
+lightboxBody.addEventListener('click', e => {
+  const btn = e.target.closest('[data-full-design]');
+  if (!btn) return;
+  e.preventDefault();
+  const project = PROJECTS.find(p => p.t === btn.dataset.fullDesign);
+  if (!project || !project.image) return;
+  openFullDesign(project);
+});
+
+/* ── "VIEW FULL DESIGN" → open in modal (UI/UX cards) ─────── */
+document.getElementById('projectGrid').addEventListener('click', e => {
+  const btn = e.target.closest('[data-full-design]');
+  if (!btn) return;
+  e.preventDefault();
+  const project = PROJECTS.find(p => p.t === btn.dataset.fullDesign);
+  if (!project || !project.image) return;
+  openFullDesign(project);
 });
 
 /* ── PROJECT GRID CLICK / KEYBOARD ─────────────────────────── */
