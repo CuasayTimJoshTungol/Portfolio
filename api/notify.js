@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   }
 
   // ⚠️ Replace with YOUR ntfy topic – keep it secret!
-  const NTFY_TOPIC = process.env.NTFY_TOPIC || 'timjosh-portfolio-x7k2';
+  const NTFY_TOPIC = process.env.NTFY_TOPIC || 'timjosh-secure-chat-8x9k2';
 
   try {
     const response = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
