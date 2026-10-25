@@ -2951,8 +2951,12 @@ document.addEventListener('visibilitychange', () => {
   });
 })();
 
-/* 29. AI ASSISTANT CHAT LOGIC */
+/* 29. AI ASSISTANT CHAT LOGIC & REAL-TIME LISTENER */
 (function initAiAssistant() {
+  // 🔒 SECURITY: Use a long, random, unguessable topic name. 
+  // ⚠️ IMPORTANT: This MUST match the NTFY_TOPIC in your Vercel Environment Variables.
+  const NTFY_TOPIC = 'timjosh-secure-chat-8x9k2'; 
+  
   const modal = document.getElementById('aiChatModal');
   const wrapper = document.getElementById('mascotWrapper');
   const backdrop = document.getElementById('aiChatBackdrop');
@@ -2992,7 +2996,57 @@ document.addEventListener('visibilitychange', () => {
     }
   });
 
-  // Local AI Rules
+  // --- REAL-TIME SSE CONNECTION FOR OPERATOR REPLIES ---
+  let eventSource = null;
+
+  function connectToNtfyStream() {
+    if (eventSource) return; // Already connected
+    
+    // Establish the Server-Sent Events connection
+    const sseUrl = `https://ntfy.sh/${NTFY_TOPIC}/sse`;
+    
+    try {
+      eventSource = new EventSource(sseUrl);
+      
+      eventSource.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          
+          if (data.event === 'message') {
+            // Check if the message came from our backend (visitor sent it). 
+            // If so, ignore it to prevent the visitor's own message from appearing twice.
+            if (data.title === 'New message from portfolio chat') return;
+            
+            // Otherwise, it's a reply from Tim (sent via the ntfy mobile app)
+            appendMessage(data.message, 'bot');
+          }
+        } catch (e) {
+          console.warn('Error parsing SSE message:', e);
+        }
+      };
+
+      eventSource.onerror = (err) => {
+        console.warn('SSE connection lost. Reconnecting automatically...', err);
+      };
+    } catch (e) {
+      console.error('Failed to connect to ntfy stream:', e);
+    }
+  }
+
+  function closeNtfyStream() {
+    if (eventSource) {
+      eventSource.close();
+      eventSource = null;
+    }
+  }
+
+  // Start listening for replies when the page loads
+  connectToNtfyStream();
+
+  // Clean up connection if the user closes the browser tab
+  window.addEventListener('beforeunload', closeNtfyStream);
+
+  // --- LOCAL AI RULES ---
   const RULES = {
     'service': 'Tim offers UI/UX design (Figma), web development (Laravel, Next.js, Tailwind), and IT Support. Which one are you interested in?',
     'price': 'Pricing depends on the scope. Could you share a few details about your project so Tim can give you an accurate quote?',
