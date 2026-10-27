@@ -167,7 +167,7 @@
 
 <style>
   :root {
-    --canvas: 234 238 249;
+    --canvas: 234 238 249;      /* ← Light mode body color preserved */
     --ink: 11 18 32;
     --muted: 107 117 144;
     --card: 255 255 255;
@@ -175,7 +175,7 @@
     --ease: cubic-bezier(.22,1,.36,1);
   }
   html.dark {
-    --canvas: 7 10 18;
+    --canvas: 7 10 18;          /* ← Dark mode body color preserved (this is what looks "black") */
     --ink: 241 245 249;
     --muted: 165 180 200;
     --card: 20 25 40;
@@ -184,7 +184,7 @@
 
   html, body { -webkit-font-smoothing: antialiased; }
   body {
-    background: rgb(var(--canvas));
+    background: rgb(var(--canvas));   /* ← Body background is here, unchanged */
     color: rgb(var(--ink));
     transition: background-color .35s var(--ease), color .25s var(--ease);
     overflow-x: hidden;
@@ -198,7 +198,6 @@
   @keyframes viewIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
   @keyframes slideInLeft { 0% { opacity: 0; transform: translateX(-26px); } 100% { opacity: 1; transform: translateX(0); } }
   @keyframes fadeUp { 0% { opacity: 0; transform: translateY(14px); } 100% { opacity: 1; transform: translateY(0); } }
-  @keyframes blobFloat { 0%,100% { transform: translate3d(0,0,0) scale(1); } 33% { transform: translate3d(80px,-60px,0) scale(1.18); } 66% { transform: translate3d(-60px,45px,0) scale(.88); } }
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @keyframes pulseSoft { 0%,100% { opacity:.55; transform: scale(1);} 50% { opacity:1; transform: scale(1.4);} }
   @keyframes vScrollUp { from { transform: translateY(0); } to { transform: translateY(-50%); } }
@@ -206,28 +205,8 @@
   .view-enter { animation: viewIn .3s var(--ease) both; }
 
   .marquee { animation: marquee 42s linear infinite; }
-  .blob  { animation: blobFloat 26s ease-in-out infinite; }
-  .blob2 { animation: blobFloat 32s ease-in-out infinite reverse; }
-  .blob3 { animation: blobFloat 28s ease-in-out infinite; animation-delay: -8s; }
-  .blob4 { animation: blobFloat 36s ease-in-out infinite reverse; animation-delay: -14s; }
 
-  html.anim-paused .blob, html.anim-paused .blob2, html.anim-paused .blob3, html.anim-paused .blob4,
   html.anim-paused .marquee, html.anim-paused .v-track { animation-play-state: paused !important; }
-
-  /* PERFORMANCE OPTIMIZATION: Removed heavy CSS blur and replaced with radial gradients */
-  .bg-scene { position: fixed; inset: 0; z-index: -10; overflow: hidden; pointer-events: none; }
-  .aurora { position: absolute; border-radius: 50%; will-change: transform; opacity: 0.8; }
-  .aurora-1 { width: 640px; height: 640px; top: -240px; left: -200px; background: radial-gradient(circle, rgba(255, 172, 120, 0.7) 0%, rgba(255, 172, 120, 0) 70%); }
-  .aurora-2 { width: 560px; height: 560px; top: 12%; right: -220px; background: radial-gradient(circle, rgba(165, 180, 252, 0.7) 0%, rgba(165, 180, 252, 0) 70%); }
-  .aurora-3 { width: 580px; height: 580px; bottom: -240px; left: 22%; background: radial-gradient(circle, rgba(125, 211, 252, 0.7) 0%, rgba(125, 211, 252, 0) 70%); }
-  .aurora-4 { width: 460px; height: 460px; top: 52%; left: 4%; background: radial-gradient(circle, rgba(251, 207, 232, 0.7) 0%, rgba(251, 207, 232, 0) 70%); }
-  html.dark .aurora-1 { background: radial-gradient(circle, rgba(255, 107, 44, 0.4) 0%, rgba(255, 107, 44, 0) 70%); }
-  html.dark .aurora-2 { background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, rgba(99, 102, 241, 0) 70%); }
-  html.dark .aurora-3 { background: radial-gradient(circle, rgba(56, 189, 248, 0.4) 0%, rgba(56, 189, 248, 0) 70%); }
-  html.dark .aurora-4 { background: radial-gradient(circle, rgba(217, 70, 239, 0.4) 0%, rgba(217, 70, 239, 0) 70%); }
-  
-  .grain { position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: .05; mix-blend-mode: overlay; }
-  html.dark .grain { opacity: .09; }
 
   .nav-item { position: relative; display: flex; align-items: center; gap: .7rem; width: 100%; padding: .6rem .75rem; border-radius: .5rem; font-size: .875rem; font-weight: 600; color: rgb(var(--muted)); transition: color .2s var(--ease), background-color .2s var(--ease), transform .2s var(--ease); }
   .nav-item:hover { color: rgb(var(--ink)); background: rgb(var(--line) / .06); transform: translateX(2px); }
@@ -398,11 +377,8 @@
     #menuBtn { width: 44px; height: 44px; }
     .lightbox-close { width: 44px; height: 44px; top: 10px; right: 10px; }
     .testi-action { width: 42px; height: 42px; }
-    .blob, .blob2, .blob3, .blob4 { animation-duration: 44s; }
     .marquee { animation-duration: 55s; }
     .v-track { animation-duration: 38s; }
-    .grain { opacity: .04; }
-    html.dark .grain { opacity: .06; }
     #mobileTopBar { top: max(12px, env(safe-area-inset-top, 12px)); background: rgb(var(--card) / .98); box-shadow: 0 4px 22px -10px rgb(var(--line) / .18); padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
     body { padding-bottom: env(safe-area-inset-bottom, 0); }
     #sidebar { width: min(320px, 88vw); -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
@@ -478,15 +454,6 @@
 </head>
 
 <body class="min-h-screen font-sans text-ink">
-
-<!-- BACKGROUND -->
-<div class="bg-scene" aria-hidden="true">
-  <div class="aurora aurora-1 blob"></div>
-  <div class="aurora aurora-2 blob2"></div>
-  <div class="aurora aurora-3 blob3"></div>
-  <div class="aurora aurora-4 blob4"></div>
-  <div class="grain"></div>
-</div>
 
 <div id="overlay" class="fixed inset-0 z-40 hidden bg-black/40 lg:hidden"></div>
 
@@ -2365,9 +2332,10 @@ const CREDENTIALS = [
 ];
 
 const WORK = [
-  { role:'Web Developer', type:'Client-based', mode:'Remote / Part-time', period:'Sept 2026 — Present', now:true, accent:'#FF6B2C', ico:'<path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>' },
+  { role:'Web Developer', type:'Client-based', mode:'Remote / Part-time', period:'March 2026 — Present', now:true, accent:'#FF6B2C', ico:'<path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>' },
   { role:'Back Office', type:'EXL', mode:'Onsite / Full-time', period:'Feb 2026 — Present', now:true, accent:'#6366F1', ico:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>' },
   { role:'UI/UX Designer', type:'CODR', mode:'Remote / Full-time', period:'Aug 2025 — Jan 2026', accent:'#0EA5E9', ico:'<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/>' },
+  { role:'UI/UX Designer and WordPress Developer', type:'Elephant in the Boardroom', mode:'Onsite / Internship', period:'Feb 2025 — May 2026', accent:'#0EA5E9', ico:'<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/>' },
   { role:'Freelance UI/UX Designer', type:'Freelance', mode:'Onsite & Remote', period:'2022 — 2025', accent:'#10B981', ico:'<circle cx="13.5" cy="6.5" r="1" fill="currentColor" stroke="none"/><circle cx="17.5" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="8.5" cy="7.5" r="1" fill="currentColor" stroke="none"/><circle cx="6.5" cy="12.5" r="1" fill="currentColor" stroke="none"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>' }
 ];
 
