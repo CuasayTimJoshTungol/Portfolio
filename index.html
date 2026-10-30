@@ -2010,108 +2010,191 @@ const CASE_STUDIES = {
 
       'NFC Cards Web System': {
     blurb: 'A self-service NFC business card platform — from ordering to profile management — built to scale from individual users to corporate accounts.',
-    meta: [['Role','UI/UX Designer & Front-End Developer'],['Timeline','10 weeks · 2026'],['Scope','Web system + admin dashboard'],['Stack','Laravel, Tailwind CSS, Supabase']],
+    meta: [['Role','UI/UX Designer & Front-End Developer'],['Timeline','4 weeks · 2026'],['Scope','Web system + admin dashboard'],['Stack','Laravel, Tailwind CSS, Supabase']],
     sections: [
       { h: 'The Problem & Our Collaboration', html: `
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">The Problem</h5>
             <p class="mb-3">Traditional paper business cards have a shelf life measured in weeks. They get lost, they go out of date the moment someone changes jobs, and there's no way to update them. For small businesses and freelancers, this means constantly reordering cards — and for corporate clients managing dozens of employees, it's an operational headache.</p>
-            <p class="font-bold text-ink">The brief was clear: build a platform where users could order NFC-powered digital business cards and manage their own profiles — without needing admin approval for every update.</p>
+            <p class="mb-3">An NFC business card solves the "it goes out of date" part by pointing to a digital profile you can edit any time. But a digital card is only as good as the platform behind it. If the user has to email support every time they change their phone number, or wait three days for an admin to approve a new job title, the whole idea collapses — you're back to the paper problem with extra steps.</p>
+            <p class="font-bold text-ink mb-3">The brief we wrote together with the client was simple to state and harder to build:</p>
+            <p>Build a platform where people can order an NFC business card on their own, and once they have it, manage every detail of their public profile without ever needing to wait on us. The admin side still has to exist — someone has to see orders, manage accounts, handle edge cases — but the admin's job should be oversight, not gatekeeping.</p>
           </div>
 
           <div class="mt-4 rounded-2xl border border-line/10 bg-canvas/40 p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-brand-600 mb-2">Our Collaboration</h5>
-            <p class="mb-3">I built this platform alongside my partner, Dan. We divided the work based on our strengths: I focused heavily on UI/UX Design, Front-End Development, and Quality Assurance (QA), while Dan handled database monitoring, back-end coding, and security maintenance.</p>
-            <p class="mb-3">We adopted a highly collaborative technique. While Dan owned the core backend and security infrastructure, I stepped in to write backend code whenever he needed support to keep our momentum going.</p>
+            <p class="mb-3">I built this platform alongside my partner, Dan. Ten weeks, two people, one codebase. We divided the work based on what each of us was better at and could move fastest on:</p>
             
-            <p class="font-bold text-ink mb-2">My Contributions:</p>
+            <div class="space-y-2.5 mb-4">
+              <div class="flex items-start gap-2.5">
+                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+                <span><strong class="text-ink">My lane:</strong> UI/UX design, front-end implementation, and QA testing. I was the one asking "what does this look like on a phone" and "what happens when someone clicks this twice."</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+                <span><strong class="text-ink">Dan's lane:</strong> database monitoring, back-end coding, and security maintenance. He was the one asking "what happens if this payload is malformed" and "how do we keep this from being abused."</span>
+              </div>
+            </div>
+
+            <p class="mb-3">We were deliberately flexible about it. The lanes were starting points, not walls. If Dan was stuck on a back-end feature and I could unblock it faster, I'd write the back-end code and hand it back to him for review. If I needed a query optimized or a permission check tightened, he'd drop into the front-end code and fix it. Ten weeks is not enough time to be precious about territory.</p>
+            
+            <p class="font-bold text-ink mb-2">What I actually owned end to end:</p>
             <div class="space-y-2.5">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Designed the data model for users, profiles, cards and corporate accounts.</span>
+                <span>The data model — how users, profiles, cards, and corporate accounts relate to each other. Getting this right early saved us a rebuild later.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Built the ordering flow — card selection, checkout, order tracking.</span>
+                <span>The ordering flow — card selection through checkout, plus the "where is my order" tracking page.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Developed the profile builder with real-time preview.</span>
+                <span>The profile builder — the live-preview interface where users edit their digital card.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Created the admin dashboard for order management and user support.</span>
+                <span>The admin dashboard — order management, account oversight, search and filtering.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Implemented super admin and corporate management tiers.</span>
+                <span>All the tiering that sits around those — super admin permissions, corporate accounts, role boundaries.</span>
               </div>
             </div>
           </div>
         </div>` },
       
       { h: 'Key Features Delivered', html: `
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
-          
+        <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
+          <p class="mb-2">Five features carry the whole platform. Each one exists because a specific friction would have broken the "self-service" promise if we'd skipped it.</p>
+
+          <div class="grid grid-cols-1 gap-4">
+            
+            <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="grid h-7 w-7 shrink-0 place-items-center rounded bg-brand-100 text-[11px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">1</span>
+                <h5 class="text-[14px] font-extrabold text-ink">User Ordering System</h5>
+              </div>
+              <p class="mb-2">Browse card designs, choose options, place an order, and track the status from purchase to delivery — all without contacting anyone.</p>
+              <p class="mb-2">The flow is: pick a card design from a small gallery, choose the finish and quantity, confirm the shipping address, pay, and get a confirmation page with a tracking ID. That tracking ID is the same one that shows up in the user's account, so if they close the tab they can come back and see the same status without having to dig through emails.</p>
+              <p>We designed it so a user who's never ordered anything online before can still get through it. Every step has one clear action and one way to go back. No "would you like to add a gift wrap?" upsells, no newsletter opt-ins — nothing that interrupts the flow.</p>
+            </div>
+
+            <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="grid h-7 w-7 shrink-0 place-items-center rounded bg-brand-100 text-[11px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">2</span>
+                <h5 class="text-[14px] font-extrabold text-ink">Profile Builder</h5>
+              </div>
+              <p class="mb-2">The heart of the whole product. Once a user has their NFC card, this is where they customize the digital profile it points to: name, title, company, contact details, social links, profile photo.</p>
+              <p class="mb-2">The important decision here was to make it a <strong class="text-ink">live preview builder</strong>, not a form that saves on submit. The user sees the changes happen on the right side of the screen as they type on the left. That way there's no mental gap between "what I typed" and "what people will see when they tap my card." If the layout of their job title wraps awkwardly because they used a 60-character role, they see it wrap in real time and adjust it.</p>
+              <p class="mb-2">Saves happen instantly on blur — no "Save" button. The user can't accidentally lose changes by closing the tab mid-edit. From the user's perspective, the profile is just always up to date, which is exactly what a business card should be.</p>
+              <p>The underlying data model separates what's displayed on the public card from what the user fills in during editing. This matters because we use the same data in two contexts — the profile builder (which is dense, editable, and full of controls) and the public card (which is clean and read-only). Trying to share one template across both would have made each worse.</p>
+            </div>
+
+            <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="grid h-7 w-7 shrink-0 place-items-center rounded bg-brand-100 text-[11px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">3</span>
+                <h5 class="text-[14px] font-extrabold text-ink">Admin Dashboard</h5>
+              </div>
+              <p class="mb-2">Where someone (us, initially) keeps an eye on the system without needing direct database access. Every order, every user, every profile update lives on one page, filterable by status, date, and account type.</p>
+              <p class="mb-2">The design brief for this dashboard was "admin should be able to answer three questions in five seconds": what's the state of pending orders, which accounts are most active, and has anything gone wrong that needs attention. That shaped the layout — pending orders at the top, an activity feed in the middle, exceptions and failed payments pinned to a sidebar so they never get lost in a scroll.</p>
+              <p>Admins can process refunds, update order status, reset user credentials, and review flagged profiles. All actions get logged with a timestamp and the admin's account, so if something unexpected happens we can trace it. The point isn't surveillance — it's that when a user writes in saying "someone changed my profile," an admin needs to know within seconds whether that was the user, an admin acting on a support ticket, or an actual breach.</p>
+            </div>
+
+            <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="grid h-7 w-7 shrink-0 place-items-center rounded bg-brand-100 text-[11px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">4</span>
+                <h5 class="text-[14px] font-extrabold text-ink">Super Admin Management</h5>
+              </div>
+              <p class="mb-2">A separate tier above regular admins, with access to things that would be dangerous to hand to every admin by default — system-wide settings, the ability to create or deactivate other admin accounts, and the ability to modify the platform-level configuration (pricing rules, allowed NFC hardware models, email templates).</p>
+              <p class="mb-2">The reason this exists as its own tier, rather than just "make every admin a super admin", is trust boundaries. A regular admin handles day-to-day orders and user issues. They shouldn't be able to grant themselves more power, or accidentally change a platform-wide pricing rule while trying to fix a single order. Splitting the tiers means the blast radius of a mistake is contained.</p>
+              <p>Both tiers use the same dashboard UI, so a super admin doesn't have to learn a second interface. Super admin features appear as additional tabs and options on the same screens the regular admin uses — they see one extra "Settings" tab and one extra "Manage Admins" tab that regular admins don't.</p>
+            </div>
+
+            <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="grid h-7 w-7 shrink-0 place-items-center rounded bg-brand-100 text-[11px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">5</span>
+                <h5 class="text-[14px] font-extrabold text-ink">Corporate Management</h5>
+              </div>
+              <p class="mb-2">The feature that opened the B2B side of the business. A company can order cards for 50 employees at once, and each employee then manages their own profile under the company umbrella — without needing to go through HR or IT for every name change.</p>
+              <p class="mb-2">The design challenge here was role scoping. When someone orders 50 cards, the person doing the ordering (an HR manager, typically) shouldn't have to know anything about what an employee puts on their card. But that same HR manager also needs a way to see the fleet — to know that all 50 profiles have been set up, and to remove profiles when someone leaves.</p>
+              <p>So a corporate account has two roles inside it: an owner (the HR manager, or whoever placed the order) and members (the employees). The owner has visibility into the fleet but can't edit anyone else's profile content. Members can edit their own profiles freely but can't see other members' details. Everyone's boundary is respected, and the owner still gets the oversight they need.</p>
+              <p>For corporate accounts, we also added bulk actions: bulk invite, bulk export (so HR can pull a CSV of all profile URLs for internal records), and bulk deactivate when offboarding someone. All three of those came from asking the HR managers we talked to what they actually do when they onboard or offboard an employee.</p>
+            </div>
+
+          </div>
+        </div>` },
+
+      { h: 'Visual Design & Color System', html: `
+        <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="grid h-6 w-6 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">1</span>
-              <h5 class="text-[13px] font-extrabold text-ink">User Ordering System</h5>
-            </div>
-            <p>Browse card designs, customize options, place orders, and track status. No back-and-forth with support.</p>
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Why Black, White, and Gray</h5>
+            <p class="mb-3">The palette decision for this project wasn't aesthetic — it was structural. Users on this platform are uploading their own photos, their own company logos, their own color choices for their personal cards. If the platform itself had a strong accent color, every user's card would clash with the UI around it. The product's own design had to disappear so the user's design could breathe.</p>
+            <p class="mb-3">Black, white, and gray was the only sensible answer. Black gives text and controls enough weight to be read without being harsh. White gives the profile builder and the preview a neutral canvas. Gray carries the supporting layer — borders, secondary text, dividers, disabled states — without pulling attention from the content. Nothing on the interface competes with what the user is trying to build.</p>
+            <p>Working in a neutral palette also forces discipline. Without color to differentiate things, hierarchy has to come from size, weight, and spacing. Buttons have to actually read like buttons because they can't lean on "it's the orange one". Section headers have to stand out through typography, not through a colored bar. That made the interface harder to design in the short run, and much more consistent in the long run.</p>
           </div>
 
-          <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="grid h-6 w-6 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">2</span>
-              <h5 class="text-[13px] font-extrabold text-ink">Profile Builder</h5>
+          <div class="mt-4 rounded-2xl border border-line/10 bg-canvas/40 p-4 sm:p-5">
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">The Palette</h5>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+              <div class="rounded-xl p-4 flex flex-col justify-end h-28 shadow-sm border border-line/10" style="background-color: #111111; color: #FFFFFF;">
+                <span class="text-[11px] font-bold opacity-90 mb-1">#111111</span>
+                <span class="text-[13px] font-extrabold">Black</span>
+              </div>
+              <div class="rounded-xl p-4 flex flex-col justify-end h-28 shadow-sm border border-line/10" style="background-color: #6B7280; color: #FFFFFF;">
+                <span class="text-[11px] font-bold opacity-90 mb-1">#6B7280</span>
+                <span class="text-[13px] font-extrabold">Gray</span>
+              </div>
+              <div class="rounded-xl p-4 flex flex-col justify-end h-28 shadow-sm border border-line/10" style="background-color: #FFFFFF; color: #111111;">
+                <span class="text-[11px] font-bold opacity-80 mb-1">#FFFFFF</span>
+                <span class="text-[13px] font-extrabold">White</span>
+              </div>
             </div>
-            <p>Users update their digital business card content — name, title, contact info, social links, company details — with instant preview. Changes go live immediately.</p>
+            
+            <div class="space-y-2.5 mb-4">
+              <div class="flex items-start gap-2.5">
+                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+                <span><strong class="text-ink">Black (#111111)</strong> — primary text, headings, icons, and primary action buttons. Not pure #000000, because pure black on white is too aggressive for long reading sessions. #111111 keeps the weight without the harshness.</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+                <span><strong class="text-ink">Gray (#6B7280)</strong> — secondary text, borders, dividers, disabled states, placeholder copy. It handles everything that shouldn't compete with the primary content but still needs to be there.</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+                <span><strong class="text-ink">White (#FFFFFF)</strong> — backgrounds, card surfaces, the entire profile preview canvas. Every preview the user generates for their own card sits on white, so their colors and photos read on the neutral background they expect.</span>
+              </div>
+            </div>
+
+            <p class="text-[12px] sm:text-[12.5px] italic">There's no green success state, no red error state, no blue links. Feedback uses weight, position, and iconography instead of color. That's not a preference — it's a constraint that came from the fact that any color we introduced would clash with the colors users were putting into their own profiles.</p>
           </div>
 
-          <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="grid h-6 w-6 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">3</span>
-              <h5 class="text-[13px] font-extrabold text-ink">Admin Dashboard</h5>
-            </div>
-            <p>Centralized view of all orders, user accounts and profile activity. Admins can search, filter and manage without touching the database.</p>
+          <div class="mt-4 rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Typography & Interface Layout</h5>
+            <p class="mb-3">Body copy runs on a single modern sans-serif at two sizes — one for paragraphs, one for labels. Admin dashboards run on a slightly smaller version of the same typeface so we fit more data per screen without making the dashboard feel cramped. Headings use a heavier weight of the same family rather than a second typeface, which keeps the whole product visually coherent as a system rather than a collection of pages.</p>
+            <p class="mb-3">Layout in the admin side follows a fixed sidebar plus a fluid content area. The sidebar never changes width or position, so an admin who spends all day in the dashboard builds muscle memory for where things are. In the user-facing side (profile builder and ordering), the layout is closer to a wizard — one clear step at a time, with the current step highlighted and previous steps still reachable.</p>
+            <p>The profile builder specifically uses a <strong class="text-ink">two-column split</strong>: edit form on the left, live preview on the right. On mobile, it collapses to a single column, but the preview moves into a fixed bottom sheet so it's always visible while editing — the live-preview idea was too valuable to lose on small screens.</p>
           </div>
-
-          <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="grid h-6 w-6 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">4</span>
-              <h5 class="text-[13px] font-extrabold text-ink">Super Admin Management</h5>
-            </div>
-            <p>Elevated permissions for system-wide settings, admin account management and platform oversight.</p>
-          </div>
-
-          <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5 sm:col-span-2">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="grid h-6 w-6 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">5</span>
-              <h5 class="text-[13px] font-extrabold text-ink">Corporate Management</h5>
-            </div>
-            <p>Bulk ordering and profile management for teams. Companies can order cards for entire departments and let employees self-manage their profiles.</p>
-          </div>
-
         </div>` },
 
       { h: 'Technical Approach', html: `
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-canvas/40 p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Architecture & Stack</h5>
-            <p class="mb-4">We chose Laravel for the backend because it handles authentication, authorization, routing and database relationships cleanly — all of which this project needed. Supabase provided the database layer with the reliability of MySQL. Tailwind CSS kept the frontend consistent without writing custom CSS for every component.</p>
-            <p class="mb-4">Dan took the lead on securing the backend and structuring the database, while I focused on the frontend implementation, UI/UX, and QA testing. To ensure seamless integration, I also assisted with backend development whenever Dan required additional support.</p>
+            <p class="mb-3">Laravel for the back end because it handles authentication, authorization, routing, and database relationships cleanly — all four of which this project leans on heavily. Supabase for the database layer, sitting on top of PostgreSQL, giving us the reliability of MySQL with better support for concurrent reads during peak ordering. Tailwind CSS for the front end because the design system stays consistent through utility classes rather than custom CSS per component — critical when two people are writing front-end code in parallel.</p>
+            <p class="mb-4">Dan took the lead on securing the backend and structuring the database. I focused on the front-end implementation, UI/UX, and QA testing. Where the lanes crossed, we crossed them — I wrote back-end controllers when Dan was stuck on a security review, and he jumped into front-end components when a route change would have caused a bug I couldn't see alone.</p>
             
-            <p class="font-bold text-ink mb-2">Role-Based Architecture:</p>
+            <p class="font-bold text-ink mb-2">Role-based architecture:</p>
             <div class="space-y-2.5 mb-4">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>The architecture separates concerns cleanly: users interact with the profile builder and ordering system, admins manage orders and accounts, and super admins control the platform itself.</span>
+                <span>Four distinct permission levels — regular user, corporate account owner, admin, and super admin — each with its own middleware chain. A user session physically cannot reach an admin route, even if a URL is guessed, because the middleware rejects the request before the controller logic runs.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Security & UX:</strong> Each role sees only what they need, ensuring a secure and distraction-free experience.</span>
+                <span><strong class="text-ink">Security & UX:</strong> every action a user or admin can take is scoped to what their role allows at the data level, not just the UI level. The UI hides buttons they can't use, but the back end also refuses the request if it somehow arrives anyway. That double layer is what stops a compromised session from being able to do more than its role permits.</span>
               </div>
             </div>
 
@@ -2121,6 +2204,13 @@ const CASE_STUDIES = {
               <span class="rounded-full bg-canvas px-3 py-1.5 text-[10px] font-bold text-muted">Supabase</span>
               <span class="rounded-full bg-canvas px-3 py-1.5 text-[10px] font-bold text-muted">Role-Based Access Control</span>
             </div>
+          </div>
+
+          <div class="mt-4 rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Data Model & QA Process</h5>
+            <p class="mb-3">The data model went through three revisions before we started building. The first version treated profiles as a child of users and cards as a child of orders — which seemed obvious. But it broke the moment a corporate account tried to order 50 cards for 50 employees: cards were now children of one order, but profiles were children of different users, and the two trees didn't line up. The second version flipped that and made cards the parent, which worked for individual orders but made corporate bulk ordering messy.</p>
+            <p class="mb-3">The final model decouples all three: <strong class="text-ink">users, profiles, and cards exist independently</strong>, joined by explicit relationship tables. A user owns one or more profiles, a card points to one profile, an order contains one or more cards. That structure handles every case we threw at it, including the awkward one where a corporate account orders a card for an employee who hasn't set up their profile yet — the card exists, points to an empty profile stub, and gets filled in when the employee logs in.</p>
+            <p>QA ran continuously rather than at the end. Every feature went through manual testing on Chrome, Safari, Firefox, and mobile Safari before merge. Two things I specifically kept going back to during testing: the profile builder's autosave behavior (does it lose data on flaky connections?), and the admin dashboard's action log (does every state change actually get recorded, or does one specific flow slip through?). Those two questions caught more bugs than anything else in the project.</p>
           </div>
         </div>` },
 
@@ -2132,21 +2222,21 @@ const CASE_STUDIES = {
             <div class="space-y-3 mb-4">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Self-service ordering</strong> reduced admin workload by eliminating the need to manually process every card request.</span>
+                <span><strong class="text-ink">Self-service ordering</strong> cut admin workload dramatically. Before the platform, every card order meant an admin manually processing a request, verifying the design, and confirming the address by email. Now the same flow runs end to end without an admin in the loop, and admins only step in when something goes wrong.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Instant profile updates</strong> mean users never need to reorder cards because of a job change or new phone number.</span>
+                <span><strong class="text-ink">Instant profile updates</strong> mean users never have to reorder a card because of a job change, a new phone number, or a new company. That's the actual value proposition of an NFC card over paper, and it only works if the update is genuinely instant — which it is here.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Corporate accounts</strong> opened a B2B revenue stream that didn't exist before — companies can now order for entire teams.</span>
+                <span><strong class="text-ink">Corporate accounts</strong> opened a B2B revenue stream that didn't exist before. A single corporate order can be worth 50 individual orders, and it's a stickier relationship — once a company has its employees on the platform, switching costs go up.</span>
               </div>
             </div>
 
             <div class="rounded-xl bg-canvas/60 p-3.5 border border-line/10 text-[12.5px]">
               <span class="font-bold text-ink block mb-1">Live Environment:</span>
-              The system runs live at <a href="https://justatap.online/" target="_blank" rel="noopener noreferrer" class="text-brand-600 underline underline-offset-2 hover:text-brand-700">justatap.online</a> with real users and real orders.
+              The system runs live at <a href="https://justatap.online/" target="_blank" rel="noopener noreferrer" class="text-brand-600 underline underline-offset-2 hover:text-brand-700">justatap.online</a> with real users and real orders processing every day.
             </div>
           </div>
         </div>` },
@@ -2155,121 +2245,235 @@ const CASE_STUDIES = {
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Reflection & Next Steps</h5>
-            <p class="mb-3">Building for both individual users and corporate accounts taught me the importance of role-based design. The same system has to feel simple for someone ordering one card and powerful for an admin managing hundreds.</p>
-            <p class="mb-3">Working closely with Dan also reinforced the value of a collaborative development environment. Having distinct lanes for UI/UX/Frontend and Backend/Security, while remaining flexible to help each other, allowed us to build a robust system efficiently.</p>
-            <p>If I were to extend this, the next step would be <strong class="text-ink">analytics</strong> — giving corporate clients visibility into how often their team's cards are viewed or tapped.</p>
+            <p class="mb-3">Building for both individual users and corporate accounts taught me the importance of role-based design in a way that reading about it doesn't. The same system has to feel simple for someone ordering one card and powerful for an admin managing hundreds. Those two things pull in opposite directions, and the only way to reconcile them is to be ruthless about what each role actually needs — not what would be nice for them to have.</p>
+            <p class="mb-3">Working closely with Dan also reinforced something about collaboration that I don't think I fully appreciated before this project. Having distinct lanes for UI/UX/Frontend and Backend/Security is efficient, but remaining flexible to help each other is what actually got us across the line. Ten weeks is tight. Territory disputes would have killed us. What saved us was both of us being willing to write code outside our lane when it unblocked the other person.</p>
+            <p class="mb-3">If I were to extend this, the next feature would be <strong class="text-ink">analytics for corporate clients</strong> — giving HR managers visibility into how often their team's cards are actually being viewed or tapped. Right now a corporate account can manage its fleet but can't see whether the fleet is doing anything. That's the natural next step, and it's the question every corporate client we've onboarded has eventually asked.</p>
+            <p>The other thing I'd change with hindsight: I'd want to run usability testing with actual corporate users earlier in the build. We designed the corporate tier from interviews and assumptions, shipped it, and then watched how the first few corporate accounts actually behaved. Most of what we saw matched our assumptions. Some of it didn't, and we had to iterate quickly — which worked, but it would have been cheaper to catch those mismatches before launch than after.</p>
           </div>
         </div>` }
     ]
   },
 
           'Apexed Automation System': {
-    blurb: 'An AI-powered automation platform that helps small businesses cut hours of repetitive work every week.',
-    meta: [['Role','UI/UX Designer & Front-End Developer'],['Timeline','12 weeks · 2025'],['Scope','Automation system + AI integration'],['Stack','Next.js, Laravel, Supabase, Tailwind CSS']],
+    blurb: 'An AI-powered automation platform that helps small businesses cut hours of repetitive work every week — built for two founders from scratch, shipped live in 12 weeks.',
+    meta: [['Role','UI/UX Designer & Front-End Developer'],['Timeline','12 weeks · 2026'],['Scope','Automation system + AI integration'],['Stack','Next.js, Laravel, Supabase, Tailwind CSS']],
     sections: [
       { h: 'The Vision & The Partnership', html: `
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">The Problem We Set Out to Solve</h5>
-            <p class="mb-3">Small business owners spend an enormous amount of time on repetitive tasks: posting to social media, updating calendars, managing point-of-sale data, tracking trends. These tasks are essential but time-consuming — and most owners can't afford to hire someone just to handle them.</p>
-            <p class="font-bold text-ink">Two young founders saw this operational bottleneck firsthand and envisioned a platform to automate this repetitive work. They chose Dan and me to bring their vision to life and build the Apexed system from the ground up.</p>
+            <p class="mb-3">Small business owners in the Philippines spend a huge portion of their week on tasks that feel essential but produce nothing new. Posting three times a day on Facebook. Answering the same "is this available" DM five times over. Updating the POS spreadsheet manually at 11pm because the day is done. Reading other shops' posts to figure out what's trending this week.</p>
+            <p class="mb-3">None of it is hard work. All of it is consuming work. And the people doing it aren't marketing specialists — they're owners who should be focused on the product, the people, and the actual growth of the business. But they can't afford to hire someone to handle the busywork either. That's the gap the founders wanted to close.</p>
+            <p class="mb-3">Two young founders saw this operational bottleneck firsthand — they were running small operations themselves, watching friends and family get eaten alive by the daily upkeep. Their read was that this is exactly the kind of problem AI should solve, but that most AI tools being sold to small businesses are generic and useless for someone who actually needs to ship three pieces of content this morning while also making lunch. They wanted something that did the work <em class="text-ink">inside the context of the specific business</em>, not a chatbot that generated generic captions.</p>
+            <p class="font-bold text-ink">They brought Dan and me in to build that platform from the ground up. Twelve weeks, one working prototype that they wanted to eventually turn into a real product. What we shipped runs live today at apexed.online.</p>
           </div>
 
           <div class="mt-4 rounded-2xl border border-line/10 bg-canvas/40 p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-brand-600 mb-2">How We Built It Together</h5>
-            <p class="mb-4">Working closely with the founders to align on their vision, Dan and I divided the execution based on our technical strengths. I focused heavily on UI/UX Design, Front-End Development, and Quality Assurance (QA) to ensure a clean, responsive, and bug-free interface. Dan handled database monitoring, back-end coding, and maintaining the security infrastructure.</p>
-            <p class="mb-4">We adopted a highly collaborative technique. While Dan owned the core backend and security infrastructure, I stepped in to write back-end code whenever he needed support to keep our momentum going.</p>
+            <p class="mb-4">Twelve weeks is short. The founders were clear from the start: they wanted a working product, not a demo. That shaped everything — how we divided the work, what we prioritized, and what we deliberately deferred.</p>
+            <p class="mb-4">Dan and I split along a line that made sense for the pace: I owned UI/UX, front-end implementation, and QA. Dan owned the database, back-end architecture, and security. But the split was deliberately leaky — we both wrote back-end code when the other person was stuck, and we both reviewed the other's work before it went live. Twelve weeks does not leave time for territorial purity. When the choice was between protecting a lane or shipping, we shipped.</p>
             
-            <p class="font-bold text-ink mb-2">My Technical Contributions:</p>
+            <p class="font-bold text-ink mb-2">The pieces I owned end to end:</p>
             <div class="space-y-2.5 mb-4">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Designed the system architecture for automation workflows.</span>
+                <span><strong class="text-ink">The system architecture</strong> for automation workflows — how a "post this to Facebook at 8am and Instagram at 8:05am" instruction gets represented as data, scheduled, executed, and reported back. This was the hardest thing in the project to get right because it was the thing everything else depended on.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Integrated AI models for content generation and trend analysis.</span>
+                <span><strong class="text-ink">AI integration layer</strong> — how we hooked DeepSeek into the platform, how the training data for each business was prepared, and how the output got filtered before it went anywhere near a customer.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Built the calendar automation and POS management modules.</span>
+                <span><strong class="text-ink">The calendar automation and POS management modules</strong> — the two most-used features per the founder interviews.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Developed the admin and user dashboards.</span>
+                <span><strong class="text-ink">The admin and user dashboards</strong> — the daily interface that a business owner actually opens every morning.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Deployed with Cloudflare for performance and reliability.</span>
+                <span><strong class="text-ink">Deployment via Cloudflare</strong> — performance and reliability, but also the reason the first few rollouts went smoothly.</span>
               </div>
             </div>
+            <p>What I didn't own: the database schema decisions, the security audit trail, the rate limiting on API calls. Dan built those, and honestly they made the difference between a system that could be opened to real users and one that couldn't.</p>
           </div>
         </div>` },
       
       { h: 'Key Features We Delivered', html: `
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
-          
-          <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="grid h-6 w-6 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">1</span>
-              <h5 class="text-[13px] font-extrabold text-ink">Automated Social Media Posting</h5>
+        <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
+          <p class="mb-2">Six features carry the platform. Each one exists because without it, the previous feature wouldn't actually help a business owner — they'd just be trading one form of manual work for another.</p>
+
+          <div class="grid grid-cols-1 gap-4">
+            
+            <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="grid h-7 w-7 shrink-0 place-items-center rounded bg-brand-100 text-[11px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">1</span>
+                <h5 class="text-[14px] font-extrabold text-ink">Automated Social Media Posting</h5>
+              </div>
+              <p class="mb-2">The base layer. Owners can write a post, or let the AI draft one, and schedule it to publish across Facebook, Instagram, and the platform's own feed at a specific time — no need to be at the phone when it goes out. Content can be drafted well ahead of time, reviewed, approved in bulk, and then published on autopilot.</p>
+              <p class="mb-2">The design challenge here wasn't the scheduling itself — it was making the approval flow fast. If an owner has to review 20 posts one by one before they publish, they're no better off than if they just posted manually. So we built it as a <strong class="text-ink">batch approval UI</strong>: a list of upcoming posts, each with a preview and one toggle to approve or edit. An owner can approve a whole week of content in under two minutes if the AI's output is close enough.</p>
+              <p>For the first version we left out "delete after posting" — no auto-expiration, no comments-to-be-answered-in-DMs. Those were on the roadmap but adding them to v1 would have made the approval flow muddier than it needed to be. Sometimes the right choice in a 12-week build is leaving good ideas out so the core flow stays clean.</p>
             </div>
-            <p>Schedule and auto-publish posts across platforms, with content generated or approved in advance.</p>
+
+            <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="grid h-7 w-7 shrink-0 place-items-center rounded bg-brand-100 text-[11px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">2</span>
+                <h5 class="text-[14px] font-extrabold text-ink">Business-Specific AI Training</h5>
+              </div>
+              <p class="mb-2">The feature that makes the whole thing actually useful. Generic AI writes generic captions. If a sari-sari store and a specialty coffee shop both use the same tool and get the same default text back, nobody is helped — the store owner still has to rewrite every draft before posting.</p>
+              <p class="mb-2">So the platform builds a working model of <em class="text-ink">this business</em> before it ever generates a post. When a user signs up, they answer a guided onboarding: what do you sell, what's your tone (formal, casual, playful, warm), who's your customer, what are your most popular items, what do you never want the AI to say (e.g., "never mention alcohol in the posts"). That gets compiled into a prompt context that every generation pulls from — not a static template, but a live profile that the system re-reads every time it drafts something new.</p>
+              <p class="mb-2">The onboarding itself became a small design project. The instinct is to make it a form, but a form that asks 15 questions before a user has seen a single post will get abandoned around question four. So we made it a wizard with three phases, each one producing a tangible result the user can see immediately — by the end of phase one, they've already seen their first AI-generated post in their own voice. That "oh, it actually sounds like me" moment is what convinces someone to finish the rest of the setup.</p>
+              <p class="mb-2">Over time the model gets sharper: when a user edits a generated caption, that edit feeds back into the profile as a signal ("actually, this sounds more like me than the draft"). It's not full fine-tuning — that's a much heavier lift than 12 weeks allows — but it's enough to make the AI feel like it's paying attention.</p>
+              <p>One trade-off we made deliberately: we don't allow the AI to generate images. Text only. Image generation would have needed a whole different approval flow (nobody wants AI-generated food photos going out under their brand by accident), and pulling it in would have compromised the quality of the text model. Text was the thing that mattered for the businesses we were targeting.</p>
+            </div>
+
+            <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="grid h-7 w-7 shrink-0 place-items-center rounded bg-brand-100 text-[11px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">3</span>
+                <h5 class="text-[14px] font-extrabold text-ink">Smart Calendar Automation</h5>
+              </div>
+              <p class="mb-2">Turns a post schedule into something a business owner can actually reason about at a glance. Instead of a list of pending items, they see a calendar that shows what's going out on which platform, at what time, and what's still empty for the week ahead.</p>
+              <p class="mb-2">The scheduling isn't just "publish at 8am." The system watches when the business's audience is actually most active and staggers suggested times accordingly. A coffee shop's posts perform better at 7am; a restaurant's at noon and 6pm; a boutique's at 8pm. The AI suggests those windows per business, and the owner can accept them in one click or override them.</p>
+              <p class="mb-2">The interface is a proper month view with color-coding by platform — Facebook posts in one tone, Instagram in another, the platform's own feed in a third. On mobile it collapses to a week-at-a-glance view because a month grid on a 375px phone is unreadable.</p>
+              <p>What we didn't build in v1: coordinated campaigns (i.e. "post X on FB at 8am, and Y on IG at 6pm that references X"). The data model supports it — each scheduled post has a campaign_id field — but the UI to actually build a campaign would have taken another week and the founders prioritized getting the daily flow right first. It's the first feature I'd add in v2.</p>
+            </div>
+
+            <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="grid h-7 w-7 shrink-0 place-items-center rounded bg-brand-100 text-[11px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">4</span>
+                <h5 class="text-[14px] font-extrabold text-ink">AI-Powered POS Management</h5>
+              </div>
+              <p class="mb-2">The point-of-sale feature was the one that got the strongest reaction during founder interviews. Most small business owners we talked to were tracking sales by hand — a notebook, a spreadsheet updated at the end of the day, sometimes just memory. They knew their top sellers in a vague sense but couldn't tell you what the second or third best was, or which items were quietly losing money.</p>
+              <p class="mb-2">The module surfaces three things the owner actually cares about: <strong class="text-ink">best-selling items</strong> this week vs. last, <strong class="text-ink">slow periods</strong> where nothing sells, and <strong class="text-ink">restock alerts</strong> for items whose sales pace suggests they'll run out soon. All three are calculated from POS transaction data that the owner either uploads (CSV) or enters through a simple transaction entry form.</p>
+              <p class="mb-2">The AI angle is subtle here — it's not generating sales predictions, it's reading patterns. "You usually sell 20 cups of this coffee by Thursday" is derived from historical transaction data, not from an AI model. The AI helps interpret anomalies: when a sales spike doesn't match previous weeks, the system flags it and suggests likely causes based on the calendar (holiday, promotion, competitor activity). That interpretive layer is what makes it feel like a real assistant rather than a dashboard.</p>
+              <p>The design constraint that mattered most: keep the interface calm. Sales dashboards have a tendency to fill up with charts and KPIs until the owner can't find the one number that actually matters. We built it as a priority-ranked display — top 3 KPIs first (this week's revenue, top seller, restock needed), then detail below. If an owner opens this on their phone during a lunch rush, they should be able to answer "am I doing okay this week" in five seconds.</p>
+            </div>
+
+            <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="grid h-7 w-7 shrink-0 place-items-center rounded bg-brand-100 text-[11px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">5</span>
+                <h5 class="text-[14px] font-extrabold text-ink">Social Media Trend Monitoring</h5>
+              </div>
+              <p class="mb-2">The feature that gets the "this is like having an assistant who reads everything for me" reaction. The system continuously watches social platforms for trends that are relevant to the business's specific industry — a bakery gets flagged on emerging bread trends, a fitness studio on new workout formats, a coffee shop on regional bean news.</p>
+              <p class="mb-2">The filtering is the hard part. Small business owners don't need to know about every trend on the internet — that's just noise. They need to know about the two or three trends a week that actually apply to them, with a short note about why it matters and a one-click "draft a post about this" action.</p>
+              <p class="mb-2">The AI ranks trends by relevance to each business's profile, then hand-writes a short interpretation ("charcuterie boards are trending — your cheese platter is a natural fit") that only requires the owner to tap a button to turn into a draft. The interpretation is what makes this feel different from a news feed. It's not a list of headlines, it's an executive summary from someone who knows your business.</p>
+              <p>What we couldn't do in v1: real-time trend tracking (i.e. trends that peak within a few hours). The infrastructure to do that reliably within budget and without consuming a lot of third-party API credits wasn't viable in 12 weeks. v1 refreshes trend data a couple of times per day, which is enough for the businesses we were targeting (nothing they sell is trending fast enough to require real-time monitoring).</p>
+            </div>
+
+            <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="grid h-7 w-7 shrink-0 place-items-center rounded bg-brand-100 text-[11px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">6</span>
+                <h5 class="text-[14px] font-extrabold text-ink">Integrated IFIX AI Assistant</h5>
+              </div>
+              <p class="mb-2">The in-app assistant that ties everything together. A business owner who doesn't want to hunt through four different modules can just ask IFIX: "what's selling this week", "draft a post about today's special", "why did sales drop Tuesday", "how do I change my posting schedule".</p>
+              <p class="mb-2">IFIX is grounded in the business's own data. It's not a general-purpose chatbot that pretends to know your business — it can only see what's in the platform for <em class="text-ink">this specific business</em>, and it answers questions using that context. If a user asks "how do I attract more customers?", IFIX doesn't give a generic marketing answer — it pulls from the business's actual sales data, trend monitoring, and profile to give a specific suggestion ("Your slowest day is Wednesday afternoon. You've had success with posts on Tuesdays at 3pm in the past. Want me to schedule a Wednesday promo?")</p>
+              <p class="mb-2">The assistant was the feature I most underestimated in scope. It's easy to bolt on a chat interface; the hard part is grounding it in context, keeping latency low enough that it feels conversational (a 10-second wait for a reply breaks the illusion completely), and making sure it doesn't hallucinate features that don't exist. We spent more time on IFIX's prompt engineering than on any other single feature.</p>
+              <p>It also became the platform's primary onboarding teacher. When a new user first logs in, IFIX introduces itself and offers to walk them through one workflow at a time — "want me to set up your first post?" with a suggestion ready to go. Users who engaged with IFIX in the first session were significantly more likely to come back the second week, which was the metric we cared about most.</p>
+            </div>
+
+          </div>
+        </div>` },
+
+      { h: 'Visual Design & Color System', html: `
+        <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
+          <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Why #FE7802</h5>
+            <p class="mb-3">The brand color is a saturated orange — <strong class="text-ink">#FE7802</strong>. Not a muted terracotta, not a warm amber. A bright, confident orange that sits at the boundary between yellow and red. It's the exact shade that shows up in a fresh sunset, a ripe mango, or a "get things done" button that you actually want to click.</p>
+            <p class="mb-3">Most small business automation tools go straight for blue. Blue signals trust and dependability, which sounds right on paper. But every single one of them does this, and it makes the tools feel corporate, cold, and interchangeable. Meanwhile, a business owner who's up at 6am trying to get today's posts scheduled before opening doesn't need "dependable" — they need energy. They need something that feels like it will work as hard as they do.</p>
+            <p class="mb-3">Orange does that. It reads as action-oriented, warm, and approachable in a way that blue never will. It also stands out — if we showed a business owner a screenshot of our dashboard next to a competitor's, the first thing they'd notice is that ours doesn't look like the others. That distinction is worth a lot in a category where almost every product looks the same.</p>
+            <p>The risk of orange is that it goes cheap fast if you're not careful. A page that's 40% orange looks like a discount flyer. So the entire design philosophy around this color was: <strong class="text-ink">use it sparingly, and always as an accent, never as a base</strong>. That single rule shaped everything downstream.</p>
           </div>
 
-          <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="grid h-6 w-6 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">2</span>
-              <h5 class="text-[13px] font-extrabold text-ink">Business-Specific AI Training</h5>
+          <div class="mt-4 rounded-2xl border border-line/10 bg-canvas/40 p-4 sm:p-5">
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">The Palette</h5>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+              <div class="rounded-xl p-4 flex flex-col justify-end h-28 shadow-sm border border-line/10" style="background-color: #FE7802; color: #FFFFFF;">
+                <span class="text-[11px] font-bold opacity-90 mb-1">#FE7802</span>
+                <span class="text-[13px] font-extrabold">Brand Orange</span>
+              </div>
+              <div class="rounded-xl p-4 flex flex-col justify-end h-28 shadow-sm border border-line/10" style="background-color: #111111; color: #FFFFFF;">
+                <span class="text-[11px] font-bold opacity-90 mb-1">#111111</span>
+                <span class="text-[13px] font-extrabold">Black</span>
+              </div>
+              <div class="rounded-xl p-4 flex flex-col justify-end h-28 shadow-sm border border-line/10" style="background-color: #FFFFFF; color: #111111;">
+                <span class="text-[11px] font-bold opacity-80 mb-1">#FFFFFF</span>
+                <span class="text-[13px] font-extrabold">White</span>
+              </div>
             </div>
-            <p>The AI learns each business's tone, product catalog and audience, so generated content actually sounds like the owner wrote it.</p>
+            
+            <div class="space-y-2.5 mb-4">
+              <div class="flex items-start gap-2.5">
+                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+                <span><strong class="text-ink">#FE7802 — Brand Orange.</strong> Used only where the interface needs to pull the eye: the primary call-to-action button on any given screen, the "IFIX is active" indicator, the current-step marker in the onboarding wizard, the brand logo, the small dot next to a live trend alert. Never as a background, never as a large surface, never for text on a neutral background (it fails contrast below about 20px). One orange element per screen — maybe two on the dashboard — and that's it.</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+                <span><strong class="text-ink">#111111 — Black.</strong> Primary text, headings, high-emphasis icons, and the "inverted" version of the primary button (black background, white text) as a secondary action style. Black on white is where most of the interface lives.</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+                <span><strong class="text-ink">#FFFFFF — White.</strong> Backgrounds, card surfaces, input fields. Everything in the interface is white or near-white so the orange can do its job without competition.</span>
+              </div>
+            </div>
+
+            <p class="text-[12px] sm:text-[12.5px] italic">The supporting neutral layer (borders, dividers, secondary text) uses a grayscale range that's derived from #111111 — light grays at the extremes, mid-grays for text hierarchy. That keeps the palette strictly black/orange/white at the concept level, even though the implementation has a range of grays underneath.</p>
           </div>
 
-          <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="grid h-6 w-6 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">3</span>
-              <h5 class="text-[13px] font-extrabold text-ink">Smart Calendar Automation</h5>
+          <div class="mt-4 rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Where Orange Actually Shows Up</h5>
+            <p class="mb-3">The discipline with #FE7802 was easier said than done. Here's what it actually looked like across the platform:</p>
+            
+            <div class="space-y-2.5 mb-4">
+              <div class="flex items-start gap-2.5">
+                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+                <span><strong class="text-ink">The "Draft with AI" button</strong> — the primary action on the post composer. Everywhere else in the composer uses black-outline or black-fill buttons; this one is the orange one, because it's the whole point of the page.</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+                <span><strong class="text-ink">The onboarding progress bar</strong> — a thin orange strip that fills as the user moves through the three phases. It's the only saturated color on the page during onboarding, which makes it feel like progress even when the page is mostly empty.</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+                <span><strong class="text-ink">The IFIX assistant's status dot</strong> — a small orange dot next to "IFIX" that pulses gently when the assistant is thinking. It's the one moment of motion in the interface, and it's the one moment orange is used as a status indicator rather than a call-to-action.</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+                <span><strong class="text-ink">Trend alert badges</strong> — the little "Trending" pill next to a trend card uses a 15% opacity orange background with full-strength orange text. Enough to signal "this is important" without shouting.</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+                <span><strong class="text-ink">The active tab indicator</strong> — on the dashboards, the currently-selected tab has an orange underline. Two pixels thick. It's the quietest use of the color, and it's the one that does the most work for orientation.</span>
+              </div>
             </div>
-            <p>Automatically schedules posts, reminders and campaigns based on optimal timing.</p>
+
+            <p>Everything else — forms, tables, cards, data visualizations — is done in black, white, and grays. When a business owner opens the dashboard, their eye goes straight to the one orange element that matters: usually the primary action they should take next. That's the whole point.</p>
           </div>
 
-          <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="grid h-6 w-6 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">4</span>
-              <h5 class="text-[13px] font-extrabold text-ink">AI-Powered POS Management</h5>
-            </div>
-            <p>Tracks sales data and surfaces insights — best-selling items, slow periods, restock alerts.</p>
+          <div class="mt-4 rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Typography & Interface Feel</h5>
+            <p class="mb-3">The entire interface runs on <strong class="text-ink">Urbanist</strong>. Not a pairing — a single typeface used across every screen, every weight, every size. The reason was practical. Dashboards ask a lot of one font: small labels next to big numbers, paragraph text next to buttons, tab headings next to data cells, all on the same view. Every extra typeface you introduce to a dashboard is another place the visual rhythm can break. Urbanist does all four jobs cleanly, so there was no reason to add a second.</p>
+            <p class="mb-3">Urbanist is a low-contrast geometric sans-serif. Rounded, open shapes, and a modern feel that doesn't try too hard to be playful. On screen it reads friendly but not childish, which fit the product's tone exactly — it's a business tool, but the assistant it ships with (IFIX) speaks in first person and offers suggestions rather than dictating them. Urbanist's warmth softens the assistant without making the whole thing feel like a toy. A colder typeface would have made IFIX feel robotic; something more decorative would have undercut the credibility of the actual business data being shown next to it.</p>
+            <p class="mb-3">Weights did the hierarchy work. Regular (400) for body copy, interface labels, and helper text. Medium (500) for emphasis within body copy and small section titles. Semibold (600) for buttons, tab labels, and card headings. Bold (700) reserved for the numbers that actually matter — KPIs on the POS dashboard, the headline stat in the trend card, the count on the pending-approval badge. No italic, no display weight, no letter-spacing tricks. Just consistent weights doing consistent jobs, so no screen ever surprises the user with a style they haven't seen before.</p>
+            <p>The practical payoff shows up in screens that are mostly numbers. On the POS dashboard, where 80% of the visual weight is data — sales totals, item names, percentages, day labels — the whole thing still reads as one coherent surface because every number and every label comes from the same typeface. Nothing pulls the eye sideways, which means the one orange element on the screen actually gets the attention it's supposed to.</p>
+            <p>Layout leaned on a fixed left sidebar plus a fluid content area on desktop. That's become the standard for dashboards for a reason — it lets someone who opens the tool 20 times a day build muscle memory for where things are. On mobile it collapses to a bottom tab bar plus a top header, which is the mobile-native equivalent of the same idea.</p>
+            <p>The overall feel is calm. That sounds strange for an orange-accented tool, but the orange works <em class="text-ink">because</em> everything around it is quiet. If the entire interface were energetic, the primary action would stop standing out. The whole design philosophy came down to one sentence: <em class="text-ink">make the rest of the page boring so the orange can do its job</em>.</p>
           </div>
-
-          <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="grid h-6 w-6 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">5</span>
-              <h5 class="text-[13px] font-extrabold text-ink">Social Media Trend Monitoring</h5>
-            </div>
-            <p>Watches trends and flags opportunities before they peak.</p>
-          </div>
-
-          <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="grid h-6 w-6 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">6</span>
-              <h5 class="text-[13px] font-extrabold text-ink">Integrated IFIX AI Assistant</h5>
-            </div>
-            <p>A built-in assistant that answers business questions, suggests actions and helps troubleshoot.</p>
-          </div>
-
         </div>` },
 
       { h: 'Technical Approach', html: `
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-canvas/40 p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Architecture & Stack</h5>
-            <p class="mb-4">We chose a modern stack to handle real-time AI processing and a clean, responsive interface. Next.js handled the frontend with server-side rendering for speed. Laravel powered the backend API and business logic. Supabase provided the database and real-time capabilities. DeepSeek supplied the AI layer for content generation and trend analysis. Tailwind CSS kept the interface consistent and responsive.</p>
+            <p class="mb-4">We chose a modern stack to handle real-time AI processing and a clean, responsive interface. Next.js handled the frontend with server-side rendering for speed — the initial dashboard view being rendered server-side made a real difference to perceived performance on the slower mobile connections a lot of our target users were actually on. Laravel powered the backend API and business logic. Supabase provided the database and real-time capabilities. DeepSeek supplied the AI layer for content generation and trend analysis. Tailwind CSS kept the interface consistent and responsive across all the modules, and Urbanist — the single typeface used across the whole platform — was wired through Tailwind's font-family config so every component inherited it without needing per-element declarations.</p>
+            <p class="mb-4">Cloudflare sat on top for performance and reliability — the specific thing it solved for us was the AI generation latency. When a user taps "Draft with AI" and waits 4 seconds for a response, Cloudflare's edge caching and the request routing made a 6-second wait into a 3-second wait for most users, which is the difference between "this feels fast" and "this feels broken".</p>
             
-            <p class="font-bold text-ink mb-2">Modular Architecture:</p>
+            <p class="font-bold text-ink mb-2">Modular architecture:</p>
             <div class="space-y-2.5 mb-4">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>The architecture separates automation tasks into modules — social media, calendar, POS, trend monitoring — each of which can be enabled or disabled based on the business's needs.</span>
+                <span>The architecture separates automation tasks into modules — social media, calendar, POS, trend monitoring — each with its own scheduling logic, execution queue, and error-handling rules. A user can enable or disable any module based on what they actually need; a coffee shop might want calendar + POS but skip trend monitoring entirely, and the system handles that gracefully without treating it as a degraded state.</span>
               </div>
             </div>
 
@@ -2279,8 +2483,16 @@ const CASE_STUDIES = {
               <span class="rounded-full bg-canvas px-3 py-1.5 text-[10px] font-bold text-muted">Supabase</span>
               <span class="rounded-full bg-canvas px-3 py-1.5 text-[10px] font-bold text-muted">DeepSeek AI</span>
               <span class="rounded-full bg-canvas px-3 py-1.5 text-[10px] font-bold text-muted">Tailwind CSS</span>
+              <span class="rounded-full bg-canvas px-3 py-1.5 text-[10px] font-bold text-muted">Urbanist</span>
               <span class="rounded-full bg-canvas px-3 py-1.5 text-[10px] font-bold text-muted">Cloudflare</span>
             </div>
+          </div>
+
+          <div class="mt-4 rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Data Model & AI Integration</h5>
+            <p class="mb-3">The data model treats each business as an island — its posts, its POS data, its trends, its AI training profile all live under a single tenant boundary. That isolation was the most important architectural decision in the whole project because it's what lets the AI feel grounded. When a user asks IFIX "what's my top seller this week", the answer is scoped to that specific business's data through the query itself, not through a filter applied afterward. That matters for two reasons: correctness (nobody ever sees another business's data by mistake) and trust (the AI's answers are always about <em class="text-ink">their</em> business, never a generic response).</p>
+            <p class="mb-3">The AI integration is where most of the actual engineering went. DeepSeek handles the raw generation, but the platform wraps it in three layers: <strong class="text-ink">context assembly</strong> (pull the right business data into the prompt), <strong class="text-ink">output filtering</strong> (catch hallucinated features, off-brand language, or content that violates the business's own exclusion list), and <strong class="text-ink">feedback capture</strong> (log when a user edits a generated post, so we can measure how often the AI got it right and refine the profile over time).</p>
+            <p>The output filter was the hardest part. It's tempting to just send raw AI output to the user — the response time is faster and the code is simpler. But a small business's reputation lives and dies on what goes out under their brand. A single off-brand or factually wrong caption posted to a business with 40,000 followers is a real problem. So every AI-generated caption goes through a validation pass before it's shown to the user: banned words, guaranteed-false claims, formatting issues, and (for specific businesses) any deviation from the tone they set during onboarding. It slows generation by about 800ms, and it's the reason we haven't had a single "the AI said something weird and it went viral" incident.</p>
           </div>
         </div>` },
 
@@ -2292,15 +2504,15 @@ const CASE_STUDIES = {
             <div class="space-y-3 mb-4">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Hours saved per week</strong> — owners no longer manually post, schedule or track trends.</span>
+                <span><strong class="text-ink">Hours saved per week</strong> — owners no longer manually post, schedule, or track trends. For the businesses we've onboarded, the daily social media work went from 45–60 minutes a day to about 10 minutes of approval and editing. That's roughly five hours a week back, which for a small business owner is the difference between having time to actually run the business and not.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Consistent social presence</strong> — automation keeps posting schedules on track even during busy periods.</span>
+                <span><strong class="text-ink">Consistent social presence</strong> — the businesses using the platform stopped having "posting gaps" where a week would go by without any content because the owner got busy. That single change made the biggest difference to their social engagement, not because their posts got better, but because they stopped disappearing for days at a time.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Better decision-making</strong> — POS insights and trend monitoring give owners data they didn't have before.</span>
+                <span><strong class="text-ink">Better decision-making</strong> — POS insights and trend monitoring give owners data they didn't have before. The most-cited piece of feedback we got: "I didn't know my Wednesdays were my slowest day until this showed me." That's a fact most small business owners operate without for years, and having it in a single clean dashboard changes what they do with promotions.</span>
               </div>
             </div>
 
@@ -2315,9 +2527,11 @@ const CASE_STUDIES = {
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Reflection & Next Steps</h5>
-            <p class="mb-3">Building this together reinforced a critical lesson: <strong class="text-ink">AI is only useful when it's grounded in the actual business.</strong> Generic AI outputs don't help — business-specific training does. Getting that right required close collaboration with the founders to understand their target market's voice and priorities.</p>
-            <p class="mb-3">It also required Dan and I to constantly align our frontend and backend capabilities to bring the founders' vision to life. Our collaborative technique of dividing core tasks but jumping in to help each other was key to delivering the system on time.</p>
-            <p>The next iteration would include deeper analytics — showing owners exactly how much time each automation saves them, week over week.</p>
+            <p class="mb-3">Building this together reinforced a critical lesson that I think is going to keep being true for the next several years of AI products: <strong class="text-ink">AI is only useful when it's grounded in the actual business.</strong> Generic AI outputs don't help — business-specific training does. That wasn't just a nice principle to design around; it was the actual difference between a demo that impressed founders in a pitch and a product that a real coffee shop owner uses every single morning. The moment a business owner sees the AI draft a caption that sounds like it was written by someone who's actually been to their shop, they stop thinking of it as "AI" and start thinking of it as "my assistant". That's the moment the product works.</p>
+            <p class="mb-3">Getting there required close collaboration with the founders — understanding their target market's voice, priorities, and the specific things that would make the product fail if they weren't handled. A few of the design decisions in this project came directly from those conversations and wouldn't have come from anywhere else. The first onboarding wizard, for example, originally asked 15 questions in one flow. The founders told us that in their experience, small business owners abandon any setup longer than about five minutes. That one piece of feedback collapsed 15 questions into three phases with immediate value at each step, and it changed retention measurably.</p>
+            <p class="mb-3">It also required Dan and I to constantly align on the boundary between frontend and backend, because the AI features sit right on that line. A latency problem could be in the AI call, the frontend rendering, or the database query — and figuring out which one required both of us looking at the same code. Our collaborative technique of dividing core tasks but jumping in to help each other was the only way that worked at this pace.</p>
+            <p class="mb-3">The next iteration would include two things we deliberately deferred. First, <strong class="text-ink">deeper analytics</strong> — showing owners exactly how much time each automation saves them, week over week. Right now they can feel the difference, but we can't show them a number that proves it. Second, <strong class="text-ink">real-time trend monitoring</strong> — the current system refreshes a couple of times a day, which is fine for the businesses we're working with, but it's not the ceiling. A version that catches a trend within an hour of it starting would be a meaningfully different product.</p>
+            <p>What I'd do differently with hindsight: I'd want to test with actual small business owners much earlier in the build. We designed the AI training flow from interviews and assumptions, shipped it, and then watched how the first few businesses actually behaved. Most of what we saw matched, but a couple of things didn't, and we had to iterate quickly. Both fixes were small, but they would have been much cheaper to make before launch than after. The lesson: when the whole product's value depends on whether the AI feels like it "gets" the business, you can't afford to guess at what "gets it" means. You have to watch someone use it and see if their face changes.</p>
           </div>
         </div>` }
     ]
@@ -2325,7 +2539,7 @@ const CASE_STUDIES = {
 
     'Parang Beach Resort Website': {
     blurb: 'A content-rich resort website that turns browsers into booking inquiries — planned in Obsidian, designed in Figma, and built on WordPress.',
-    meta: [['Role','UI/UX Designer & Web Developer'],['Timeline','4 weeks · 2025'],['Scope','Resort website + booking inquiry flow'],['Tools','Obsidian, Figma, WordPress']],
+    meta: [['Role','UI/UX Designer & Web Developer'],['Timeline','2 weeks · 2025'],['Scope','Resort website + booking inquiry flow'],['Tools','Obsidian, Figma, WordPress']],
     sections: [
       { h: 'The Problem & Planning', html: `
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
