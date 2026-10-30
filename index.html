@@ -450,6 +450,174 @@
   #credentialsList .rounded-xl {
     border-radius: 10px !important;
   }
+
+  /* === iPhone 13 mini mobile preview === */
+.mobile-preview-modal[hidden] { display: none; }
+.mobile-preview-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  animation: mobilePreviewFadeIn .25s var(--ease, cubic-bezier(.22,1,.36,1)) both;
+}
+@keyframes mobilePreviewFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.mobile-preview-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.mobile-preview-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-height: calc(100dvh - 32px);
+}
+
+.mobile-preview-close {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.96);
+  color: #111;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+  transition: transform .25s var(--ease, cubic-bezier(.22,1,.36,1)), background-color .25s var(--ease, cubic-bezier(.22,1,.36,1));
+}
+.mobile-preview-close:hover {
+  transform: rotate(90deg) scale(1.08);
+  background: #FF6B2C;
+  color: #fff;
+}
+.mobile-preview-close svg { width: 16px; height: 16px; }
+
+/* ============================================================
+   iPhone 13 mini frame — FIXED phone-sized box.
+   The frame NEVER grows with the image. The image scrolls inside.
+   ============================================================ */
+.iphone-mini-frame {
+  /* Width is capped by three things so the whole phone always fits the viewport */
+  --phone-w: min(320px, calc(100vw - 60px), calc((100dvh - 160px) * 340 / 700));
+
+  width: var(--phone-w);
+  height: calc(var(--phone-w) * 700 / 340);   /* ← fixed phone height, NOT image height */
+
+  position: relative;
+  background: linear-gradient(145deg, #3a3a3a 0%, #1a1a1a 50%, #2a2a2a 100%);
+  border-radius: 52px;
+  padding: 11px;
+  box-shadow:
+    0 40px 80px -20px rgba(0,0,0,0.65),
+    0 0 0 1px rgba(255,255,255,0.08) inset,
+    0 0 0 3px rgba(0,0,0,0.5);
+  overflow: hidden;   /* ← clips the phone body, prevents any spillover */
+}
+
+/* Side buttons */
+.iphone-mini-frame::before,
+.iphone-mini-frame::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  background: linear-gradient(180deg, #333, #1a1a1a);
+  border-radius: 2px;
+}
+.iphone-mini-frame::before {
+  left: -3px;
+  top: 120px;
+  height: 32px;
+  box-shadow: 0 48px 0 #2a2a2a, 0 96px 0 #2a2a2a;
+}
+.iphone-mini-frame::after {
+  right: -3px;
+  top: 160px;
+  height: 64px;
+}
+
+/* Screen — fills the phone frame exactly */
+.iphone-mini-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  border-radius: 42px;
+  overflow: hidden;
+}
+
+/* Notch */
+.iphone-mini-notch {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92px;
+  height: 26px;
+  background: #000;
+  border-radius: 16px;
+  z-index: 3;
+  pointer-events: none;
+}
+.iphone-mini-notch::before {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #111;
+  box-shadow: inset 0 0 2px rgba(80,120,255,0.35);
+}
+
+/* ============================================================
+   THE scroll container — absolute fill so it ALWAYS matches
+   the phone's screen size, no matter what the parent does.
+   ============================================================ */
+.iphone-mini-scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.iphone-mini-scroll::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
+/* The design image — full-width, natural height. Because it's taller than
+   the phone screen, the scroll container above lets the user scroll through it. */
+.iphone-mini-scroll img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+.mobile-preview-hint {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  max-width: 340px;
+  margin: 0;
+}
 </style>
 </head>
 
@@ -1033,39 +1201,39 @@ const PROJECTS = [
 const CASE_STUDIES = {
     'Manhattan Home Design': {
     blurb: 'How a nine-section page became five, and why the hero ended up split instead of full-bleed.',
-    meta: [['Role','UI/UX Designer'],['Timeline','3 weeks · 2025'],['Scope','Landing page redesign'],['Tools','Figma, FigJam']],
+    meta: [['Role','UI/UX Designer'],['Timeline','2 days · 2025'],['Scope','Landing page redesign'],['Tools','Figma, FigJam']],
     sections: [
       { h: 'Background & Core Problems', html: `
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Background</h5>
-            <p class="mb-3">The Manhattan Home Design landing page grew over several years, one campaign at a time. When I joined, it had three button styles, two competing hero messages, and a "Book a consultation" link buried below five sections of product photography.</p>
-            <p class="mb-3">The marketing lead's brief was one sentence: <em class="text-ink font-medium">"People land on the page, they scroll, and they leave."</em></p>
-            <p>That is a symptom, not a root problem. My first two days were spent turning that sentence into a testable hypothesis.</p>
+            <p class="mb-3">The Manhattan Home Design landing page had been built up over several years, with new sections getting added every time marketing had a campaign to support. By the time I saw it, there were three different button styles scattered across the page, two competing hero messages, and the "Book a consultation" link was sitting below five full sections of product photography.</p>
+            <p class="mb-3">The marketing lead described the problem in one sentence: <em class="text-ink font-medium">"People land on the page, they scroll, and they leave."</em></p>
+            <p>I didn't take that at face value. A bounce is a symptom, and "they leave" doesn't tell you where in the scroll they were leaving, or why. I spent the first two days converting that sentence into something I could actually test.</p>
           </div>
 
           <div class="mt-6 rounded-2xl border border-line/10 bg-canvas/40 p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-brand-600 mb-2">What I Was Actually Solving</h5>
-            <p class="mb-3">I identified three testable problems:</p>
+            <p class="mb-3">What I ended up with was three problems, each of which could be addressed independently:</p>
             
             <div class="space-y-3 mb-4">
               <div class="flex items-start gap-3">
                 <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">1</span>
-                <span>Visitors could not tell within the first screen whether the company sells furniture, offers interior design services, or both.</span>
+                <span>The first screen didn't make it clear if this was a furniture store, an interior design service, or both. The hero copy assumed you already knew.</span>
               </div>
               <div class="flex items-start gap-3">
                 <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">2</span>
-                <span>The consultation link (the highest-value action) was buried under five product sections.</span>
+                <span>The consultation link — the whole point of the page — was buried under five product sections. You had to scroll for roughly 40 seconds to reach it, which was longer than most people were staying.</span>
               </div>
               <div class="flex items-start gap-3">
                 <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">3</span>
-                <span>Mobile users faced a squished desktop grid with tap targets under 40px and horizontal scrolling on the room gallery.</span>
+                <span>On mobile, the desktop grid had been compressed into a squished layout. Tap targets were under 40px and the room gallery had a horizontal scroll that didn't snap.</span>
               </div>
             </div>
             
             <div class="rounded-xl bg-canvas/60 p-3.5 border border-line/10 text-[12px]">
               <span class="font-bold text-ink block mb-1">Note:</span>
-              I deliberately kept the problem list to three. A longer list would have meant a longer project, and three weeks was already tight.
+              Three problems was a deliberate cutoff. The three-week timeline didn't leave room for a fourth, and honestly any additional "problems" I found would have been a variation on these three.
             </div>
           </div>
         </div>` },
@@ -1074,24 +1242,24 @@ const CASE_STUDIES = {
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Research</h5>
-            <p class="mb-3">I kept this small on purpose. A three-week timeline does not allow for a full research phase. The client did not need a massive study; they needed clear decisions. So I did three things:</p>
+            <p class="mb-3">I kept the research small on purpose. Three weeks doesn't leave time for a proper study, and the client didn't need a study — they needed decisions. So I did three things:</p>
             
             <div class="space-y-2.5 mb-4">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Conducted a heuristic review of the current page on desktop and mobile, noting every point of friction.</span>
+                <span>A heuristic pass over the live page on desktop and mobile, taking notes on every point where I hesitated or had to re-read something.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Spoke with five people who had furnished a home in the last 18 months.</span>
+                <span>Five conversations with people who had furnished a home in the last 18 months — not shoppers, not leads, just people who'd been through the process.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Analyzed six competitors, focusing specifically on their above-the-fold content.</span>
+                <span>Six competitor reviews, focusing narrowly on what appeared above the fold.</span>
               </div>
             </div>
 
-            <p class="mb-3">Two user quotes shaped the entire project:</p>
+            <p class="mb-3">Two quotes from those conversations ended up shaping everything else:</p>
             
             <div class="space-y-3 mb-4">
               <div class="text-[12.5px] italic border-l-2 border-brand-500 pl-3 py-2 bg-canvas/50 text-ink/80 rounded-r-md">
@@ -1104,12 +1272,12 @@ const CASE_STUDIES = {
               </div>
             </div>
             
-            <p>That second quote shifted our direction. People are not shopping for a sofa. They are shopping for a <strong class="text-ink">finished room</strong>. Competitors who understood this were selling rooms, and those were the sites participants remembered a week later.</p>
+            <p>That second quote shifted the direction of the project. People aren't shopping for sofas. They're shopping for a <strong class="text-ink">finished room</strong>. The competitors who got this were selling rooms, and those were the sites the interviewees actually remembered a week later.</p>
           </div>
 
           <div class="mt-4 rounded-2xl border border-line/10 bg-canvas/40 p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Design Direction</h5>
-            <p class="mb-3">Three rules emerged from the research. I wrote them down before opening Figma to prevent scope creep:</p>
+            <p class="mb-3">Three rules came out of that research. I wrote them down before opening Figma specifically so they wouldn't get watered down during the design process:</p>
             
             <div class="space-y-2.5">
               <div class="flex items-start gap-2.5">
@@ -1132,7 +1300,7 @@ const CASE_STUDIES = {
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Structure</h5>
-            <p class="mb-3">I reduced the page from nine sections to five. Each section now has a single job:</p>
+            <p class="mb-3">I cut the page from nine sections to five. Each section now does exactly one job:</p>
             
             <div class="space-y-3 mb-4">
               <div class="flex items-start gap-3">
@@ -1157,18 +1325,19 @@ const CASE_STUDIES = {
               </div>
             </div>
             
-            <p>Everything else moved to the footer or got cut. I argued to remove the "featured brands" carousel. It existed because a partner requested it, not because it helped the user.</p>
+            <p class="mb-3">Everything else moved to the footer or got cut. I pushed hard to remove the "featured brands" carousel — it existed because a partner had requested it, not because it did anything for the user.</p>
+            <p>On the file side: the page was designed as a single <strong class="text-ink">1441 × 8499</strong> frame in Figma, not broken out into separate section frames. That came from how the client's developer worked — he wanted to see the full scroll as one continuous page so he could catch anything that broke between sections. Margins were <strong class="text-ink">80px on all four sides</strong>: top, left, right, and bottom of the footer. That 80px cushion held consistently the whole way down, so the content area itself sat at roughly <strong class="text-ink">1281px wide</strong> (1441 minus 80 on each side) for the entire scroll.</p>
           </div>
 
           <div class="mt-4 rounded-2xl border border-line/10 bg-canvas/40 p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Wireframes & A Decision That Changed</h5>
-            <p class="mb-3">My first wireframe placed the headline over a full-bleed photograph. It looked excellent in the mockup but would have caused major maintenance issues in production.</p>
-            <p class="mb-3">The client's photography varied wildly. Some images were bright and airy, while others featured dark rooms with warm lamps. Overlaying type meant sourcing new photography every time the hero changed, which was outside the budget.</p>
-            <p class="mb-4">I split the hero for the second wireframe: copy on a solid panel, image on the right. It was less dramatic but far more durable. We shipped this version.</p>
+            <p class="mb-3">My first wireframe put the headline directly over a full-bleed photo. It looked excellent as a mockup but would have been a nightmare in production.</p>
+            <p class="mb-3">The client's photography was inconsistent. Some images were bright and airy — the kind that play well with white text. Others were dark rooms with warm lamps where the same white text would have vanished. Overlaying type would have meant sourcing new photography every time they wanted to swap the hero, which was outside the budget.</p>
+            <p class="mb-4">I split the hero for the second wireframe: copy on a solid panel, image on the right. Less dramatic, far more durable. That's what we shipped.</p>
             
             <div class="rounded-xl bg-canvas/60 p-3.5 border border-line/10 text-[12px]">
               <span class="font-bold text-ink block mb-1">Takeaway:</span>
-              The best-looking option is not always the most practical one. A hero section that breaks the moment a client swaps an image is a hero section that gets abandoned six months later.
+              The best-looking option is not always the most practical one. A hero that breaks the moment a client changes an image is a hero that gets abandoned six months later.
             </div>
           </div>
         </div>` },
@@ -1177,8 +1346,8 @@ const CASE_STUDIES = {
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Visual Design</h5>
-            <p class="mb-3">The brand logo used a serif typeface. I retained it for headlines and paired it with a neutral sans-serif for navigation, body copy, buttons, and form labels. Two typefaces only.</p>
-            <p class="mb-4">The color palette stayed close to their existing brand identity. Warm neutrals, one accent color, and photography driving the emotional connection. I resisted adding a second accent color, even though the "Book" button seemed to need one. One accent creates a system; two creates clutter.</p>
+            <p class="mb-3">On typography — headings mix <strong class="text-ink">DM Sans</strong> and <strong class="text-ink">Source Serif 4</strong>. DM Sans handles section labels and any title that needs to scan quickly; Source Serif 4 handles the editorial moments, mostly the hero headline and a couple of feature headers where the page benefits from a bit more weight. Mixing them wasn't a decorative choice — it was matching the typeface to the job. Some things need to be read fast, some things need to be felt.</p>
+            <p class="mb-4">Body copy is <strong class="text-ink">Inter</strong>. It stays readable at 14–16px without paragraphs looking dense, which mattered because a lot of the page is body text. The color palette stayed close to their existing brand identity — warm neutrals, one accent color, and photography driving the emotional connection. I resisted adding a second accent color even though the "Book" button seemed to want one at first. One accent creates a system; two creates clutter.</p>
             
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
               <div class="rounded-xl p-4 flex flex-col justify-end h-24 shadow-sm border border-line/10" style="background-color: #F8EEE3; color: #333333;">
@@ -1195,13 +1364,14 @@ const CASE_STUDIES = {
               </div>
             </div>
             
-            <p>Layout grid: 12 columns, 1200px max width, 8px spacing base. Simple, but effective.</p>
+            <p class="mb-3">Spacing used an 8px base unit. Between the 80px outer margins sat a 12-column grid that handled how content aligned horizontally inside the content area — but there was no additional max-width cap stacked on top of it. The 80px margin was the only limit, so the grid flexed to fill whatever space was left (about 1281px at the 1441px frame width).</p>
+            <p>On the images — <strong class="text-ink">every image on the page came from the client's existing library</strong>. No stock photos, no renders, no placeholders in the final version. That constraint shaped how I built the sections: the hero, the room setups, and the product shots all had to work with what was already on hand, which meant designing around inconsistent photo quality rather than picking ideal images. A couple of sections got reworked after I realized the source photography couldn't support what I'd originally sketched.</p>
           </div>
 
           <div class="mt-4 rounded-2xl border border-line/10 bg-canvas/40 p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Design System</h5>
-            <p class="mb-3">Since this was a single landing page, I kept the design system small: 24 components. This included buttons (two sizes, three states), form fields, room cards, step cards, testimonial blocks, and type/spacing scales.</p>
-            <p>The system was lean enough that the client's developer built it without a handoff meeting. The goal was usability for the next designer, not exhaustive documentation.</p>
+            <p class="mb-3">Since this was a single landing page, I kept the design system small — 24 components total. Buttons (two sizes, three states), form fields, room cards, step cards, testimonial blocks, plus the type and spacing scales.</p>
+            <p>The developer built it without needing a handoff meeting, which was the point. A system is for the next person using the file, not for the current designer to show off.</p>
           </div>
         </div>` },
 
@@ -1209,28 +1379,28 @@ const CASE_STUDIES = {
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Testing</h5>
-            <p class="mb-3">I ran five moderated sessions on the prototype using participants' own devices. The users were tasked with finding the design service, finding a sofa, and booking a consultation.</p>
+            <p class="mb-3">Five moderated sessions on the prototype, run on participants' own devices. Each user was asked to find the design service, find a sofa, and book a consultation.</p>
             
             <div class="space-y-2.5">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Four out of five users found the consultation CTA in under eight seconds. The previous version averaged closer to forty seconds.</span>
+                <span>Four out of five found the consultation CTA in under eight seconds. The previous version averaged closer to 40.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>The one who failed was looking for a phone number. Because that is a valid user preference, we added a phone number to the header.</span>
+                <span>The one who failed was looking for a phone number instead of a form. That's a valid preference, so we added a phone number to the header.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Two users tapped the room gallery expecting it to expand. It did not. We made the first image tile interactive and left the rest static. This signaled interactivity without slowing down page load.</span>
+                <span>Two users tapped the room gallery expecting it to expand. It didn't. We made the first image tile interactive and left the rest static — signaled the affordance without slowing page load.</span>
               </div>
             </div>
           </div>
 
           <div class="mt-4 rounded-2xl border border-brand-500/20 bg-brand-50/50 p-4 sm:p-5 dark:bg-brand-500/5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-brand-600 mb-2">Outcome</h5>
-            <p class="mb-3">The client reported that consultation requests increased by roughly 40% in the first month after launch, and average time on page increased.</p>
-            <p>I did not set up the analytics personally, so treat those metrics as client-reported. The reality is that the page became simpler, the primary action became findable, and the client returned for a second project.</p>
+            <p class="mb-3">The client reported consultation requests were up roughly 40% in the first month, and average time on page increased.</p>
+            <p>I didn't set up the analytics myself, so treat those numbers as client-reported. The measurable part I stand behind: the page got simpler, the primary action got findable, and the client came back for a second project.</p>
           </div>
         </div>` },
 
@@ -1250,7 +1420,7 @@ const CASE_STUDIES = {
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Test with the client's actual photography in round one,</strong> not placeholders. Half my revision time went into adjusting layouts for their real photos.</span>
+                <span><strong class="text-ink">Test with the client's actual photography in round one,</strong> not placeholders. Half my revision time went into adjusting layouts for photos I hadn't seen yet.</span>
               </div>
             </div>
           </div>
@@ -1259,78 +1429,78 @@ const CASE_STUDIES = {
   },
 
       'Manhattan Home Design - New Version': {
-    blurb: 'A premium interior design experience built around warm neutrals, editorial typography, and structured content. It balances brand storytelling with furniture discovery.',
-    meta: [['Role','UI/UX Designer'],['Timeline','4 weeks · 2025'],['Scope','Editorial landing page concept'],['Tools','Figma, FigJam']],
+    blurb: 'A second direction for Manhattan Home Design — treating the page as a magazine spread instead of a product catalog. Single 1440px frame, long-scroll, client-supplied photography throughout.',
+    meta: [['Role','UI/UX Designer'],['Timeline','4 days · 2025'],['Scope','Editorial landing page concept'],['Tools','Figma, FigJam']],
     sections: [
       { h: 'Overview & The Design Challenge', html: `
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
-          <p>This project explores a more editorial direction for an interior design and furniture website. The goal was to communicate the brand through its visual identity, collections, interior photography, and design philosophy.</p>
-          <p>Rather than treating the page as a conventional product catalog, I approached it as a curated presentation of interiors and furniture. The layout combines lifestyle images, structured product sections, brand information, and supporting content within one visual system. The direction focuses on making the experience feel warm and sophisticated without allowing decorative elements to distract from the content.</p>
+          <p>This wasn't a rebuild of the live Manhattan Home Design page. It was the second direction — after the earlier redesign, the client wanted to see what the brand would look like if the landing page behaved less like a catalog and more like an interior magazine spread. Same company, different posture.</p>
+          <p>The frame was built as a single scroll at <strong class="text-ink">1440 × 19659</strong> in Figma, not split into separate section files. Side margins were <strong class="text-ink">64px</strong>, top and bottom margins <strong class="text-ink">70px</strong>, so the usable content area sat at <strong class="text-ink">1312px wide</strong> for the entire length of the page. Every image came from the client's existing library — no stock photos, no renders, no placeholders in the final version.</p>
           
           <div class="mt-6 rounded-2xl border border-line/10 bg-canvas/40 p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-brand-600 mb-2">The Core Challenge</h5>
-            <p class="mb-4">Interior design websites face a specific challenge. The visuals must create an emotional connection, but visitors also need a clear way to explore furniture, understand the brand, and find information. A page filled with beautiful images can still feel difficult to navigate if sections lack hierarchy or content feels disconnected.</p>
-            <p class="font-bold text-ink mb-3">I focused on three core design challenges:</p>
+            <p class="mb-4">Interior design sites pull in two directions at once. On one side, the imagery has to sell an atmosphere — the feeling of a finished room. On the other side, a visitor still has to be able to find things: collections, products, contact details. Lean too hard on atmosphere and the page looks lovely but you can't navigate it. Lean too hard on function and it starts to look like any other furniture store.</p>
+            <p class="font-bold text-ink mb-3">I focused on three things:</p>
             
             <div class="space-y-3 mb-4">
               <div class="flex items-start gap-3">
                 <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">1</span>
-                <span class="text-[13px] sm:text-[13.5px]"><strong class="text-ink">Visual consistency:</strong> Bring different interior styles, collections, and supporting content together through one recognizable design language.</span>
+                <span class="text-[13px] sm:text-[13.5px]"><strong class="text-ink">One visual language</strong> across every section — the hero, the collection grids, the galleries, and the testimonial area all needed to feel like they belonged on the same page rather than stitched together.</span>
               </div>
               <div class="flex items-start gap-3">
                 <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">2</span>
-                <span class="text-[13px] sm:text-[13.5px]"><strong class="text-ink">Content hierarchy:</strong> Help visitors distinguish the main message, featured collections, brand story, and supporting information.</span>
+                <span class="text-[13px] sm:text-[13.5px]"><strong class="text-ink">Clear hierarchy</strong> so a visitor can tell at a glance what's brand story, what's a collection, what's a product, and what's a next step.</span>
               </div>
               <div class="flex items-start gap-3">
                 <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded bg-brand-100 text-[10px] font-extrabold text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">3</span>
-                <span class="text-[13px] sm:text-[13.5px]"><strong class="text-ink">Visual balance:</strong> Give photography enough space to communicate the aesthetic while keeping text, navigation, and calls to action readable.</span>
+                <span class="text-[13px] sm:text-[13.5px]"><strong class="text-ink">Room to breathe</strong> — enough whitespace that the photography could carry its own weight without the interface crowding it.</span>
               </div>
             </div>
             
-            <p class="text-[12px] sm:text-[12.5px] italic border-l-2 border-brand-500 pl-3 py-1 bg-card/50 text-ink/80 rounded-r-md">"How can a furniture landing page feel like a curated interior design editorial while remaining practical to browse?"</p>
+            <p class="text-[12px] sm:text-[12.5px] italic border-l-2 border-brand-500 pl-3 py-1 bg-card/50 text-ink/80 rounded-r-md">The whole design hung on one question: can this page feel like a curated interior editorial without becoming hard to browse?</p>
           </div>
         </div>` },
       
       { h: 'Audience & Design Strategy', html: `
         <div class="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
-            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Understanding the Audience</h5>
-            <p class="mb-3">The intended audience includes people who care about the appearance and functionality of their living spaces. This includes homeowners, renters, furniture shoppers, and people seeking interior design inspiration.</p>
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Working Assumptions</h5>
+            <p class="mb-3">This was a concept, not a research project — no interviews, no surveys, no analytics. What I did have was a target visitor in mind, built from what the client described about their existing customers and from what I could see in the competitor set.</p>
             
             <div class="space-y-2.5 mb-4">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Homeowners and renters</strong> want to picture how furniture and interior styles might work in their own spaces.</span>
+                <span><strong class="text-ink">Someone furnishing a room</strong>, not buying one item. They want to see pieces in context — an arrangement, not a product on white.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Furniture shoppers</strong> need a straightforward way to browse collections and discover products that fit their preferences.</span>
+                <span><strong class="text-ink">Someone who reads the finish of the site as part of the product.</strong> If the page feels thrown together, the furniture reads that way too.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Design-conscious customers</strong> value visual consistency, thoughtful presentation, and a brand that communicates quality.</span>
+                <span><strong class="text-ink">Someone browsing before they're ready to buy.</strong> They'll click into a collection if it looks promising, but they won't commit on the first visit.</span>
               </div>
             </div>
             
-            <p class="text-[11.5px] italic opacity-80 border-t border-line/10 pt-3">These considerations informed the emphasis on room photography, organized collections, clear headings, and a restrained interface. These audience groups represent intended users for this concept, not findings from completed user interviews.</p>
+            <p class="text-[11.5px] italic opacity-80 border-t border-line/10 pt-3">Being explicit about this: those were assumptions for the design, not conclusions from research. If the page had gone to production, the first thing I'd want is real behavior data to check whether they held.</p>
           </div>
           
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Design Strategy</h5>
-            <p class="mb-3">Before refining individual sections, I established three principles to guide the direction. This approach connected the brand's visual identity with the practical needs of a long-form landing page.</p>
+            <p class="mb-3">Three rules shaped every decision on the page. I wrote them down before the first section got built, specifically so they wouldn't quietly drift as the file grew.</p>
             
             <div class="space-y-3">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Lead with the atmosphere:</strong> Use interior photography to communicate the feeling of a finished room instead of relying entirely on isolated product imagery.</span>
+                <span><strong class="text-ink">Rooms over products.</strong> Interior photography leads; product shots support it. A visitor should be able to picture the furniture in a real space before they're asked to buy it.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Keep the interface restrained:</strong> Let typography, spacing, and a limited color palette provide structure without competing with the photography.</span>
+                <span><strong class="text-ink">One interface voice.</strong> Type, spacing, and a three-color palette do the structural work, so decorative elements aren't needed to give the page shape.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Give every section a purpose:</strong> Alternate collections, brand storytelling, and supporting information to create a clear browsing rhythm.</span>
+                <span><strong class="text-ink">Every section earns its place.</strong> If a section didn't introduce, showcase, prove, or invite — it got cut or folded into a neighbouring section.</span>
               </div>
             </div>
           </div>
@@ -1338,44 +1508,44 @@ const CASE_STUDIES = {
 
       { h: 'Information Architecture & Visual Hierarchy', html: `
         <div class="space-y-5 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
-          <p>The landing page contains several content types, so the sequence of sections plays an important role in how visitors understand the experience. The intention was to move from visual discovery to brand understanding and further exploration without making the page feel like a collection of unrelated sections.</p>
+          <p>Nine sections stacked into a 19659px scroll. That's a long page, and the sequence matters more than any single section — if the flow gets the order wrong, a visitor drops off before the middle. The intent was to move from visual interest to brand understanding to a next step, without making any section feel like it was bolted on.</p>
           
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 01</span><strong class="text-ink block mb-1 text-[12.5px]">Hero section</strong> Introduces the brand through a prominent interior image, headline, and primary action.</div>
-            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 02</span><strong class="text-ink block mb-1 text-[12.5px]">Brand introduction</strong> Establishes the brand's identity and design philosophy.</div>
-            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 03</span><strong class="text-ink block mb-1 text-[12.5px]">Featured collections</strong> Gives visitors visual entry points into furniture categories and curated room styles.</div>
-            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 04</span><strong class="text-ink block mb-1 text-[12.5px]">Product highlights</strong> Presents selected furniture through consistent image-led layouts.</div>
-            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 05</span><strong class="text-ink block mb-1 text-[12.5px]">About section</strong> Provides additional context about the brand and its approach to interior design.</div>
-            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 06</span><strong class="text-ink block mb-1 text-[12.5px]">Services and benefits</strong> Organizes supporting information about the brand's offerings.</div>
-            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 07</span><strong class="text-ink block mb-1 text-[12.5px]">Inspiration galleries</strong> Showcases different interiors and furniture arrangements.</div>
-            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 08</span><strong class="text-ink block mb-1 text-[12.5px]">Testimonials & trust</strong> Creates space for genuine customer feedback and credibility signals.</div>
-            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 09</span><strong class="text-ink block mb-1 text-[12.5px]">Contact and closing</strong> Gives interested visitors a clear next step.</div>
+            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 01</span><strong class="text-ink block mb-1 text-[12.5px]">Hero</strong> Opens with a large interior photograph, a headline, and one primary action. Answers "what is this?" on first screen.</div>
+            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 02</span><strong class="text-ink block mb-1 text-[12.5px]">Brand introduction</strong> Establishes the brand's identity and design philosophy before the product content starts.</div>
+            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 03</span><strong class="text-ink block mb-1 text-[12.5px]">Featured collections</strong> Visual entry points into furniture categories and curated room styles — the first real browsing surface.</div>
+            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 04</span><strong class="text-ink block mb-1 text-[12.5px]">Product highlights</strong> Selected furniture in a consistent image-led layout — the closest the page gets to catalog behavior.</div>
+            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 05</span><strong class="text-ink block mb-1 text-[12.5px]">About</strong> Breaks up the product content with brand context and background on the design approach.</div>
+            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 06</span><strong class="text-ink block mb-1 text-[12.5px]">Services and benefits</strong> What the brand actually offers beyond the furniture — organized as supporting information, not a sales push.</div>
+            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 07</span><strong class="text-ink block mb-1 text-[12.5px]">Inspiration galleries</strong> A wider spread of interiors and arrangements, positioned after the utility content to reward continued scrolling.</div>
+            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 08</span><strong class="text-ink block mb-1 text-[12.5px]">Testimonials & trust</strong> Customer feedback and credibility signals placed right before the final ask.</div>
+            <div class="rounded-xl border border-line/10 bg-canvas/30 p-3"><span class="block text-[10px] font-extrabold text-brand-500 mb-1">SECTION 09</span><strong class="text-ink block mb-1 text-[12.5px]">Contact and closing</strong> A short form and clear next step. Ends the page rather than trailing off into a footer.</div>
           </div>
 
           <div class="mt-4 rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Layout & Hierarchy</h5>
-            <p class="mb-3">The layout combines wide interior imagery, product grids, alternating image-and-text sections, and smaller supporting content blocks. Each pattern has a distinct role, but the same design language connects them.</p>
+            <p class="mb-3">The page alternates between wide interior photography, product grids, and quieter text-led sections. Each pattern has a different job, but the same underlying design language holds them together so the scroll doesn't feel like it's jumping between unrelated pages.</p>
             
             <div class="space-y-2">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Large hero imagery</strong> establishes the visual direction immediately.</span>
+                <span><strong class="text-ink">A large hero image</strong> sets the visual direction in the first screen — before any copy competes for attention.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Consistent product grids</strong> make collections easier to scan.</span>
+                <span><strong class="text-ink">Consistent product grids</strong> let collections scan quickly instead of forcing a visitor to re-learn the layout every time.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Alternating layouts</strong> introduce visual variety without sacrificing consistency.</span>
+                <span><strong class="text-ink">Alternating layouts</strong> keep the scroll from flatlining — image-led, then text-led, then image-led again.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Generous whitespace</strong> separates content and gives photography room to breathe.</span>
+                <span><strong class="text-ink">Generous whitespace</strong> between sections — the 70px top and bottom margins get repeated internally so the photography isn't fighting the interface for space.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Clear headings</strong> help visitors understand the purpose of each section.</span>
+                <span><strong class="text-ink">Clear headings</strong> so each section tells the visitor what it's about, rather than relying on them to figure it out from the imagery alone.</span>
               </div>
             </div>
           </div>
@@ -1385,8 +1555,8 @@ const CASE_STUDIES = {
         <div class="space-y-5 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
-            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Color System</h5>
-            <p class="mb-4">The color palette uses three core colors: warm cream, muted gold, and white. Together, they create a soft, sophisticated visual identity that complements interior photography.</p>
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Color</h5>
+            <p class="mb-4">Three colors on the whole page: warm cream, muted gold, and white. That's it. The point isn't the palette itself — it's that with only three colors, the photography ends up being the loudest thing on the page. Every image reads as the main event because the interface never tries to compete.</p>
             
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
               <div class="rounded-xl p-4 flex flex-col justify-end h-24 shadow-sm border border-line/10" style="background-color: #F8EEE3; color: #333333;">
@@ -1406,68 +1576,68 @@ const CASE_STUDIES = {
             <div class="space-y-2 mb-4">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">#F8EEE3 Warm cream:</strong> Used for soft backgrounds and section transitions. It adds warmth without making the interface feel heavy.</span>
+                <span><strong class="text-ink">#F8EEE3 warm cream</strong> — soft section backgrounds. Keeps the page warm without heavy panels.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">#A3804C Muted gold:</strong> Used for selected accents, highlights, and calls to action.</span>
+                <span><strong class="text-ink">#A3804C muted gold</strong> — reserved for accents, highlights, and calls to action. Never used for body copy.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">#FFFFFF White:</strong> Used for clean content areas and visual separation between sections.</span>
+                <span><strong class="text-ink">#FFFFFF white</strong> — clean content surfaces, and the visual break between sections.</span>
               </div>
             </div>
             
-            <p class="text-[12px] sm:text-[12.5px] italic">The restrained palette keeps attention on the furniture and interiors rather than introducing unnecessary visual competition. One primary accent color creates a more consistent visual language than several competing accent colors. For accessibility, small text uses a sufficiently dark foreground color, and muted gold is reserved for elements where its contrast is adequate, rather than being used for body copy.</p>
+            <p class="text-[12px] sm:text-[12.5px] italic">One accent color was a deliberate constraint. Adding a second — even a subtle one — would have started to crowd the photography. Small text uses a dark enough foreground that contrast holds; the muted gold is reserved for elements where its contrast is adequate, not for running body text.</p>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
             <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
               <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Typography</h5>
-              <p class="mb-3">The typography combines Source Serif 4, DM Sans, and Inter to balance editorial character with interface readability.</p>
+              <p class="mb-3">Three typefaces, but each has a job and they don't overlap. Mixing them was the point — the page needed both editorial weight and everyday readability, and no single typeface was going to cover both without looking wrong somewhere.</p>
               
               <div class="space-y-2.5">
                 <div class="flex items-start gap-2.5">
                   <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                  <span><strong class="text-ink">Source Serif 4:</strong> Used for expressive headlines and selected editorial text. Its serif character adds warmth and a magazine-inspired quality.</span>
+                  <span><strong class="text-ink">Source Serif 4</strong> — the editorial headlines. Hero, section openers, anything that needs to feel like a magazine page. The serif character is what gives the page its warmth.</span>
                 </div>
                 <div class="flex items-start gap-2.5">
                   <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                  <span><strong class="text-ink">DM Sans:</strong> Used for contemporary headings and interface elements, helping the layout feel clean and modern.</span>
+                  <span><strong class="text-ink">DM Sans</strong> — contemporary headings and interface labels. Where the copy needs to scan quickly, DM Sans takes over from the serif.</span>
                 </div>
                 <div class="flex items-start gap-2.5">
                   <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                  <span><strong class="text-ink">Inter:</strong> Used for body copy and information-heavy sections where readability is essential.</span>
+                  <span><strong class="text-ink">Inter</strong> — body copy and any information-heavy section. Built for readability at the sizes this page actually uses.</span>
                 </div>
               </div>
               
-              <p class="mt-3 text-[12px] sm:text-[12.5px]">Each typeface has a defined purpose. This creates contrast between headlines and supporting content without making the interface feel inconsistent. The combination supports the overall direction: editorial in presentation but straightforward in everyday use.</p>
+              <p class="mt-3 text-[12px] sm:text-[12.5px]">The split means a section can feel editorial without the body copy turning hard to read. Where it worked, the serif and sans were mixed within the same section — a serif headline followed by a DM Sans label followed by Inter body — so the transitions happen naturally as you scan.</p>
             </div>
             
             <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
               <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Spacing & Composition</h5>
-              <p class="mb-3">Spacing plays a critical role in the visual quality of this design. Interior photography needs room to communicate its atmosphere, while text and interface elements need separation to remain readable. I treated spacing as part of the visual hierarchy rather than simply filling the gaps between elements.</p>
+              <p class="mb-3">Frame specs, since spacing was the piece that held the whole 19659px scroll together:</p>
               
               <div class="space-y-2.5">
                 <div class="flex items-start gap-2.5">
                   <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                  <span><strong class="text-ink">Section spacing</strong> separates major content areas and establishes a deliberate page rhythm.</span>
+                  <span><strong class="text-ink">1440 × 19659 px frame</strong> — one continuous scroll rather than a set of separate section files.</span>
                 </div>
                 <div class="flex items-start gap-2.5">
                   <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                  <span><strong class="text-ink">Consistent card gaps</strong> make product grids feel organized.</span>
+                  <span><strong class="text-ink">64px left and right margins</strong> — 1440 minus 64 on each side gives a 1312px content area that stays consistent down the whole page.</span>
                 </div>
                 <div class="flex items-start gap-2.5">
                   <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                  <span><strong class="text-ink">Text spacing</strong> separates headings, descriptions, and actions.</span>
+                  <span><strong class="text-ink">70px top and bottom margins</strong> — holds the header content off the top edge and the closing content off the bottom.</span>
                 </div>
                 <div class="flex items-start gap-2.5">
                   <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                  <span><strong class="text-ink">Image proportions</strong> help maintain a cohesive presentation across collections and galleries.</span>
+                  <span><strong class="text-ink">Consistent internal rhythm</strong> — image gaps, card padding, and heading-to-body spacing all draw from the same scale, so nothing on the page looks like it was placed by eye.</span>
                 </div>
               </div>
               
-              <p class="mt-3 text-[12px] sm:text-[12.5px]">The result is a layout that uses whitespace to support the premium aesthetic while keeping related information visually connected.</p>
+              <p class="mt-3 text-[12px] sm:text-[12.5px]">The result is a page where whitespace is doing real work — separating ideas, giving photography room, and keeping the scroll from feeling packed even at 19659px tall.</p>
             </div>
           </div>
         </div>` },
@@ -1475,57 +1645,49 @@ const CASE_STUDIES = {
       { h: 'Consistency, Usability & Accessibility', html: `
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-canvas/30 p-4 sm:p-5">
-            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Components & Design Consistency</h5>
-            <p class="mb-3">The landing page uses recurring visual patterns to keep the experience consistent from the hero to the final sections. These patterns establish a foundation for future content updates without requiring every new section to introduce a different visual style.</p>
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Components & Consistency</h5>
+            <p class="mb-3">Across a page this long, consistency has to be structural rather than something you check at the end. The components that recur — buttons, product cards, section headings, content blocks — were defined once and reused, so a visitor doesn't have to re-learn the layout every few screens.</p>
             
             <div class="space-y-2.5">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Buttons:</strong> A consistent appearance helps visitors recognize interactive elements.</span>
+                <span><strong class="text-ink">Buttons</strong> — same shape and weight wherever they appear, so they read as buttons without having to be labeled as such.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Product cards:</strong> Repeated image and content patterns support browsing.</span>
+                <span><strong class="text-ink">Product cards</strong> — image, name, and price always in the same order. Browsing gets faster because the eye already knows where to look.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Section headings:</strong> A consistent hierarchy distinguishes major sections from supporting information.</span>
+                <span><strong class="text-ink">Section headings</strong> — every section starts the same way. The visitor always knows a new section began without having to hunt for it.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Content blocks:</strong> Reusable layouts connect brand storytelling with the rest of the page.</span>
-              </div>
-              <div class="flex items-start gap-2.5">
-                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Spacing rules:</strong> Consistent gaps and alignment reduce visual fragmentation.</span>
+                <span><strong class="text-ink">Content blocks</strong> — brand-story sections use the same building blocks as the product areas, so they don't feel like a different site pasted in.</span>
               </div>
             </div>
           </div>
 
           <div class="rounded-2xl border border-line/10 bg-canvas/30 p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Interaction & Usability</h5>
-            <p class="mb-3">The interface uses familiar browsing patterns so visitors can navigate, scan collections, and find the next step without friction. These principles inform the design requirements.</p>
+            <p class="mb-3">The page doesn't ask the visitor to learn anything new. Navigation, filtering, and calls to action all use conventions that interior and furniture sites already share, so the interface gets out of the way.</p>
             
             <div class="space-y-2.5">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Clear calls to action:</strong> Labels describe what happens when visitors click.</span>
+                <span><strong class="text-ink">Labels that say what happens</strong> — buttons describe their outcome, not just "Learn more" or "Click here".</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Predictable navigation:</strong> Consistent placement and styling help visitors move through the website.</span>
+                <span><strong class="text-ink">Predictable placement</strong> — the nav and the primary CTAs sit in the same positions throughout, so the visitor isn't hunting.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Readable content:</strong> Short paragraphs and descriptive headings make information easier to scan.</span>
+                <span><strong class="text-ink">Short paragraphs</strong> — nothing over four or five lines. Helps scanning, especially at 19659px of scroll.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Meaningful imagery:</strong> Important images have useful alternative text, while decorative images do not add unnecessary screen-reader content.</span>
-              </div>
-              <div class="flex items-start gap-2.5">
-                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span><strong class="text-ink">Accessible controls:</strong> Buttons, links, and interactive elements provide clear focus states and usable target sizes.</span>
+                <span><strong class="text-ink">Accessible image treatment</strong> — meaningful images carry descriptive alt text; decorative ones don't clutter the screen reader experience.</span>
               </div>
             </div>
           </div>
@@ -1533,47 +1695,50 @@ const CASE_STUDIES = {
         
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mt-5 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
-            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Responsive Design</h5>
-            <p class="mb-3">The desktop layout accommodates wider image arrangements and multiple content columns. On smaller screens, the same content adapts without losing its visual hierarchy or becoming difficult to navigate.</p>
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Responsive Behavior</h5>
+            <p class="mb-3">The 1440px desktop frame was designed with a clear idea of how it collapses down — the long-scroll editorial rhythm has to survive on a 375px phone, or the whole concept falls apart.</p>
             
             <div class="space-y-2.5">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Reduce the number of columns in product grids as screen width decreases.</span>
+                <span>Product grids reduce column count as the viewport narrows, rather than shrinking every card.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Stack image-and-text layouts in a logical reading order.</span>
+                <span>Image-and-text sections stack rather than sitting side-by-side on small screens.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Adjust heading sizes and spacing for smaller viewports.</span>
+                <span>Heading sizes step down for smaller viewports so hierarchy holds without type becoming oversized.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Prevent horizontal overflow in galleries and navigation.</span>
+                <span>The 64px side margins shrink proportionally — the visual cushion stays, but on a phone the content fills most of the width.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Keep buttons and links easy to tap.</span>
-              </div>
-              <div class="flex items-start gap-2.5">
-                <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Ensure important content and actions remain accessible on mobile.</span>
+                <span>Tap targets stay at least 44px, even when the surrounding layout compresses.</span>
               </div>
             </div>
             
-            <p class="mt-3 text-[12px] sm:text-[12.5px]">The objective is to preserve the editorial character of the design while making the experience comfortable across different screen sizes.</p>
+            <p class="mt-3 text-[12px] sm:text-[12.5px]">The goal was to keep the editorial character of the design intact even at phone sizes, rather than reducing it to a generic mobile layout with the same content.</p>
           </div>
           
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Accessibility Considerations</h5>
-            <p class="mb-3">A polished visual experience should also remain usable for people with different needs and browsing preferences. Important considerations include sufficient text contrast, a logical heading structure, keyboard navigation, visible focus states, descriptive link labels, and appropriate image alternatives.</p>
-            <p class="mb-4">The warm cream and muted gold palette requires particular attention to contrast. Important information should not rely on color alone to communicate meaning.</p>
+            <p class="mb-3">A page this image-heavy runs the risk of looking polished while quietly failing for people who need it to work differently. What I built in:</p>
+            
+            <ul class="space-y-2 text-[12.5px] sm:text-[13px] mb-4">
+              <li class="flex items-start gap-2.5"><span class=""></span><span>Text contrast checked against the warm cream and white backgrounds, not just white.</span></li>
+              <li class="flex items-start gap-2.5"><span class=""></span><span>Heading order follows a real hierarchy rather than jumping around based on visual size.</span></li>
+              <li class="flex items-start gap-2.5"><span class=""></span><span>Interactive elements have visible focus states for keyboard navigation.</span></li>
+              <li class="flex items-start gap-2.5"><span class=""></span><span>Link labels describe their destination — no bare "Read more" or "Click here" strings.</span></li>
+              <li class="flex items-start gap-2.5"><span class=""></span><span>Images either have meaningful alt text or are marked decorative, rather than getting generic filenames in the alt attribute.</span></li>
+            </ul>
             
             <div class="rounded-xl bg-canvas/60 p-3.5 border border-line/10 text-[12px]">
-              <span class="font-bold text-ink block mb-1">Validation Note:</span>
-              These are accessibility considerations for the design, not a claim that the finished experience has passed a formal accessibility audit.
+              <span class="font-bold text-ink block mb-1">Being upfront:</span>
+              Those were the accessibility considerations I designed toward. This was a concept file — it hasn't gone through a formal accessibility audit, and I wouldn't claim it has.
             </div>
           </div>
         </div>` },
@@ -1581,72 +1746,72 @@ const CASE_STUDIES = {
       { h: 'Outcome & Reflection', html: `
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-brand-500/20 bg-brand-50/50 p-4 sm:p-5 dark:bg-brand-500/5">
-            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-brand-600 mb-2">Design Outcome</h5>
-            <p class="mb-3">The resulting design brings the landing page's different content types together through a consistent visual system built around warm neutrals, editorial typography, and interior photography.</p>
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-brand-600 mb-2">What This Was</h5>
+            <p class="mb-3">A concept direction — a second look at what the Manhattan Home Design landing page could be if it committed fully to editorial rather than trying to sit between editorial and catalog. Delivered as a Figma file, presented to the client alongside the working redesign, not deployed.</p>
             
             <div class="space-y-2 mb-4">
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>A cohesive palette connects the different sections.</span>
+                <span>Consistent visual language carried across all 9 sections — hero, collections, product, brand, and closing all read as one page.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Image-led layouts reinforce the relationship between furniture and complete living spaces.</span>
+                <span>Image-led structure that lets the client's own photography do the heavy lifting, with no dependence on stock or custom renders.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Clear section divisions create a more understandable browsing structure.</span>
+                <span>Clear section boundaries that keep a 19659px scroll readable rather than exhausting.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Consistent typography and components support a recognizable brand identity.</span>
+                <span>Reusable component patterns — cards, buttons, content blocks — so future sections could be added without re-deciding the design each time.</span>
               </div>
               <div class="flex items-start gap-2.5">
                 <svg class="mt-[3px] h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
-                <span>Reusable layout patterns provide a foundation for future content.</span>
+                <span>A three-typeface system where the choice between serif and sans is dictated by the job of the text, not by visual preference.</span>
               </div>
             </div>
             
-            <p class="mb-3">The intended outcome is a premium, organized landing page that supports visual discovery while communicating the brand's identity.</p>
-            <p class="text-[12px] font-bold text-brand-700/80 dark:text-brand-400/80">*Measuring success note: No conversion, engagement, or sales improvement is claimed because verified analytics and usability testing results were not provided for this project.</p>
+            <p class="mb-3">The intended direction is a premium, organized landing page that supports visual discovery while still communicating the brand's identity. That's the goal the design was built toward.</p>
+            <p class="text-[12px] font-bold text-brand-700/80 dark:text-brand-400/80">*What I'm not claiming: no conversion lift, engagement improvement, or sales figure is attached to this project. The concept wasn't deployed, no analytics were collected, and no usability testing was run against it. Any numbers I could put here would be invented, so I'm not putting them here.</p>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mt-5">
             <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
-              <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">What I would improve next</h5>
-              <p class="mb-3">The next step is to validate the design with real visitors and use their feedback to refine the browsing experience.</p>
+              <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">What I Would Do Next</h5>
+              <p class="mb-3">If this direction moved past concept, the next round would be about validation rather than design:</p>
               
               <div class="space-y-3">
                 <div class="flex items-start gap-3">
                   <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded bg-canvas text-[10px] font-extrabold text-muted border border-line/10">1</span>
-                  <span><strong class="text-ink">Test collection discovery:</strong> Observe how easily visitors find a specific product category or interior style.</span>
+                  <span><strong class="text-ink">Test collection discovery.</strong> Watch whether visitors can find a specific category or interior style without the nav doing the heavy lifting.</span>
                 </div>
                 <div class="flex items-start gap-3">
                   <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded bg-canvas text-[10px] font-extrabold text-muted border border-line/10">2</span>
-                  <span><strong class="text-ink">Evaluate mobile layouts:</strong> Check navigation, image cropping, card arrangements, and interactive controls on actual devices.</span>
+                  <span><strong class="text-ink">Check the mobile collapse.</strong> Look at navigation, image cropping, and card arrangement on real phones — not just resizing the desktop browser.</span>
                 </div>
                 <div class="flex items-start gap-3">
                   <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded bg-canvas text-[10px] font-extrabold text-muted border border-line/10">3</span>
-                  <span><strong class="text-ink">Review calls to action:</strong> Confirm that labels and destinations match visitor expectations.</span>
+                  <span><strong class="text-ink">Confirm the CTAs.</strong> Make sure the labels and destinations actually match what a visitor expects when they click.</span>
                 </div>
                 <div class="flex items-start gap-3">
                   <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded bg-canvas text-[10px] font-extrabold text-muted border border-line/10">4</span>
-                  <span><strong class="text-ink">Optimize image delivery:</strong> Balance image quality with loading performance.</span>
+                  <span><strong class="text-ink">Optimize the image delivery.</strong> A page this image-heavy needs compression and lazy loading to actually work on a real connection, not just in a Figma mockup.</span>
                 </div>
                 <div class="flex items-start gap-3">
                   <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded bg-canvas text-[10px] font-extrabold text-muted border border-line/10">5</span>
-                  <span><strong class="text-ink">Track relevant interactions:</strong> If the website is implemented, measure collection clicks, product exploration, and contact actions.</span>
+                  <span><strong class="text-ink">Track what matters.</strong> If the page is built, measure collection clicks, product exploration, and contact actions — not just time on page, which tells you very little on a 19659px scroll.</span>
                 </div>
               </div>
               
-              <p class="mt-3 text-[12px] sm:text-[12.5px]">These steps establish whether the design performs as intended beyond its visual presentation.</p>
+              <p class="mt-3 text-[12px] sm:text-[12.5px]">None of those steps have been done yet. They're what would turn the concept from a nice-looking file into something that's actually been verified.</p>
             </div>
 
             <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5 flex flex-col justify-center">
               <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Final Reflection</h5>
-              <p class="mb-3">This project reinforced the balance between visual storytelling and usability. In interior design, imagery creates an emotional connection, but page structure determines how easily visitors explore the brand.</p>
-              <p class="mb-3">My approach was to keep the interface restrained, give each section a clear purpose, and use typography, color, and spacing to create consistency.</p>
-              <p>The key takeaway is that a premium website does not need excessive decoration. A considered visual system, meaningful imagery, and clear hierarchy create an experience that feels sophisticated and approachable.</p>
+              <p class="mb-3">Working on this one reminded me how much interior design pages live or die on restraint. The temptation is to keep adding — another accent color, another decorative element, another section that "might help". Every one of those additions pulls attention away from the photography, which is the actual product.</p>
+              <p class="mb-3">The three-color palette and the three-typeface system weren't aesthetic preferences. They were the mechanism that let the page stay quiet enough to let the imagery do its job.</p>
+              <p>If I did this again, I'd want to start the mobile collapse earlier in the process. Designing 19659px of desktop first and then collapsing it works, but it's not the way I'd choose to do it next time — some of the sections reorganized themselves meaningfully when I forced them onto a 375px width, and that should have informed the desktop version rather than coming afterward.</p>
             </div>
           </div>
         </div>` }
@@ -1654,8 +1819,8 @@ const CASE_STUDIES = {
   },
 
     'Quishas Kitchenette Restaurant': {
-    blurb: 'A restaurant site built for the person standing on a sidewalk deciding where to eat.',
-    meta: [['Role','UI/UX Designer'],['Timeline','2.5 weeks · 2024'],['Scope','Mobile-first site + reservation flow'],['Tools','Figma, Obsidian']],
+    blurb: 'A restaurant site built for the person standing on a sidewalk deciding where to eat — mobile-first, desktop framed at 1440 × 5510, real menu photography from the client.',
+    meta: [['Role','UI/UX Designer'],['Timeline','2 days · 2025'],['Scope','Mobile-first site + reservation flow'],['Tools','Figma, Obsidian']],
     sections: [
       { h: 'Background & The Core Assumption', html: `
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
@@ -1668,9 +1833,9 @@ const CASE_STUDIES = {
 
           <div class="mt-6 rounded-2xl border border-line/10 bg-canvas/40 p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-brand-600 mb-2">The Assumption I Started From</h5>
-            <p class="mb-3">Almost everyone visiting a restaurant site is on a phone, standing up, deciding where to eat in the next thirty minutes. They are not browsing. They are checking.</p>
-            <p class="mb-3">If that is true, then everything about the design follows. The important information has to be reachable with one thumb, without zooming, without scrolling past a mood video.</p>
-            <p>So I designed mobile first and desktop second. That is the opposite of how I would approach a portfolio site, and it was the right call here.</p>
+            <p class="mb-3">Almost everyone visiting a restaurant site is on a phone, standing up, deciding where to eat in the next thirty minutes. They're not browsing. They're checking.</p>
+            <p class="mb-3">If that's true, then everything about the design follows. The important information has to be reachable with one thumb, without zooming, without scrolling past a mood video.</p>
+            <p>So I designed mobile first and desktop second. The desktop frame ended up at 1440 × 5510 — but the thinking started on a 375px screen, not on the big canvas. That's the opposite of how I'd approach a portfolio site, and it was the right call here.</p>
           </div>
         </div>` },
       
@@ -1775,16 +1940,32 @@ const CASE_STUDIES = {
             
             <p class="text-[12px] sm:text-[12.5px]">The second one is embarrassing in hindsight. Of course people tap a phone number. But it only becomes obvious when you watch someone do it.</p>
           </div>
+        </div>
+
+        <div class="mt-4 rounded-2xl border border-brand-500/20 bg-brand-50/50 p-4 sm:p-5 dark:bg-brand-500/5">
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div class="min-w-0">
+              <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-brand-600 mb-1">Try It Yourself</h5>
+              <p class="text-[12.5px] sm:text-[13px] leading-relaxed text-muted">Open the mobile design inside an iPhone 13 mini and scroll through it like a real phone. Same layout, same proportions, same scroll length — just scaled to fit inside the device frame.</p>
+            </div>
+            <button type="button" data-mobile-preview data-mobile-preview-src="quishas-mobile.png" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-ink px-5 py-2.5 text-[12px] font-bold text-canvas shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-500 hover:text-white">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="7" y="2" width="10" height="20" rx="2.5"/>
+                <path d="M11 18h2"/>
+              </svg>
+              Open Mobile Preview
+            </button>
+          </div>
         </div>` },
 
-      { h: 'Visual Direction', html: `
+      { h: 'Visual Direction & Layout', html: `
         <div class="space-y-4 text-[13px] sm:text-[13.5px] leading-relaxed text-muted">
           <div class="rounded-2xl border border-line/10 bg-card p-4 sm:p-5">
             <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Visual Direction</h5>
             <p class="mb-3">Warm, but I actively avoided the rustic-restaurant clichés: no chalkboard typefaces, no fake wood textures, no hand-drawn arrows.</p>
             <p class="mb-4">Instead: warm neutral base, one deep green for the brand, and the food photography carrying all the colour. When the food is the product, the interface should get out of the way.</p>
             
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
               <div class="rounded-xl p-4 flex flex-col justify-end h-24 shadow-sm border border-line/10" style="background-color: #F8F4EC; color: #333333;">
                 <span class="text-[11px] font-bold opacity-80 mb-1">#F8F4EC</span>
                 <span class="text-[13px] font-extrabold">Warm Neutral</span>
@@ -1798,6 +1979,15 @@ const CASE_STUDIES = {
                 <span class="text-[13px] font-extrabold">White</span>
               </div>
             </div>
+
+            <p>One accent, no more. Adding a second would pull colour away from the plates.</p>
+          </div>
+
+          <div class="mt-4 rounded-2xl border border-line/10 bg-canvas/40 p-4 sm:p-5">
+            <h5 class="text-[11px] font-extrabold uppercase tracking-[.14em] text-ink mb-3">Layout & Frame</h5>
+            <p class="mb-3">The desktop deliverable was built as a single <strong class="text-ink">1440 × 5510</strong> frame in Figma, not carved into separate section files. Side margins ran <strong class="text-ink">115px</strong> — that left about <strong class="text-ink">1210px</strong> of usable content width, which was enough room for a full three-column menu grid without the middle column feeling pinched.</p>
+            <p class="mb-3">Top spacing wasn't uniform. The <strong class="text-ink">first hero sat at 96px</strong> from the top edge — tight, because the page should open with the brand and hours immediately, not with padding. The <strong class="text-ink">second hero, further down, sat at 128px</strong> — it needed more separation because the section above it already carried visual weight and the transition had to feel like a chapter break, not a continuation. The <strong class="text-ink">footer bottom also sat at 128px</strong>, which matched the second hero and closed the page on the same rhythm it opened the second half with.</p>
+            <p>On the images — <strong class="text-ink">every menu shot and food photo came straight from the client</strong>. No stock, no styled photoshoots, no renders. What the client actually serves is what the site shows. That constraint shaped the whole design: the menu photos are real, which meant some were stronger than others, and the layout had to hold up to that reality rather than to a hypothetical idealised set.</p>
           </div>
         </div>` },
 
@@ -3133,6 +3323,87 @@ document.addEventListener('visibilitychange', () => {
     // 2. Show bot reply
     const reply = getBotReply(text);
     setTimeout(() => appendMessage(reply, 'bot'), 600);
+  });
+})();
+
+/* === iPhone 13 mini mobile preview === */
+(function initMobilePreview() {
+  let modal = null;
+
+  function ensureModal() {
+    if (modal) return modal;
+    modal = document.createElement('div');
+    modal.className = 'mobile-preview-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Mobile design preview');
+    modal.hidden = true;
+    modal.innerHTML = `
+      <div class="mobile-preview-backdrop" data-mobile-preview-close></div>
+      <div class="mobile-preview-content">
+        <button type="button" class="mobile-preview-close" data-mobile-preview-close aria-label="Close preview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+        <div class="iphone-mini-frame">
+          <div class="iphone-mini-screen">
+            <div class="iphone-mini-notch"></div>
+            <div class="iphone-mini-scroll">
+              <img alt="Mobile design preview" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </div>
+        <p class="mobile-preview-hint">Scroll inside the phone to explore the full page</p>
+      </div>`;
+    document.body.appendChild(modal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target.closest('[data-mobile-preview-close]')) close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal && !modal.hidden) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        close();
+      }
+    }, true);
+
+    return modal;
+  }
+
+  function open(src) {
+    const m = ensureModal();
+    const img = m.querySelector('img');
+    const scroller = m.querySelector('.iphone-mini-scroll');
+    const hint = m.querySelector('.mobile-preview-hint');
+
+    if (src) {
+      img.onload = () => {
+        hint.textContent = 'Scroll inside the phone to explore the full page';
+        hint.style.color = '';
+      };
+      img.onerror = () => {
+        hint.textContent = `Could not load "${src}". Make sure the file is in the same folder as index.html.`;
+        hint.style.color = '#ff6b6b';
+      };
+      img.src = src;
+    }
+
+    if (scroller) scroller.scrollTop = 0;
+    m.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    if (modal) modal.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-mobile-preview]');
+    if (!trigger) return;
+    e.preventDefault();
+    open(trigger.dataset.mobilePreviewSrc || 'quishas-mobile.webp');
   });
 })();
 </script>
