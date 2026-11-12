@@ -3487,16 +3487,16 @@ document.addEventListener('visibilitychange', () => {
     'hi': 'Hi there!  let’s wait for Tim Josh before he’s online. I’ve forwarded your message to him.',
   };
 
-  function getBotReply(text) {
-    const lower = text.toLowerCase();
-    for (const keyword in RULES) {
-      if (lower.includes(keyword)) {
-        return RULES[keyword];
-      }
-    }
-    // // Fallback if AI doesn't know
-    // return "If you need an accurate answer based on your question, let’s wait for Tim Josh before he’s online. I’ve forwarded your message to him.";
-  }
+  // function getBotReply(text) {
+  //   const lower = text.toLowerCase();
+  //   for (const keyword in RULES) {
+  //     if (lower.includes(keyword)) {
+  //       return RULES[keyword];
+  //     }
+  //   }
+  //   // // Fallback if AI doesn't know
+  //   // return "If you need an accurate answer based on your question, let’s wait for Tim Josh before he’s online. I’ve forwarded your message to him.";
+  // }
 
   function appendMessage(text, sender = 'user') {
     const div = document.createElement('div');
